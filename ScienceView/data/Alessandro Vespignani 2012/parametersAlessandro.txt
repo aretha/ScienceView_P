@@ -1,0 +1,36 @@
+19-09-2012 13:12:18
+
+File: E:\USP\Doutorado\Projetos do Netbeans\TopicEvolutionVis\data\Alessandro Vespignani 2012\AlessandroVespignani_2012.isi
+Database name: AlessandroVespignani_2012
+Number of documents: 152
+Number of dimensions: 520
+
+PREPROCESSING
+Stopwords file: E:\USP\Doutorado\Projetos do Netbeans\TopicEvolutionVis\config\stopwords_eng_ant.spw
+
+REPRESENTATION
+Type: Vector Space Model Extended
+Luhn's Lower Cut for Terms: 10
+Luhn's Upper Cut for Terms: -1
+Luhn's Lower Cut for References: 2
+Luhn's Upper Cut for References: -1
+
+PROJECTION
+Distance: Cosine-based
+Number of control points: 15
+Number of neighboors: 10
+
+TOPIC EXTRACTION
+Technique: Covariance
+Percentage topics: 0.75
+Percentage terms: 0.5
+
+MONIC
+Epsilon: 0.060000000000000005
+MinPoints: 4
+Theta: 0.5
+Theta split: 0.19999999999999998
+
+STRESS
+Static stress: 12.556438
+Dynamic stress: 0.4964181
