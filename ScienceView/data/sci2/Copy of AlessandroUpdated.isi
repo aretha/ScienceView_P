@@ -1,0 +1,38 @@
+FN ISI Export Format
+VR 1.0
+
+PT J
+AN 11736611
+DT Journal Article; Research Support, Non-U.S. Gov't
+TI Dynamical and correlation properties of the internet.
+AU Pastor-Satorras, R
+   Vazquez, A
+   Vespignani, A
+SO Phys Rev Lett
+VL 87
+IS 25
+PS 258701
+PY 2001
+PD 2001 Dec 17 (Epub 2001 Nov 28)
+LA English
+AB The description of the Internet topology is an important open problem,
+   recently tackled with the introduction of scale-free networks. We focus
+   on the topological and dynamical properties of real Internet maps in a
+   three-year time interval. We study higher order correlation functions
+   as well as the dynamics of several quantities. We find that the
+   Internet is characterized by non-trivial correlations among nodes and
+   different dynamical regimes. We point out the importance of node
+   hierarchy and aging in the Internet structure and growth. Our results
+   provide hints towards the realistic modeling of the Internet evolution. 
+C1 Departament de Fisica i Enginyeria Nuclear, Universitat Politecnica de Catalunya, Campus Nord, Modul B4, 08034 Barcelona, Spain.
+MH *Internet. *Models, Theoretical
+SS Index Medicus
+SN 0031-9007
+JC 0401141
+PA United States
+RC 13 Dec 2001 / 29 Jan 2002 / 15 Nov 2006
+PE 28 Nov 2001
+UT MEDLINE:11736611
+ER
+
+EF
