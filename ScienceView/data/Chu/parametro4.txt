@@ -1,0 +1,34 @@
+10-10-2012 17:09:32
+
+File: null
+Database name: Chu
+Number of documents: 380
+Number of dimensions: 510
+
+PREPROCESSING
+Stopwords file: E:\USP\Doutorado\Projetos do Netbeans\TopicEvolutionVis\config\stopwords_eng - Chu.spw
+
+REPRESENTATION
+Type: Vector Space Model
+Luhn's Lower Cut: 15
+Luhn's Upper Cut: 155
+
+PROJECTION
+Distance: Cosine-based
+Number of control points: 38
+Number of neighboors: 12
+
+TOPIC EXTRACTION
+Technique: Covariance
+Percentage topics: 0.75
+Percentage terms: 0.5
+
+MONIC
+Epsilon: 0.07
+MinPoints: 4
+Theta: 0.5
+Theta split: 0.3
+
+STRESS
+Static stress: 13.547256
+Dynamic stress: 0.49266014
