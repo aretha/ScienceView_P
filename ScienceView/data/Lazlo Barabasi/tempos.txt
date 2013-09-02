@@ -1,0 +1,8 @@
+Lazlo
+Database loading time:17001
+Pré-processamento time:753
+T-LSP time: 9914
+DBSCAN time: 188
+MONIC time: 27
+Topic extraction time: 3672
+Main Polygon time: 189

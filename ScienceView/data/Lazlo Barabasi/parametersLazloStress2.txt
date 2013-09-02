@@ -1,0 +1,36 @@
+19-09-2012 13:26:24
+
+File: null
+Database name: LaszloBarabasi_2012
+Number of documents: 217
+Number of dimensions: 458
+
+PREPROCESSING
+Stopwords file: E:\USP\Doutorado\Projetos do Netbeans\TopicEvolutionVis\config\stopwords_eng_Lazlo.spw
+
+REPRESENTATION
+Type: Vector Space Model Extended
+Luhn's Lower Cut for Terms: 10
+Luhn's Upper Cut for Terms: 156
+Luhn's Lower Cut for References: 3
+Luhn's Upper Cut for References: 31
+
+PROJECTION
+Distance: Cosine-based
+Number of control points: 21
+Number of neighboors: 10
+
+TOPIC EXTRACTION
+Technique: Covariance
+Percentage topics: 0.75
+Percentage terms: 0.5
+
+MONIC
+Epsilon: 0.07
+MinPoints: 4
+Theta: 0.5
+Theta split: 0.3
+
+STRESS
+Static stress: 13.240716
+Dynamic stress: 0.46474612

@@ -1,0 +1,36 @@
+19-09-2012 14:21:58
+
+File: null
+Database name: LaszloBarabasi_2012
+Number of documents: 217
+Number of dimensions: 100
+
+PREPROCESSING
+Stopwords file: E:\USP\Doutorado\Projetos do Netbeans\TopicEvolutionVis\config\stopwords_eng_Lazlo.spw
+
+REPRESENTATION
+Type: Latent Dirichlet Allocation (LDA)
+Number of Topics: 100
+Number of Iterations: 1500
+Alpha: 0.1
+Beta: 0.01
+
+PROJECTION
+Distance: Jensen-Shanon
+Number of control points: 21
+Number of neighboors: 10
+
+TOPIC EXTRACTION
+Technique: Covariance
+Percentage topics: 0.75
+Percentage terms: 0.5
+
+MONIC
+Epsilon: 0.07
+MinPoints: 4
+Theta: 0.5
+Theta split: 0.3
+
+STRESS
+Static stress: 12.775832
+Dynamic stress: 0.51959467
