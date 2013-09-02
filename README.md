@@ -1,7 +1,7 @@
 ScienceView
 ===========
 
-Para rodar essa ferramenta, é necessário ter uma versão igual ou superior ao Java JRE Versão 7 Update 10. Para instalar a útlima versão do Java em sua máquina, utilize este site.
+Para rodar essa ferramenta, é necessário ter uma versão igual ou superior ao Java JRE Versão 7 Update 10. Para instalar a útlima versão do Java em sua máquina.
 
 Os arquivos de entrada (.isi, .enw e .bibtex) devem utilizar a codificação UTF-8.
 
