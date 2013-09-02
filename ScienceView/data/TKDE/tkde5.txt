@@ -1,0 +1,2102 @@
+﻿FN Thomson Reuters Web of Knowledge
+VR 1.0
+PT J
+AU CHANG, SK
+   HSU, AD
+AF CHANG, SK
+   HSU, AD
+TI IMAGE-INFORMATION SYSTEMS - WHERE DO WE GO FROM HERE
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE IMAGE INFORMATION SYSTEMS; IMAGE DATABASE; IMAGE DATA MODELS;
+   FEATURE-BASED INDEXING; ACTIVE INDEX; GENERALIZED ICONS; SMART IMAGES
+AB A conceptual framework for image information systems is presented. Current research topics are surveyed, and application examples presented, followed by a discussion on the design issues for the next generation of image information systems. It is our view that the next generation of active image information systems should be designed based upon the notions of generalized icons and active indexes, resulting in smart images.
+C1 UNIV PITTSBURGH,DEPT COMP SCI,PITTSBURGH,PA 15260.
+   SIEMENS CORP RES,PRINCETON,NJ 08540.
+CR BIMBO AD, 1992, USING 3D SPATIAL REL
+   Brodie ML, 1984, CONCEPTUAL MODELING, P19
+   BUTTERWORTH P, 1991, COMMUN ACM       OCT, P64
+   CHANG NS, 1980, IEEE T SOFTWARE ENG, V6, P519
+   CHANG SK, 1992, ACTIVE INDEX SMART I
+   CHANG SK, 1990, PRINCIPLES PICTORIAL
+   CHANG SK, 1991, J VISUAL LANG COMPUT, V2, P195
+   CHANG SK, 1987, IEEE T PATTERN ANAL, V9, P413
+   CHANG SK, 1992, AUG P PRATT REC C HA
+   CHANG SK, 1992, JUL P INT WORKSH INT
+   CHANG SK, 1988, IEEE T SOFTWARE ENG, V14, P681, DOI 10.1109/32.6147
+   CHOCK M, 1984, IEEE T PATTERN ANAL, V5, P484
+   COHEN PR, 1989, AI MAGAZINE      FAL, P32
+   FARMER DB, 1985, IEEE T SOFTWARE ENG, V11, P583, DOI 10.1109/TSE.1985.232502
+   Fierens F., 1992, Journal of Visual Languages and Computing, V3, DOI 10.1016/1045-926X(92)90033-I
+   FRASER RG, 1970, DIAGNOSIS DISEASES C, P381
+   GOSKY WL, 1992, FEB SPIE IS T C IM S, P9
+   GOSKY WL, 1986, COMPUTER VISION GRAP, P308
+   GUPTA A, 1991, PROC INT CONF VERY L, P69
+   GUPTA R, 1991, OBJECT ORIENTED DATA
+   HOLMES PD, 1991, THESIS LINKOPING U
+   HOU TY, 1992, P SPIE IS T S EL IM, P59
+   JAGADISH HV, 1991, 1991 P ACM SIGMOD IN, V20, P208
+   JAGADISH HV, 1989, IEEE COMPUT, V22, P33
+   JOSEPH T, 1988, IEEE T SOFTWARE ENG, V14, P630, DOI 10.1109/32.6140
+   JUNGERT E, 1989, VISUAL DATABASE SYST, P301
+   Kim W., 1990, IEEE Transactions on Knowledge and Data Engineering, V2, DOI 10.1109/69.60796
+   KIM W, 1989, OBJECT ORIENTED CONC
+   KLINGER A, 1989, VISUAL DATABASE SYST, P3
+   KOFKIS P, 1990, 4 P SPIE MED IM PACS, V1234
+   LIU P, 1992, COMMUNICATION
+   LOHSE J, 1991, P SIGCHI C HUM FACT, P137, DOI 10.1145/108844.108865
+   MEHROTRA R, 1989, IEEE T ROBOTIC AUTOM, V5, P70, DOI 10.1109/70.88019
+   MEHROTRA R, 1985, P IEEE WORKSHOP COMP, P348
+   OLSON JR, 1990, HUMAN COMPUT INTERAC
+   PIZANO A, 1989, IEEE COMPUTER    DEC, P59
+   RABITTI F, 1989, VISUAL DATABASE SYST, P415
+   ROSSOPOULOS N, 1988, IEEE T SOFTWARE ENG, V14, P639
+   SHAPIRO LG, 1982, IEEE T PATTERN ANAL, V4, P595
+   SHENG ORL, 1992, 8TH P INT C DAT ENG, P87
+   Tagare H.D., 1991, Computer Assisted Radiology. Proceedings of the International  Symposium. CAR '91 Computer Assisted Radiology
+   TAGARE HD, 1992, REQUIREMENTS MED IMA
+   TANG GY, 1981, COMPUT VISION GRAPH, V16, P270, DOI 10.1016/0146-664X(81)90040-X
+   TREISMAN A, 1985, J EXP PSYCHOL GEN, V114, P285, DOI 10.1037/0096-3445.114.3.285
+   1991, INFORMIX PRODUCTS DO
+   1991, UNISQL SYSTEM DOCUME
+   1991, ONTOS SYSTEM DOCUMEN
+NR 47
+TC 72
+Z9 80
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD OCT
+PY 1992
+VL 4
+IS 5
+BP 431
+EP 442
+DI 10.1109/69.166986
+PG 12
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA JW597
+UT WOS:A1992JW59700005
+ER
+
+PT J
+AU WU, X
+   ICHIKAWA, T
+AF WU, X
+   ICHIKAWA, T
+TI KDA - A KNOWLEDGE-BASED DATABASE ASSISTANT WITH A QUERY GUIDING FACILITY
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE DATABASE QUERY SYSTEM; INTELLIGENT DATABASE FRONT END; KNOWLEDGE-BASED
+   SYSTEM; NATURAL LANGUAGE QUERY SYSTEM; SEMANTIC NETWORK MODEL; USER
+   INTERFACE
+ID NATURAL-LANGUAGE; SYSTEM
+AB Advanced natural language query systems provide database retrieval facilities as an effective means for encouraging novice users to approach computer database systems. However, in these systems, facilities for guiding novice users in performing the database retrieval tasks, such as formulating valid database queries, refining incomplete database queries, and modifying database query misconstruction, have not yet been provided.
+   In this paper, we provide a knowledge-based database assistant (KDA) which integrates a natural language query system with a skeleton-based query guiding facility. When a user works with the KDA natural language query system, the query guiding facility can supply several kinds of skeletons to guide users in performing database retrieval tasks. A semantic network model S-Net has been introduced to represent the knowledge for natural language query processing and skeleton generation. The methods for implementing the system are also discussed in this paper.
+RP WU, X (reprint author), HIROSHIMA UNIV,FAC ENGN,INFORMAT SYST LAB,HIROSHIMA 724,JAPAN.
+CR BATES M, 1986, EXPERT DATABASE SYST, P617
+   Boguraev B.K., 1984, New Applications of Data Bases. Based on Proceedings of a  Workshop
+   Bose P.K., 1985, Second Conference on Artificial Intelligence Applications: The  Engineering of Knowledge-Based Systems (Cat. No.85CH2215-2)
+   BOUZEGHOUB M, 1986, INFORMATION PROCESSI, P251
+   Bouzeghoub M., 1984, New Applications of Data Bases. Based on Proceedings of a  Workshop
+   BRACHMAN RJ, 1985, COGNITIVE SCI, V9, P171, DOI 10.1207/s15516709cog0902_1
+   BRUCE B, 1975, ARTIF INTELL, V6, P327, DOI 10.1016/0004-3702(75)90020-X
+   CERCONE N, 1990, ADV ARTIF INTELL SOF, V1, P169
+   CHEN PP, 1976, ACM T DATABASE SYST, V1, P166
+   DATE CJ, 1989, GUIDE SQL DS
+   GROSZ BJ, 1987, ARTIF INTELL, V32, P173, DOI 10.1016/0004-3702(87)90011-7
+   HURSCH CJ, 1988, SQL STRUCTURED QUERY
+   Jakobson G., 1986, IEEE Expert, V1, DOI 10.1109/MEX.1986.4306955
+   KAO M, 1988, IEEE T SOFTWARE ENG, V14, P959, DOI 10.1109/32.42738
+   KAPLAN SJ, 1984, ACM T DATABASE SYST, V9, P1, DOI 10.1145/348.318584
+   Kersten M.L., 1987, Entity-Relationship Approach: Ten Years of Experience in  Information Modeling. Proceedings of the Fifth International Conference
+   MCCOY KF, 1989, ARTIF INTELL, V41, P157, DOI 10.1016/0004-3702(89)90009-X
+   ROLLAND C, 1986, INFORMATION PROCESSI, P241
+   TOU FN, 1982, AAAI, P314
+   WOODS WA, 1970, COMMUN ACM, V13, P591, DOI 10.1145/355598.362773
+   WU X, 1989, 5TH P IEEE INT C DAT, P402
+   ZLOOF MM, 1977, IBM SYST J, V16, P324
+NR 22
+TC 2
+Z9 2
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD OCT
+PY 1992
+VL 4
+IS 5
+BP 443
+EP 453
+DI 10.1109/69.166987
+PG 11
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA JW597
+UT WOS:A1992JW59700006
+ER
+
+PT J
+AU WAH, BW
+AF WAH, BW
+TI POPULATION-BASED LEARNING - A METHOD FOR LEARNING FROM EXAMPLES UNDER
+   RESOURCE CONSTRAINTS
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE HEURISTIC METHOD; KNOWLEDGE-LEAN APPLICATION; LEARNING FROM EXAMPLES;
+   PERFORMANCE EVALUATION; POINT-BASED LEARNING; POPULATION-BASED LEARNING;
+   RESOURCE SCHEDULING
+ID HEURISTIC-SEARCH
+AB In this paper, we study a learning model for designing heuristics automatically under resource constraints. We focus on improving performance related heuristic methods (HM's) in knowledge lean application domains. We assume that learning is episodic, that the performance measures of an episode are dependent only on the final state reached in evaluating the corresponding test case and are independent of the intermediate decisions and internal states, and that the aggregate performance measures of the HM's involved are independent of the order of evaluation of test cases. The learning model is based on testing a population of competing HM's for an application problem, and switches from one to another dynamically, depending on the outcome of previous tests. Its goal is to find a good HM within the resource constraints, with proper trade-off between cost and quality. It complements existing point-based machine learning models that maintain only one incumbent HM, and that test the HM extensively before switching to alternative ones. It extends existing work on classifier systems by addressing issues related to delays in feedback, scheduling of tests of HM's under limited resources, anomalies in performance evaluation, and scalability of HM's. Finally, we describe our experience in applying the learning method on five application problems.
+C1 UNIV ILLINOIS,DEPT ELECT & COMP ENGN,URBANA,IL 61801.
+RP WAH, BW (reprint author), UNIV ILLINOIS,COORDINATED SCI LAB,CTR RELIABLE & HIGH PERFORMANCE COMP,URBANA,IL 61801, USA.
+CR BARR A, 1982, HDB ARTIFICIAL INTEL, V1
+   BECHHOFER RE, 1954, ANN MATH STAT, V25, P16, DOI 10.1214/aoms/1177728845
+   BECHHOFER RE, 1991, J STAT PLAN INFER, V28, P271, DOI 10.1016/0378-3758(91)90067-O
+   Bechhofer RE, 1968, SEQUENTIAL IDENTIFIC
+   BECHHOFER RE, 1954, BIOMETRIKA, V41, P170, DOI 10.2307/2333014
+   BOOKER LB, 1989, ARTIF INTELL, V40, P235, DOI 10.1016/0004-3702(89)90050-7
+   DIETTERICH TG, 1981, STANCS81891 STANF U
+   Fahlman S.E., 1990, ADV NEURAL INFORMATI, V2, P524
+   Fahlman S.E., 1988, 1988 P CONN MOD SUMM, P38
+   Fitzpatrick J.M., 1988, Machine Learning, V3, DOI 10.1007/BF00113893
+   GEORGEFF MP, 1983, ARTIF INTELL, V20, P393, DOI 10.1016/0004-3702(83)90003-6
+   GNANADESIKAN R, 1977, METHODS STATISTICAL
+   GREFENSTETTE JJ, 1990, MACH LEARN, V5, P355, DOI 10.1007/BF00116876
+   Grefenstette J.J., 1988, Machine Learning, V3, DOI 10.1007/BF00113898
+   GUPTA SS, 1991, HDB SEQUENTIAL ANAL, P363
+   HOLLAND J, 1985, JUL P INT C GEN ALG, P1
+   HOLLAND JH, 1975, ADAPTATION NATURAL A
+   IEUMWANANONTHAC.A, 1991, NOV P SUP 91 ALB, P512
+   IEUMWANANONTHACHAI A, 1992, PROC INT CONF PARAL, P190
+   IEUMWANANONTHACHAI A, 1992, J PARALLEL DISTR COM, V15, P118, DOI 10.1016/0743-7315(92)90105-V
+   JOHNSON RA, 1982, APPLIED MULTIVARIATE
+   KLOPF AH, 1987, P IEEE INT C NEUR NE, V2, P441
+   KOKAR MM, 1988, P CONNECTIONIST MODE, P120
+   LANGLEY P, 1985, COGNITIVE SCI, V9, P217, DOI 10.1207/s15516709cog0902_2
+   LENAT DB, 1983, ARTIF INTELL, V21, P31, DOI 10.1016/S0004-3702(83)80004-6
+   Marr D., 1982, VISION
+   MCCLELLAND JL, 1988, EXPLORATIONS PARALLE, V3
+   MEHRA P, 1992, 2ND P INT C SYST INT, P666
+   MEHRA P, 1992, 1ST P S HIGH PERF DI
+   Michalski R. S., 1983, MACHINE LEARNING
+   MICHALSKI RS, 1983, MACHINE LEARNING, V1
+   MICHALSKI RS, 1985, MACHINE LEARNING, V2
+   Minsky M. L., 1963, COMPUT THOUGHT, P406
+   MITCHELL T, 1983, MACHINE LEARNING
+   MITCHELL TM, 1981, 7TH P INT JOINT C AR, P127
+   MITCHELL TM, 1983, 8TH P INT JOINT C AR, P1139
+   Mozer M.C., 1989, Connection Science, V1, DOI 10.1080/09540098908915626
+   NEWELL A, 1957, 1957 P W JOINT COMP, P230
+   NGUYEN D, 1989, JUN P INT JOINT C NE, V2, P357
+   PEARL J, 1983, AI MAGAZINE      WIN, P23
+   Pearl J, 1984, HEURISTICS INTELLIGE
+   Rumelhart D., 1986, PARALLEL DISTRIBUTED, V1, P318
+   RUSSELL S, 1991, ARTIF INTELL, V49, P361, DOI 10.1016/0004-3702(91)90015-C
+   SAMUEL AL, 1967, IBM J RES DEV, V11, P601
+   Samuel A.L., 1959, IBM Journal of Research and Development, V3
+   SCHWARTZ SR, 1991, THESIS U ILLINOIS UR
+   Sietsma J, 1988, P IEEE INT C NEUR NE, P325
+   SLEEMAN DH, 1982, AI MAG, V3, P48
+   SMITH G, 1990, TR9012 FLIND U S AUS
+   SMITH RG, 1983, P INT JOINT C ART IN, P422
+   SMITH RG, 1977, 5TH P INT JOINT C AR, P338
+   STEIN CM, 1948, ANN MATH STAT, V19, P429
+   Sutton R. S, 1984, THESIS U MASSACHUSET
+   SUTTON RS, 1981, PSYCHOL REV, V88, P135, DOI 10.1037/0033-295X.88.2.135
+   Tabachnick B. G., 1989, USING MULTIVARIATE S
+   TESAURO G, 1988, MACH LEARNING, P200
+   TONG YL, 1984, DESIGN EXPT RANKING, P213
+   WAH BW, 1990, JUN P INT JOINT C NE, P269
+   WEFALD EH, 1989, MACH LEARN, P408
+   WIDROW B, 1973, IEEE T SYST MAN CYB, VSMC3, P455, DOI 10.1109/TSMC.1973.4309272
+   WILKINS DC, 1988, P NAT C ARTIFICIAL I
+   WILLIAMS RJ, 1988, JUL P INT C NEUR NET, V1, P263
+   WILSON SW, 1987, GENETIC ALGORITHMS S
+   Yan J.C., 1989, IEEE Transactions on Knowledge and Data Engineering, V1, DOI 10.1109/69.87976
+   YU CF, 1988, IEEE T SOFTWARE ENG, V14, P1155, DOI 10.1109/32.7626
+   ZHOU S, 1987, UCBCSD87376 U CAL CO
+NR 66
+TC 4
+Z9 4
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD OCT
+PY 1992
+VL 4
+IS 5
+BP 454
+EP 474
+DI 10.1109/69.166988
+PG 21
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA JW597
+UT WOS:A1992JW59700007
+ER
+
+PT J
+AU FANG, MY
+   CHEN, WT
+AF FANG, MY
+   CHEN, WT
+TI VECTORIZATION OF A GENERALIZED PROCEDURE FOR THEOREM-PROVING IN
+   PROPOSITIONAL LOGIC ON VECTOR COMPUTERS
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE DAVIS-PUTNAM PROCEDURE (DPP); DIVIDE AND CONQUER; INFERENCE RULE;
+   PIPELINE; PROPOSITIONAL LOGIC; SATISFIABILITY; THEOREM PROVING; VECTOR
+   COMPUTERS; VECTORIZATION
+AB The problem of proving theorems is to consider methods for finding proofs of theorems. In this paper, we present vectorization techniques for solving the theorem proving problem in propositional logic on vector computers. To take advantage of vector processing, the rules used in the deduction process are first generalized by considering more than one literal at a time. Soundness of the generalized rules is proved. Then the vectorized representation of the problem and algorithms based on the generalized rules is proposed. Experiments are conducted on vector computers. The results show the vectorized procedure is effective for solving the theorem proving problem in propositional logic.
+RP FANG, MY (reprint author), NATL TSING HUA UNIV,DEPT COMP SCI,HSINCHU 30043,TAIWAN.
+CR CHANG CL, 1973, SYMBOLIC LOGIC MECHA
+   CHEN WT, 1990, 1990 P INT C PAR PRO, P229
+   CHEN WT, 1987, INFORM SCIENCES, V41, P61
+   Cook S., 1971, 3RD P ANN ACM S THEO, P151
+   DAVIS M, 1960, J ACM, V7, P201, DOI 10.1145/321033.321034
+   Garey MR, 1979, COMPUTERS INTRACTABI
+   HWANG K, 1985, COMPUTER, V18, P57
+   Hwang K., 1984, COMPUTER ARCHITECTUR
+   LOVELAND D, 1978, AUTOMATED THEOREM PR
+   LOVELAND DW, 1984, CONT MATH, V29, P1
+   URQUHART A, 1987, J ACM, V34, P209, DOI 10.1145/7531.8928
+   1988, COMPUTER, V21, P70
+NR 12
+TC 3
+Z9 4
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD OCT
+PY 1992
+VL 4
+IS 5
+BP 475
+EP 486
+DI 10.1109/69.166989
+PG 12
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA JW597
+UT WOS:A1992JW59700008
+ER
+
+PT J
+AU BARBARA, D
+   GARCIAMOLINA, H
+   PORTER, D
+AF BARBARA, D
+   GARCIAMOLINA, H
+   PORTER, D
+TI THE MANAGEMENT OF PROBABILISTIC DATA
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE RELATIONAL DATABASE SYSTEM; PROBABILITY; DATA MODEL; QUERY LANGUAGE;
+   PROBABILISTIC DATA; UNCERTAINTY; MISSING PROBABILITY; RELATIONAL
+   OPERATORS
+AB It is often desirable to represent in a database entities whose properties cannot be deterministically classified. We develop a new data model that includes probabilities associated with the values of the attributes. The notion of missing probabilities is introduced for partially specified probability distributions. This new model offers a richer descriptive language allowing the database to more accurately reflect the uncertain real world. Probabilistic analogs to the basic relational operators are defined and their correctness is studied. Also, a set of new operators that have no counterpart in conventional relational systems is presented.
+C1 ORACLE CORP,REDWOOD SHORES,CA 94065.
+   STANFORD UNIV,DEPT COMP SCI,STANFORD,CA 94305.
+RP BARBARA, D (reprint author), MATSUSHITA INFORMAT TECHNOL LAB,PRINCETON,NJ 08542, USA.
+CR CAVALLO R, 1987, 13TH P C VER LARG DA
+   CODD EF, 1970, COMMUN ACM, V13, P377, DOI 10.1145/362384.362685
+   DADAM P, 1986, SIGMOD P
+   Date C. J., 1986, INTRO DATABASE SYSTE, V1
+   FUHR N, 1990, 16TH P INT C VER LAR
+   GELENBER E, 1986, FEB P INT C DAT ENG
+   GHOSH S, 1986, IEEE T SOFTWARE  DEC
+   Imielinski T., 1984, J ACM, V31
+   IMIELINSKI T, 1986, DCSTR181 RUTG TECH R
+   IMIELINSKI T, 1986, DCSTR177 RUTG TECH R
+   LIPSKI W, 1979, ACM T DATABASE SYST, V4
+   LIPSKI W, 1977, 6TH P INT S MATH F C
+   LIU KC, 1988, 4TH P INT C DAT ENG
+   MENDELSON H, 1986, ACM T DATABASE SYST, V11
+   Meyer P. L., 1970, INTRO PROBABILITY ST
+   MORRISSEY J, 1987, P SIGIR
+   PEARL J, 1986, ARTIF INTELL, V29, P241, DOI 10.1016/0004-3702(86)90072-X
+   PITMAN JW, 1976, Z WAHRSCHEINLICHKEIT, V35, P315, DOI 10.1007/BF00532957
+   PRADE H, 1984, INFORM SCIENCES, V34, P115, DOI 10.1016/0020-0255(84)90020-3
+   RAJU KSV, 1988, ACM T DATABASE SYST, V13
+   REITER R, 1986, J ACM, V33
+   ROTH M, 1985, TR8436 U TEX AUST TE
+   ROTH M, 1985, TR8532 U TEX AUST TE
+   SHOSHANI A, 1985, IEEE T SOFTWARE ENG, V11
+   TZVIELLI A, 1988, 4TH P INT C DAT ENG
+   Ullman J.D., 1988, PRINCIPLES DATABASE
+   VASSILOU Y, 1980, 6TH P INT C VER LARG
+   WONG E, 1982, ACM T DATABASE SYST, V7
+   ZADEH LA, 1965, INFORM CONTROL, V8, P338, DOI 10.1016/S0019-9958(65)90241-X
+   ZADEH LA, 1988, IEEE COMPUT, V21, P83
+NR 30
+TC 123
+Z9 128
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD OCT
+PY 1992
+VL 4
+IS 5
+BP 487
+EP 502
+DI 10.1109/69.166990
+PG 16
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA JW597
+UT WOS:A1992JW59700009
+ER
+
+PT J
+AU SMYTH, P
+   GOODMAN, RM
+AF SMYTH, P
+   GOODMAN, RM
+TI AN INFORMATION THEORETIC APPROACH TO RULE INDUCTION FROM DATABASES
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE CROSS ENTROPY; EXPERT SYSTEMS; INFORMATION THEORY; MACHINE LEARNING;
+   KNOWLEDGE ACQUISITION; KNOWLEDGE DISCOVERY; RULE-BASED SYSTEMS; RULE
+   INDUCTION
+ID PRINCIPLE; INFERENCE; EXPERT
+AB The knowledge acquisition bottleneck in obtaining rules directly from an expert is well known. Hence, the problem of automated rule acquisition from data is a well-motivated one, particularly for domains where a database of sample data exists. In this paper we introduce a novel algorithm for the induction of rules from examples. The algorithm is novel in the sense that it not only learns rules for a given concept (classification), but it simultaneously learns rules relating multiple concepts. This type of learning, known as generalized rule induction is considerably more general than existing algorithms which tend to be classification oriented. Initially we focus on the problem of determining a quantitative, well-defined rule preference measure. In particular, we propose a quantity called the J-measure as an information theoretic alternative to existing approaches. The J-measure quantifies the information content of a rule or a hypothesis. We will outline the information theoretic origins of this measure and examine its plausibility as a hypothesis preference measure. We then define the ITRULE algorithm which uses the newly proposed measure to learn a set of optimal rules from a set of data samples, and we conclude the paper with an analysis of experimental results on real-world data.
+C1 CALTECH,DEPT ELECT ENGN,PASADENA,CA 91125.
+RP SMYTH, P (reprint author), CALTECH,JET PROPULS LAB 238420,COMMUN SYST RES SECT,PASADENA,CA 91109, USA.
+CR ANGLUIN D, 1983, ACM COMPUT SURV, V15, P237, DOI 10.1145/356914.356918
+   ARBAB B, 1985, P IJCAI 85 LOS ANGEL, P631
+   Bishop Y.M.M., 1975, DISCRETE MULTIVARIAT
+   BLACHMAN NM, 1968, IEEE T INFORM THEORY, V14, P27, DOI 10.1109/TIT.1968.1054094
+   Blahut R. E, 1987, PRINCIPLES PRACTICE
+   BOOSE JH, 1984, P AAAI 84, P27
+   CENDROWSKA J, 1987, INT J MAN MACH STUD, V27, P349, DOI 10.1016/S0020-7373(87)80003-2
+   CHEESEMAN P, 1984, 1ST P IEEE C APPL AR
+   CHEESEMAN P, 1985, 9TH P INT JOINT C AR, V2, P1002
+   Clark P., 1989, Machine Learning, V3, DOI 10.1007/BF00116835
+   Cohen P. R., 1982, HDB ARTIFICIAL INTEL, V3
+   Duda R. O., 1973, PATTERN CLASSIFICATI
+   Feller W., 1968, INTRO PROBABILITY TH, V1
+   GAINES BR, 1976, INT J MAN MACH STUD, V8, P337, DOI 10.1016/S0020-7373(76)80005-3
+   GAINES BR, 1986, FUZZY SET SYST, V18, P315, DOI 10.1016/0165-0114(86)90009-6
+   GANASCIA JG, 1987, 2ND P EUR WORKSH MAC
+   GOLD EM, 1967, INFORM CONTROL, V10, P447, DOI 10.1016/S0019-9958(67)91165-5
+   GOOD IJ, 1965, MIT RES MONOGRAPH, V30
+   Goodman R.M., 1990, Knowledge Acquisition, V2, DOI 10.1016/S1042-8143(05)80020-2
+   GOODMAN RM, 1990, 1990 IEEE INT S INF
+   GOODMAN RM, 1988, 1988 INT S INF THEOR
+   GOODMAN RM, 1988, IEEE T INFORM THEORY, V34, P979, DOI 10.1109/18.21221
+   HART A, 1986, KNOWLEDGE ACQUISITIO
+   HAUSSLER D, 1987, 4TH P INT WORKSH MAC, P324
+   Holland J. H., 1986, INDUCTION PROCESSES
+   JOHNSON NE, 1987, 1ST P EUR WORKSH KNO
+   JOHNSON PE, 1983, J MED PHILOS, V8, P77
+   Kahneman Daniel, 1982, JUDGMENT UNCERTAINTY
+   KULLBACK S, 1959, INFORMATION THEORY S
+   LINDLEY DV, 1986, INT STAT REV, V50, P1
+   Michalski R.S., 1980, International Journal of Policy Analysis and Information Systems, V4
+   MICHALSKI RS, 1980, IEEE T PATTERN ANAL, V2, P349
+   MICHALSKI RS, 1978, 867 U ILL COMP SCI D
+   MITCHELL TM, 1982, ARTIF INTELL, V18, P203, DOI 10.1016/0004-3702(82)90040-6
+   Quinlan J.R., 1986, Machine Learning, V1, DOI 10.1023/A:1022643204877
+   QUINLAN JR, 1989, INFORM COMPUT, V80, P227
+   QUINLAN JR, 1987, 10TH P INT JOINT C A, P304
+   Quinlan J.R., 1979, EXPERT SYSTEMS MICRO
+   Rivest R.L., 1987, Machine Learning, V2, DOI 10.1007/BF00058680
+   Rumelhart D., 1986, PARALLEL DISTRIBUTED, V1, P318
+   SCHLIMMER JC, 1987, THESIS U CALIFORNIA
+   SHANNON CE, 1948, AT&T TECH J, V27, P379
+   SHORE JE, 1980, IEEE T INFORM THEORY, V26, P26, DOI 10.1109/TIT.1980.1056144
+   SMYTH P, IN PRESS INFORMATION
+   VALIANT LG, 1984, COMMUN ACM, V27, P1134, DOI 10.1145/1968.1972
+   WONG AKC, 1987, IEEE T PATTERN ANAL, V9, P796
+   1987, INDIVIDUAL INVESTORS
+NR 47
+TC 112
+Z9 114
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD AUG
+PY 1992
+VL 4
+IS 4
+BP 301
+EP 316
+DI 10.1109/69.149926
+PG 16
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA JH909
+UT WOS:A1992JH90900001
+ER
+
+PT J
+AU RAGHUNATHAN, S
+AF RAGHUNATHAN, S
+TI A PLANNING AID - AN INTELLIGENT MODELING SYSTEM FOR PLANNING PROBLEMS
+   BASED ON CONSTRAINT SATISFACTION
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE ARTIFICIAL INTELLIGENCE (AI); CONSTRAINT SATISFACTION PROBLEMS;
+   KNOWLEDGE-BASED SYSTEMS; MANUFACTURING PLANNING; MODELING; PLANNING AIDS
+AB Planning problems arise in a variety of domains. Many planning problems can be viewed as constraint satisfaction problems. Constraint satisfaction problems have been extensively studied by researchers in the operations research (OR) and artificial intelligence (AI) areas. Both approaches have advantages and limitations. An important advantage of the OR approach to planning is its ability to handle a wide variety of problems in a theoretically rigorous and precise manner. However, formulation of "good" OR models is complex and currently OR does not provide any support for model revisions when planning assumptions change. The AI approach has the ability to incorporate many heuristics in the form of rules, and, with the help of a truth maintenance system (TMS), it can do plan revisions very efficiently. However, the range of problems solved by the AI approach is limited to problems involving discrete variables. Also, the AI approach does not usually provide optimal plans.
+   The research described in this paper is aimed at integrating the two approaches so that some of the above limitations can be removed. Specifically, we describe a knowledge-based system that formulates and maintains OR models for manufacturing planning purposes. Domain specific knowledge allows synthesis of various qualitative relationships into mathematical relationships, and, identification of various dependencies between symbolic and mathematical models. The Modeler component engages in a search process to identify the "simplest" model that can be formulated. It uses dependency directed reasoning to suggest approximations if the human planner desires a less complex model due to various reasons. A TMS, specifically designed to support modeling for planning, allows the user to explore various scenarios to arrive at an appropriate plan. Preliminary experiments with the system indicate that human planners are able to formulate models that are equivalent to those formulated by experienced OR modelers for various planning problems. We propose to extend the current architecture into a knowledge acquisition system that can generate modeling systems for planning in other domains.
+RP RAGHUNATHAN, S (reprint author), BOWLING GREEN STATE UNIV,COLL BUSINESS ADM,DEPT ACCOUNTING & MIS,BOWLING GREEN,OH 43403, USA.
+CR ALLEN JF, 1983, 8TH P INT JOINT C AR, P741
+   Bazaraa M. S., 1979, NONLINEAR PROGRAMMIN
+   Bellman R., 1957, DYNAMIC PROGRAMMING
+   Dantzig G, 1963, LINEAR PROGRAMMING E
+   DEKLEER J, 1986, ARTIF INTELL, V28
+   DHAR V, 1988, SPR IEEE EXP
+   DHAR V, 1989, MCC ACTAI02289 TECH
+   DHAR V, 1987, COMMUN ACM, V30
+   DOYLE JA, 1979, ARTIF INTELL     JUN
+   EASTMAN CM, 1972, COMMUN ACM, V15, P76, DOI 10.1145/361254.361258
+   FELDMAN J, 1977, DECISION THEORY ARTI, V2
+   FOX MS, 1983, THESIS CARNEGIEMELLO
+   Garfinkel R., 1972, INTEGER PROGRAMMING
+   GOEL V, 1989, AI MAG           SPR
+   HOOKER JN, 1988, DECISION SUPPORT SYS, V4
+   JEROSLOW RG, 1985, J OPER RES SOC, V36, P393, DOI 10.2307/2582879
+   Johnson L.A., 1974, OPERATIONS RES PRODU
+   MACKWORTH AK, 1907, ENCY ARTIFICIAL INTE
+   MARCUS S, 1988, AI MAG, V9, P95
+   MARCUS S, ARTIF INTELL, V39, P1
+   MCALLESTER D, 1982, AI667 MIT LAB MEM
+   MCDERMOTT D, 1983, IEEE T PATTERN ANAL, V5, P237
+   MOON D, 1981, LISP MACHINE MANUAL
+   NEWELL A, 1977, HUMAN PROBLEM SOLVIN
+   Nilsson N.J., 1980, PRINCIPLES ARTIFICIA
+   ORLIKOWSKI W, 1986, P NAT C ARTIFICIAL I
+   PETRIE CJ, 1989, MCC ACTAI02089 TECH
+   PETRIE CJ, 1989, MCC ACTAI02189 TECH
+   RAGHUNATHAN S, 1990, THESIS U PITTSBURGH
+   RIT J, 1986, 5TH P NAT C AAAI 86, P383
+   SCHRAGE L, 1984, LINEAR INTEGER QUADR
+   SIMON HA, 1973, ARTIF INTELL, V4
+   STALLMAN RM, 1977, ARTIF INTELL, V9, P135, DOI 10.1016/0004-3702(77)90029-7
+   STEFIK M, 1981, ARTIF INTELL, V16, P111, DOI 10.1016/0004-3702(81)90007-2
+   WAGNER HM, 1975, PRINCIPLES OPERATION
+   WATTERS LJ, 1967, OPER RES, V15, P1171, DOI 10.1287/opre.15.6.1171
+NR 36
+TC 6
+Z9 6
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD AUG
+PY 1992
+VL 4
+IS 4
+BP 317
+EP 335
+DI 10.1109/69.149927
+PG 19
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA JH909
+UT WOS:A1992JH90900002
+ER
+
+PT J
+AU PASIK, AJ
+AF PASIK, AJ
+TI A SOURCE-TO-SOURCE TRANSFORMATION FOR INCREASING RULE-BASED SYSTEM
+   PARALLELISM
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE OPTIMIZATION; PARALLELISM; PRODUCTION SYSTEMS; RULE-BASED SYSTEMS;
+   TRANSFORMATIONS
+AB Rule-based systems have been hypothesized to contain only minimal parallelism. However, techniques to extract more parallelism from existing systems are being investigated. Among these methods, it is desirable to find those which balance the work being performed in parallel evenly among the rules, while decreasing the amount of work being performed sequentially in each cycle. The automatic transformation of creating constrained copies of culprit rules accomplishes both of the above goals.
+   Rule-based systems are plagued by occasional rules which slow down the entire execution. These culprit rules require much more processing than others, causing other processors to idle while they continue to match. By creating constrained copies of culprit rules and distributing them to their own processors, more parallelism is achieved, as evidenced by increased speed up. This effect is shown to be specific to rule-based systems with certain characteristics. These characteristics are identified as being common within an important class of rule-based systems: expert database systems.
+RP PASIK, AJ (reprint author), COLUMBIA UNIV,DEPT COMP SCI,NEW YORK,NY 10027, USA.
+CR BARACHINI F, 1988, 1ST P INT C IND ENG, P860
+   FORGY CL, 1982, ARTIF INTELL, V19, P17, DOI 10.1016/0004-3702(82)90020-0
+   FORGY CL, 1977, P INT JOINT C ARTIFI
+   FORGY CL, 1979, THESIS CARNEGIEMELLO
+   GORDIN D, 1988, 1ST P INT C IND ENG
+   GORDIN D, 1989, P IASTED INT S EXPER
+   GUPTA A, 1986, THESIS CARNEGIEMELLO
+   GUPTA A, 1987, CMUCS87146 CARN U DE
+   GUPTA A, 1984, PARALLELISM PRODUCTI
+   Hillis W.D., 1985, CONNECTION MACHINE
+   MIRANKER DP, 1986, THESIS COLUMBIA U
+   PASIK AJ, 1987, CUCS31387 COL U DEP
+   PASIK AJ, 1989, THESIS COLUMBIA U
+   PASIK AJ, 1984, SIGART NEWSLETT, V87, P31
+   SCALES D, 1986, EFFICIENT MATCHING A
+   SCHOR MI, 1986, 3RD P AAAI 86 NAT C, P226
+   SELLIS T, 1988, P ACM SIGMOD INT C M, P404, DOI 10.1145/50202.50251
+   STOLFO SJ, 1984, P AM ASS ARTIFICIAL
+   STOLFO SJ, 1986, ANNU REV COMPUT SCI, V1, P1, DOI 10.1146/annurev.cs.01.060186.000245
+   STOLFO SJ, 1984, P IEEE INT C PARALLE
+   Ullman J. D., 1982, PRINCIPLES DATABASE
+   VESONDER GT, 1983, P INT JOINT C ARTIFI
+   VESONDER GT, 1988, AT&T TECH J, V67, P69
+NR 23
+TC 5
+Z9 5
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD AUG
+PY 1992
+VL 4
+IS 4
+BP 336
+EP 343
+DI 10.1109/69.149929
+PG 8
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA JH909
+UT WOS:A1992JH90900003
+ER
+
+PT J
+AU GRECO, S
+   LEONE, N
+   RULLO, P
+AF GRECO, S
+   LEONE, N
+   RULLO, P
+TI COMPLEX - AN OBJECT-ORIENTED LOGIC PROGRAMMING SYSTEM
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE BOTTOM UP QUERY EVALUATION; CLASS; COMPLEX OBJECTS; LOGIC PROGRAMMING;
+   MULTIPLE INHERITANCE; QUERY SUBQUERY EVALUATION; REWRITING METHODS
+AB This paper describes the design and a prototypical implementation of COMPLEX, a logic-based system extended with concepts from the object-oriented paradigm, intended as a tool for the development of knowledge-based applications. The system supports a logic language, called Complex-Datalog (C-Datalog), enhanced by semantic constructs to provide facility for data abstraction. Its implementation is based on a bottom-up computational model that guarantees a fully declarative style of programming. However, the user is also given the possibility of running a query using a top-down model of computation. Efficiency of execution is the result of the integration of different novel technologies for the compilation and the execution of queries.
+C1 CRAI,I-87036 RENDE,ITALY.
+RP GRECO, S (reprint author), UNIV CALABRIA,COMP SCI,I-87036 RENDE,ITALY.
+RI Leone, Nicola/B-1890-2012
+CR ABITEBOUL S, 1989, P ACM SIGMOD INT C M, P159
+   ABITEBOUL S, 1988, UNPUB INTRO COMPLETE
+   Abiteboul S., 1990, Data & Knowledge Engineering, V5, DOI 10.1016/0169-023X(90)90016-7
+   AITKACI H, 1986, J LOGIC PROGRAM, V3, P185, DOI 10.1016/0743-1066(86)90013-0
+   Apt K., 1988, FDN DEDUCTIVE DATABA, P89
+   BALBIN I, 1989, EFFICIENT BOTTOM UP
+   BALBIN I, 1988, 1 U MELB DEP COMP SC
+   BALBIN I, 1987, J LOGIC PROGRAM, V4, P259, DOI 10.1016/0743-1066(87)90004-5
+   BANCILHON F, 1986, KNOWLEDGE BASE MANAG, P165
+   BANCILHON F, 1988, 7TH P ACM PODS, P152
+   BANCILHON F, 1986, 5TH P ACM S PRINC DA, P1
+   BEERI C, 1987, 6TH P ACM S PRINC DA, P269
+   CHEN W, 1989, 1989 P ACM SIGACT SI, P369
+   Clocksin W. F., 1981, PROGRAMMING PROLOG
+   CONERY JS, 1987, CISTR8709 U OR TECH
+   ERSHOV AP, 1977, INFORM PROCESS LETT, V6, P38, DOI 10.1016/0020-0190(77)90078-3
+   FAGIN B, 1985, UCBCSD86257 U CAL CO
+   FISCHER P, 1983, 7TH P COMPSAC CHIC
+   KIFER M, 1989, MAY P ACM SIGMO C MA, P134
+   KIFER M, 1990, 9014 STAT U NEW YORK
+   KORTH HF, 1987, TR8745 U TEX AUST TE
+   KUPER GM, 1987, P ACM PODS, P11, DOI 10.1145/28659.28661
+   MAIER M, 1986, P WORK FDN DED DAT L, P6
+   NAQVI S, 1989, LOGIC LANGUAGE DATA
+   Roussel P., 1975, PROLOG MANUEL REFERE
+   SACCA D, 1987, 1987 P ACM SIGMOD AN, P49
+   SACCA D, 1987, DATA ENG, V10, P20
+   SACCA D, 1989, THEORETICAL COMP NOV, P187
+   SACCA D, 1986, 5TH P ACM SIGMOD SIG, P16
+   SACCA D, 1987, 4TH P INT C LOG PROG, P104
+   Ullman J.D., 1988, PRINCIPLES DATABASE
+   VIEILLE L, 1986, 1ST P INT C EXP DAT, P253
+   WARREN DHD, 1983, 309 SRI INT TECHN NO
+NR 33
+TC 9
+Z9 9
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD AUG
+PY 1992
+VL 4
+IS 4
+BP 344
+EP 359
+DI 10.1109/69.149930
+PG 16
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA JH909
+UT WOS:A1992JH90900004
+ER
+
+PT J
+AU HOROWITZ, JR
+   CARDENAS, AF
+AF HOROWITZ, JR
+   CARDENAS, AF
+TI DECOMPOSING HETEROGENEOUS INTER-ENTITY RELATIONSHIP UPDATES
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE DATABASE MANAGEMENT; HETEROGENEOUS DATABASE; QUERY DECOMPOSITION AND
+   PROCESSING; VIEW UPDATING
+ID DATABASE
+AB New problems of updating views involving inter-entity relationships or joins are identified, beyond those reported Previously in the literature. A general purpose method and a set of algorithms are presented for correctly decomposing multilingual update requests on a network of distributed heterogeneous databases. The method and algorithm also apply to both homogeneous nondistributed and distributed database environments. The method, called prototype views and update rules, applies to individual relationships in an entity relationship (ER) view of the network database and gives a floorplan for update decomposition. The network database view represents a unified conceptual view of all the individual databases in the heterogeneous network (i.e., of the objects shared across the network). The update request is decomposed into a sequence of intermediate control language steps to subsequently guide the particular updates to each of the underlying databases in the network. Individual database updates are performed by each particular database management system (DBMS).
+C1 UNIV CALIF LOS ANGELES,SCH ENGN & APPL SCI,DEPT COMP SCI,LOS ANGELES,CA 90024.
+CR BANCILHON F, 1981, ACM T DATABASE SYST, V6, P557, DOI 10.1145/319628.319634
+   BRAEGGER RP, 1985, IEEE T SOFTWARE ENG, V11, P574, DOI 10.1109/TSE.1985.232501
+   BROSDA V, 1988, ACM T DATABASE SYST, V13, P449, DOI 10.1145/49346.49884
+   CARDENAS AF, 1987, MAY P IEEE, V75
+   CARLSON CR, 1979, 3RD P INT COMP SOFTW
+   CHEN PPS, 1976, ACM T DATABASE SYST, V1
+   CLEMONS EK, 1978, DATABASE IMPROVING U, P371
+   Davidson J., 1983, American Journal of Computational Linguistics, V9
+   DAYAL U, 1978, 4TH P INT C VER LARG, P368
+   DAYAL U, 1982, ACM T DATABASE SYST, V8, P381
+   DEMURJIAN SA, 1988, IEEE T SOFTWARE ENG, V14
+   DEMURJIAN SA, 1987, 3RD P INT C DAT ENG
+   DUMPALA SR, 1981, ENTITY RELATIONSHIP
+   GOTTLOB G, 1988, ACM T DATABASE SYST, V13, P486, DOI 10.1145/49346.50068
+   HOROWITZ JR, 1989, THESIS U CALIFORNIA
+   HSIAO DK, 1989, IEEE T KNOWLEDGE DAT, V1
+   HWANG HY, 1981, 2ND IEEE P INT C ENT
+   IOSSIPHIDIS J, 1979, 1ST P INT C ENT REL
+   JOSEPH T, 1988, IEEE T SOFTWARE ENG, V14, P639
+   KATZ RH, 1981, NOV P IEEE COMPSAC, P33
+   KATZ RH, 1980, THESIS U CALIFORNIA
+   KELLER AM, 1982, IMPROVING DATABASE U, P363
+   KELLER AM, 1986, IEEE COMPUT, V19, P63
+   KELLER AM, 1986, 12TH P INT C VER LAR, P467
+   LARSON J, 1988, EXTENDING DATABA MAR
+   LARSON J, 1987, UPDATING RELATIONAL
+   LIEN YE, 1981, ACM T DATABASE SYST, V6, P48, DOI 10.1145/319540.319546
+   MASUNAGA Y, 1985, 10TH P INT C VER LAR
+   NGUYEN GT, 1986, 1ST P INT C EXP DAT
+   PIZANO A, 1989, IEEE COMPUTER    DEC, P59
+   ROWE LA, 1979, MAY P ACM SIGMOD INT, P71
+   SPRYATOS N, 1980, 6TH P INT C VER LARG
+   STONEBRAKER M, 1975, 1975 P SIGMOD C ACM
+   WANG GR, 1985, 4TH IEEE P INT C ENT
+   WEIDERHOLD G, 1980, ENTITY RELATIONSHIP, P237
+   WONG E, 1979, 1ST P INT C ENT REL
+NR 36
+TC 0
+Z9 0
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD AUG
+PY 1992
+VL 4
+IS 4
+BP 360
+EP 370
+DI 10.1109/69.149931
+PG 11
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA JH909
+UT WOS:A1992JH90900005
+ER
+
+PT J
+AU GUH, KC
+   YU, C
+AF GUH, KC
+   YU, C
+TI EFFICIENT MANAGEMENT OF MATERIALIZED GENERALIZED TRANSITIVE CLOSURE IN
+   CENTRALIZED AND PARALLEL ENVIRONMENTS
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE CENTRALIZED PROCESSING; DEDUCTIVE DATABASE SYSTEMS; DISTRIBUTED AND
+   PARALLEL PROCESSING; FILE STRUCTURES; MATERIALIZED TRANSITIVE CLOSURE;
+   MATERIALIZED MULTIPLE LINEAR RECURSIONS
+ID DATABASES; IMPLEMENTATION; LOGIC
+AB A data structure is used to store materialized generalized transitive closure such that the evaluation of generalized transitive closure queries, deletions, and insertions of tuples can be performed efficiently in centralized and parallel environments. For transitive closure of a binary relation, in a single processor environment, it takes on the average O(m") to retrieve the ancestors/descendants of a given node, where m" is the number of ancestors/descendants of the given node, and it takes on the average O(m x m') to perform an insertion or a deletion of a tuple (a, b), where m is the number of ancestors of a plus 1 and m' is the number of descendants of b plus 1. The number of directed paths between two nodes can be determined in O(1) time. In multiprocessor/distributed environments, the time for retrieving the ancestors/descendants of a given node is O(m") plus two rounds of communications between the query processor and the other processors, and the times for insertion and deletion are O(m x d) plus two rounds of communications, where d is the smaller of m' or n/s, where n is the number of distinct attribute values, and s is the number of processors.
+   The technique is generalized to mixed left and right linear recursive queries. The same performance results in terms of retrieval, deletions, and insertions in both centralized and parallel environments are obtained.
+C1 UNIV ILLINOIS,DEPT ELECT ENGN & COMP SCI,CHICAGO,IL 60680.
+RP GUH, KC (reprint author), UNIV WISCONSIN,DEPT ELECT ENGN & COMP SCI,MILWAUKEE,WI 53201, USA.
+CR AGRAWAL R, 1987, 3 IEEE DAT ENG C LOS, P580
+   AHO AV, 1989, P ACM SIGMOD, P253
+   AITKACI H, 1989, ACM T PROGR LANG SYS, V11, P115, DOI 10.1145/59287.59293
+   BANCILHON F, 1986, ACM S PRINCIPLES DAT
+   Bancilhon F., 1986, P ACM SIGMOD INT C M, P16, DOI 10.1145/16894.16859
+   BLAKELEY JA, 1989, ACM T DATABASE SYST, V14, P369, DOI 10.1145/68012.68015
+   CHANG C, 1981, ADV DATA BASE THEORY, V1
+   DEO N, 1974, GRAPH THEORY APPLICA
+   ENBODY RJ, 1988, COMPUT SURV, V20, P85
+   Gallaire H., 1978, ACM COMPUT SURV, DOI 10.1145/356924.356929
+   GELDER AV, 1986, P ACM SIGMOD, P155
+   GUH KC, 1989, IEEE J SEL AREA COMM, V7, P399, DOI 10.1109/49.16872
+   GUH KC, 1991, APR IEEE INT C DAT E
+   Han J., 1989, IEEE Transactions on Knowledge and Data Engineering, V1, DOI 10.1109/69.87959
+   HENSCHEN LJ, 1984, J ACM, V31, P47, DOI 10.1145/2422.2423
+   IOANNIDIS YE, 1988, 14TH P INT C VER LAR, P382
+   IOANNIDIS YE, 1988, 2ND P INT C EXP DAT, P187
+   JAGADISH HV, 1987, MAY P ACM SIGMOD SAN, P331
+   JAGADISH HV, 1988, 2ND P INT C EXP DAT, P209
+   KIFER M, 1986, P ADV DATABASE S TOK
+   LU H, 1987, 3RD P IEEE INT C DAT, P112
+   NAUGHTON JF, 1989, ACM SIGMOD, P235
+   RASCHID L, 1986, 12TH INT C VER LARG, P412
+   SAGIV Y, 1987, 6TH P ACM SIGACT SIG, P349
+   Srivastava J., 1988, Proceedings of the Seventh ACM SIGACT-SIGMOD-SIGART Symposium on  Principles of Database Systems, DOI 10.1145/308386.308425
+   TROY DJ, 1989, IEEE T SOFTWARE ENG, V15, P1109, DOI 10.1109/32.31368
+   ULLMAN JD, 1985, ACM T DATABASE SYST, V10, P289, DOI 10.1145/3979.3980
+   VALDURIEZ P, 1988, 2ND P INT C EXP DAT, P177
+   WOLFSON O, 1988, JUN P ACM SIGMOD CHI, P329
+   ZHANG WN, 1990, ACM T DATABASE SYST, V15, P459, DOI 10.1145/88636.89237
+NR 30
+TC 4
+Z9 4
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD AUG
+PY 1992
+VL 4
+IS 4
+BP 371
+EP 381
+DI 10.1109/69.149932
+PG 11
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA JH909
+UT WOS:A1992JH90900006
+ER
+
+PT J
+AU RUNDENSTEINER, EA
+   BIC, L
+AF RUNDENSTEINER, EA
+   BIC, L
+TI SET OPERATIONS IN OBJECT-BASED DATA MODELS
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE COMPLEX OBJECTS; CLASS DERIVATION; PROPERTY INHERITANCE; OBJECT
+   IDENTITY; OBJECT-ORIENTED DATABASES; SET OPERATIONS; SEMANTIC DATA
+   MODELS
+AB Query languages designed for traditional database systems, such as the relational model, generally support set operations. However, the semantics of these set operations are not adequate for richer data models of newly developed object-based database systems that include object-oriented and semantic data modeling concepts. The reason is that precise semantics of set operations on complex objects require a clear distinction between the dual notions of a set and a type, both of which are present in the class construct found in object-based data models. In fact, class creation by set operations has largely been ignored in the literature. Our paper fills this gap by presenting a framework for executing set theoretic operations on the class construct. The proposed set operations, including set difference, union, intersection and symmetric difference, determine both the type description of the derived class as well as its set membership. For the former, we develop inheritance rules for property characteristics such as single-valued versus multivalued and required versus optional. For the latter, we borrow the object identity concept from data modeling research. Our framework allows for property inheritance among classes that are not necessarily IS-A related.
+RP RUNDENSTEINER, EA (reprint author), UNIV CALIF IRVINE,DEPT INFORMAT & COMP SCI,IRVINE,CA 92717, USA.
+CR ABITEBOUL S, 1987, ACM T DATABASE SYST, V12, P525, DOI 10.1145/32204.32205
+   ATKINSON MP, 1987, ACM COMPUT SURV, V19, P105, DOI 10.1145/62070.45066
+   BORGIDA A, 1987, KNOWLEDGE BASE MANAG
+   BRACKMAN RJ, 1983, IEEE COMPUTER    OCT, P30
+   Chen P.P.S., 1976, ACM T DATABASE SYST, V1, P9, DOI 10.1145/320434.320440
+   CHILDS DL, 1969, 1968 P IFIP C INF PR, V1, P420
+   Codd E.F., 1979, ACM Transactions on Database Systems, V4, DOI 10.1145/320107.320109
+   FISHMAN D, 1987, ACM T OFFICE INFORM, V5
+   HAMMER M, 1981, ACM T DATABASE SYST, V6, P351, DOI 10.1145/319587.319588
+   HULL R, 1987, ACM COMPUT SURV, V19, P201, DOI 10.1145/45072.45073
+   KHOSHAFIAN S, 1986, SIGPLAN NOTICES ACM, P406
+   MAIER D, 1986, SEP P C OBJ OR PROGR, P472
+   Mylopoulos J., 1980, ACM Transactions on Database Systems, V5, DOI 10.1145/320141.320150
+   Rundensteiner E.A., 1992, Data & Knowledge Engineering, V7, DOI 10.1016/0169-023X(92)90040-I
+   RUNDENSTEINER EA, 1990, MAR P INT C EXT DAT
+   RUNDENSTEINER EA, 1991, APR P IEEE INT C DAT
+   RUNDENSTEINER EA, IN PRESS IEEE T KNOW
+   RUNDENSTEINER EA, 1989, 8922 U CAL INF COMP
+   SHIPMAN DW, 1981, ACM T DATABASE SYST, V6, P140, DOI 10.1145/319540.319561
+   Smith J.M., 1977, ACM Transactions on Database Systems, V2, DOI 10.1145/320544.320546
+   SU YWS, 1986, IEEE COMPUT, V19, P34
+NR 21
+TC 6
+Z9 6
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD AUG
+PY 1992
+VL 4
+IS 4
+BP 382
+EP 398
+DI 10.1109/69.149933
+PG 17
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA JH909
+UT WOS:A1992JH90900007
+ER
+
+PT J
+AU COSTAGLIOLA, G
+   TORTORA, G
+   ARNDT, T
+AF COSTAGLIOLA, G
+   TORTORA, G
+   ARNDT, T
+TI A UNIFYING APPROACH TO ICONIC INDEXING FOR 2-D AND 3-D SCENES
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE ICONIC INDEXING; IMAGE DATABASE; IMAGE REPRESENTATION; IMAGE RETRIEVAL;
+   MULTIDIMENSIONAL DATA REPRESENTATION; PICTURE MATCHING
+ID DATABASE SYSTEM
+AB Several iconic indexes for representing three-dimensional scenes are presented. The approach extends previous work in iconic indexing of 2-D scenes in a unified manner. Good characteristics for iconic indexes are also pointed out. OPP2 and OPP3, two-dimensional iconic indexes for three-dimensional scenes, are introduced. The problem of ambiguity in the OPP2 and OPP3 representations of 3-D scenes is studied in detail and a class of images for which they are unambiguous is identified. The Gen_string, a linear iconic index which can be used to represent two, three, or higher dimensional scenes, is introduced. It provides a compact, unambiguous representation of a three-dimensional scene. The Gen_string takes advantage of previous work, thus providing fast pattern matching for higher dimensional scenes. In fact, the pattern matching algorithm given for k-dimensional scenes is as fast as that previously given for two-dimensional scenes.
+C1 UNIV SALERNO,DIPARTIMENTO INFORMAT & APPLICAZ,I-84081 BARONISSI,ITALY.
+RP COSTAGLIOLA, G (reprint author), UNIV PITTSBURGH,DEPT COMP SCI,PITTSBURGH,PA 15260, USA.
+CR ARNDT T, 1989, P IEEE WORKSH VIS LA, P177, DOI 10.1109/WVL.1989.77061
+   Chang N.S., 1980, Proceedings of the Workshop on Picture Data Description and  Management
+   CHANG NS, 1980, IEEE T SOFTWARE ENG, V6, P519
+   CHANG SK, 1984, IEEE T PATTERN ANAL, V6, P475
+   CHANG SK, 1989, NOV SPIE P VIS COMM
+   CHANG SK, 1989, PICTORIAL INFORMATIO
+   CHANG SK, 1981, IEEE C, V14, P13
+   CHANG SK, 1978, INT J POLICY ANAL IN, V1, P49
+   CHANG SK, 1987, IEEE T PATTERN ANAL, V9, P413
+   CHANG SK, 1988, IEEE WORKSHOP LANGUA, P190
+   CHANG SK, 1971, COMMUN ACM, V14, P21, DOI 10.1145/362452.362471
+   CHANG SK, 1989, 1989 P C VER LARG SP
+   CHANG SK, 1988, IEEE T SOFTWARE ENG, V14, P681, DOI 10.1109/32.6147
+   CHOCK M, 1984, IEEE T PATTERN ANAL, V6, P484
+   GROSKY WI, 1986, COMPUT VISION GRAPH, V35, P383, DOI 10.1016/0734-189X(86)90007-1
+   GUTTMAN A, 1984, 1984 ACM SIGMOD INT, P47
+   JACKINS CL, 1980, COMPUT VISION GRAPH, V14, P249, DOI 10.1016/0146-664X(80)90055-6
+   JUNGERT E, 1985, JUN P SCAND RES C GE
+   JUNGERT E, 1988, 4TH P BPRA C PATT RE
+   JUNGERT E, 1989, VISUAL DATABASE SYST, P301
+   LEE YC, 1983, ACM SIGMOD ENG DESIG, P123
+   MEAGHER DJ, 1981, COMPUT GRAPHICS IMAG, V19, P129
+   MOHAN L, 1988, IEEE T SOFTWARE ENG, V14, P675, DOI 10.1109/32.6146
+   ROUSSOPOULOS N, 1988, IEEE T SOFTWARE ENG, V14, P639, DOI 10.1109/32.6141
+   SAMET H, 1984, 7TH P INT C PATT REC
+   Samet H., 1984, ACM COMPUT SURV, V16, P187, DOI 10.1145/356924.356930
+   TAMURA H, 1984, PATTERN RECOGN, V17, P29, DOI 10.1016/0031-3203(84)90033-5
+   TANIMOTO SL, 1976, PATTERN RECOGN, P452
+   TORTORA G, 1987, OCT P IEEE C SYST MA, P1004
+   TORTORA G, 1990, COMPUT VISION GRAPH, V52, P26, DOI 10.1016/0734-189X(90)90122-C
+   YAMAGUCHI K, 1980, P WORKSHOP PICTURE D, P85
+NR 31
+TC 12
+Z9 12
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD JUN
+PY 1992
+VL 4
+IS 3
+BP 205
+EP 222
+DI 10.1109/69.142013
+PG 18
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA HY040
+UT WOS:A1992HY04000001
+ER
+
+PT J
+AU BERTINO, E
+   NEGRI, M
+   PELAGATTI, G
+   SBATTELLA, L
+AF BERTINO, E
+   NEGRI, M
+   PELAGATTI, G
+   SBATTELLA, L
+TI OBJECT-ORIENTED QUERY LANGUAGES - THE NOTION AND THE ISSUES
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE DATA MODELS; OBJECT-ORIENTED DATABASES; OBJECT-ORIENTED LANGUAGES;
+   PREDICATE CALCULUS; QUERY LANGUAGES
+AB Query languages are an important component of any data management system. Therefore, recent object-oriented DBMS's provide (or plan to provide) some associative query capabilities. Because of the increased complexity of the data model, designing a suitable query language raises new issues. In this paper, we describe how the characteristics of an object-oriented data model, such as object identity, complex object structure, methods, and class hierarchies, have an impact on the design of a query language. We also point out major differences with respect to relational query languages.
+C1 UNIV BRESCIA,FAC INGN,DIPARTIMENTO AUTOMAZ IND,BRESCIA,ITALY.
+   POLITECN MILAN,DIPARTIMENTO ELETTR,I-20133 MILAN,ITALY.
+RP BERTINO, E (reprint author), UNIV GENOA,DIPARTIMENTO MATEMAT,I-16126 GENOA,ITALY.
+CR ABITEBOUL S, 1984, P ACM S PRINCIPLES D
+   ABITEBOUL S, 1988, P INT C EXTENDING DA
+   ABITEBOUL S, 1989, 1ST P INT C DED OBJ
+   ABITEBOUL S, 1988, INRIA N846 I NAT REC
+   ABITEBOUL S, 1986, J COMPUT SYST SCI, V33
+   AGRAWAL R, 1988, IEEE T SOFTWARE ENG, V14
+   ALASHQUR AM, 1989, 15TH P INT C VER LAR
+   ALBANO A, 1985, ACM T DATABASE, V10
+   ANDREWS T, 1987, 2ND P INT C OBJ OR P
+   ATKINS M, 1989, P INT C DEDUCTIVE OB
+   ATZENI P, 1983, ENTITY RELATIONSHIP
+   BANCILHON F, 1988, 7TH P ACM SIGART SIG
+   BANCILHON F, 1985, MCC DB11085 TECH REP
+   BANCILHON F, 1987, 13TH P INT C VER LAR
+   BANCILHON F, 1986, P ACM SIGMOD C MANAG
+   BANCILHON F, 1989, 2ND P INT WORK DAT P
+   BANERJEE J, 1988, FEB P IEEE DAT ENG C
+   BANERJEE J, 1987, ACM T OFFICE INFORM, V5
+   BEECH D, 1988, MAR P EXT DAT BAS TE
+   BERTINO E, 1991, 1ST P INT WORKSH INT
+   BERTINO E, 1988, ACM T OFFICE INFORM, V6
+   BERTINO E, 1988, 2ND P IEEE INT WORKS
+   BERTINO E, 1988, MAR P INT C EXT DAT
+   BERTINO E, 1989, INFORM SYST, V14
+   CAMPBELL DM, 1985, P ENTITY RELATIONSHI
+   CARDELLI L, 1985, ACM COMPUTING SURVEY, V17
+   CAREY M, 1988, JUN P ACM SIGMOD C M
+   CLUET S, 1989, 1ST P INT C DED OBJ
+   DAYAL U, 1989, 2ND P INT WORK DAT P
+   DITTRICH K, 1986, SEP P IEEE WORKSH OB
+   FISHMAN D, 1987, ACM T OFFICE INFORM, V5
+   GALLAIRE H, 1984, ACM COMPUT SURVEYS, V16
+   HULL R, IN PRESS BEHAVIOR AN
+   HULL R, 1987, ACM COMPUT SURVEYS, V19
+   JARKE M, 1984, JUN P ACM SIGMOD C M
+   JARKE M, 1984, ACM COMPUT SURVEYS, V16
+   KHOSHAFIAN S, 1986, 1ST P INT C OBJ OR P
+   KIM W, 1987, P IEEE DATA ENG C
+   KIM W, 1989, 15TH P INT C VER LAR
+   KIM W, 1988, MCC N ACAST24888 TEC
+   KIM W, 1989, MAY P ACM SIGMOD C M
+   KIM W, 1989, OBJECT ORIENTED CONC
+   KLUG A, 1982, J ACM, V29
+   KUNIFUJI S, 1982, DEC P WORKSH LOG BAS
+   MAIER D, 1986, 1ST P INT C OBJ OR P
+   MOON D, 1989, OBJECT ORIENTED CONC
+   NEGRI M, 1991, ACM T DATABASE SYST, V16
+   ORMAN L, 1984, INFORM SYST, V9
+   OSBORN SL, 1986, ACM T DATABASE SYST, V11
+   OZSOYOGLU M, 1987, ACM T DATABASE SYST, V12
+   PISTOR P, 1986, INFORM SYST, V11
+   ROESNER W, 1985, P ENTITY RELATIONSHI
+   ROTH MA, 1987, INFORM SYST, V12
+   ROTH MA, 1988, ACM T DATABASE SYST, V13
+   ROWE L, 1987, 13TH P INT C VER LAR
+   RUNDENSTEINER EA, 1990, MAR P INT C EXT DAT
+   SCHEK HJ, 1986, INFORMA SYST, V11
+   SHAW GB, 1989, 2ND P INT WORK DAT P
+   SHIPMAN DW, 1981, ACM T DATABASE SYST, V6
+   STEFIK M, 1986, AI MAG           JAN
+   STONEBRAKER M, 1986, JUN P ACM SIGMOD C M
+   SUDKAMP N, 1990, 16TH P INT C VER LAR
+   VELEZ F, 1985, P ENTITY RELATIONSHI
+   ZANIOLO C, 1983, MAY P ACM SIGMOD C M
+   ZDONIK S, 1989, READINGS OBJECT ORIE
+NR 65
+TC 39
+Z9 40
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD JUN
+PY 1992
+VL 4
+IS 3
+BP 223
+EP 237
+DI 10.1109/69.142014
+PG 15
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA HY040
+UT WOS:A1992HY04000002
+ER
+
+PT J
+AU ZEROUAL, K
+   ROBILLARD, PN
+AF ZEROUAL, K
+   ROBILLARD, PN
+TI KBMS - A KNOWLEDGE-BASED SYSTEM FOR MODELING SOFTWARE SYSTEM
+   SPECIFICATIONS
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE SOFTWARE ENGINEERING; SOFTWARE MODELING; KNOWLEDGE-BASED SOFTWARE
+   ENGINEERING; SPECIFICATION; REQUIREMENT ACQUISITION; SPECIFICATION TOOLS
+AB Recent research results in software engineering have shown that the process of formalizing and automating software specification activity is moving towards knowledge-based specification systems. In this paper, we present a modeling approach and a knowledge-based system that assist in the requirement acquisition and the development as well as the maintenance of software system specifications.
+C1 UNIV SHERBROOKE,DEPT MATH & INFORMAT,SHERBROOKE J1K 2R1,QUEBEC,CANADA.
+   ECOLE POLYTECH,DEPT GENIE ELECT & GENIE INFORMAT,MONTREAL H3C 3A7,QUEBEC,CANADA.
+CR BALZER R, 1981, IEEE T SOFTWARE ENG, V7, P3, DOI 10.1109/TSE.1981.230814
+   BARNARD P, 1988, COMPUT J, V31, P445, DOI 10.1093/comjnl/31.5.445
+   BELADY LA, 1979, RES DIRECTIONS SOFTW
+   BORGIDA A, 1985, IEEE COMPUT, V10, P82
+   BRACHMANN R, 1983, IEEE COMPUT, V16
+   Carlisle K. E., 1986, ANAL JOBS TASKS
+   DATE CJ, 1983, INTRO DATABASE SYSTE, V2
+   DEWAYNE EP, 1987, 9TH P INT C SOFTW EN, P61
+   DOYLE J, 1979, ARTIF INTELL, V12, P231, DOI 10.1016/0004-3702(79)90008-0
+   FEATHER M, 1986, APR P IFIP TC2 WG 2, P165
+   FIKAS SF, 1985, IEEE TSE SE, V11, P1268
+   GEORGEFF MP, 1986, 375 SRI INT TECHN NO, P1
+   GREEN C, 1986, READINGS ARTIFICIAL, P377
+   JOHNSON WL, 1987, 2ND P KNOWL BAS SOFT
+   KINOSHITA TA, 1989, SIGART NEWSLETT  APR, P166
+   LONDON P, 1982, SCI COMPUT PROGRAM, P91
+   LUBRAS MD, 1987, 9TH P INT C SOFTW EN, P253
+   Minsky M, 1975, PSYCHOL COMPUTER VIS
+   MISRA J, 1978, IEEE T SOFTWARE ENG, V4, P65, DOI 10.1109/TSE.1978.231467
+   MOTOSHI S, 1989, 11TH P INT C SOFTW E, P64
+   Newell A., 1972, HUMAN PROBLEM SOLVIN
+   Nilsson N, 1971, PROBLEM SOLVING METH
+   Rich C., 1988, Computer, V21, DOI 10.1109/2.86782
+   ROLLAND C, 1983, DATA BASE        SPR, P32
+   SACERDOT.ED, 1974, ARTIF INTELL, V5, P115, DOI 10.1016/0004-3702(74)90026-5
+   SOWA JF, 1984, INFORMATION PROCESSI
+   WATERS RC, 1982, IEEE T SOFTWARE ENG, V8, P1, DOI 10.1109/TSE.1982.234769
+   ZEROUAL K, 1989, 4TH P WORKSH AUT SOF, P303
+   ZEROUAL K, 1989, 6TH P IASTED INT S E, P45
+   1973, HDB DESIGNERS INSTRU, V2
+NR 30
+TC 2
+Z9 2
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD JUN
+PY 1992
+VL 4
+IS 3
+BP 238
+EP 252
+DI 10.1109/69.142015
+PG 15
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA HY040
+UT WOS:A1992HY04000003
+ER
+
+PT J
+AU BODORIK, P
+   RIORDON, JS
+   PYRA, JS
+AF BODORIK, P
+   RIORDON, JS
+   PYRA, JS
+TI DECIDING TO CORRECT DISTRIBUTED QUERY-PROCESSING
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE DISTRIBUTED DATABASE; ADAPTIVE QUERY PROCESSING; CORRECTING QUERY
+   PROCESSING STRATEGY; STRATEGY EXECUTION PHASES; OVERHEAD; SIZE
+   ESTIMATION; SAMPLING; PERFORMANCE EVALUATION
+ID DATABASE-SYSTEMS; OPTIMIZATION; ALGORITHMS; NETWORKS; JOINS
+AB Most algorithms for determining query processing strategies in distributed databases are static in nature; that is, the strategy is completely determined on the basis of a priori estimates of the size of intermediate results, and it remains unchanged throughout its execution. The static approach may be far from optimal because it denies the opportunity to reschedule operations if size estimates are found to be inaccurate. Adaptive query execution may be used to alleviate this problem. This paper proposes a low overhead delay method to decide when to correct a strategy. Sampling is used to estimate the size of relations, and alternative heuristic strategies prepared in a background mode are used to decide when to correct. Evaluation using a model of a distributed database indicates that the heuristic strategies are near optimal. Moreover, it also suggests that it is usually correct to abort creation of an intermediate relation which is much larger than predicted.
+C1 PRIOR DATA SCI LTD,HALIFAX B3J 3T2,NS,CANADA.
+   CARLETON UNIV,OTTAWA K1S 5B6,ONTARIO,CANADA.
+RP BODORIK, P (reprint author), TECH UNIV NOVA SCOTIA,SCH COMP SCI,HALIFAX B3J 2X4,NS,CANADA.
+CR APERS PMG, 1983, IEEE T SOFTWARE ENG, V9, P57, DOI 10.1109/TSE.1983.236170
+   BELL DA, 1989, 5TH P INT C DAT ENG, P76
+   BERNSTEIN PA, 1981, ACM T DATABASE SYST, V6, P602, DOI 10.1145/319628.319650
+   BODORIK P, 1989, FEB P ACM CSC C, P348
+   BODORIK P, 1988, 1988 P INT C DISTR C, P510, DOI 10.1109/DCS.1988.12554
+   BODORIK P, 1988, 1ST P INT C DAT PAR, P144
+   BODORIK P, 1988, FEB P CM CSC 88 C AT, P616
+   BODORIK P, 1988, 4TH P IEEE INT DAT E, P320
+   BODORIK P, 1990, 2ND P INT S DAT PAR, P192
+   CAREY MJ, 1985, 5TH P INT C DISTR CO, P282
+   CELLARY W, 1980, DISTRIBUTED DATA BAS
+   CERI S, 1986, J PARALLEL DISTR COM, V3, P183, DOI 10.1016/0743-7315(86)90003-1
+   CHAO T, 1986, 2ND P INT C DAT ENG, P4
+   CHRISTODOULAKIS S, 1984, ACM TDS, V9, P173
+   CHU WW, 1982, IEEE T COMPUT, V31, P835
+   DANIELS D, 1982, DISTRIBUTED DATA BAS, P247
+   EGYHAZY C, 1988, COMPUT J, V31, P34, DOI 10.1093/comjnl/31.1.34
+   ELSHARKAWI M, 1990, MAR P PARBASE 90 C F, P6
+   EPSTEIN R, 1980, 6TH P INT C VER LARG, P92
+   GAGLIARDI R, 1990, MAR P PARBASE 90 C F, P368
+   GAVISH B, 1986, ACM T DATABASE SYST, V11, P265, DOI 10.1145/6314.6488
+   HEVNER AR, 1979, IEEE T SOFTWARE ENG, V5, P177, DOI 10.1109/TSE.1979.234179
+   HWANG HY, 1987, 13TH P C VLDB, P347
+   IBARAKI T, 1984, ACM T DATABASE SYST, V9, P482, DOI 10.1145/1270.1498
+   IJBEMA A, 1986, 2ND P INT C DAT ENG, P30
+   Jhingran A., 1988, Proceedings of the Fourteenth International Conference on Very  Large Databases
+   KAMBAYASHI Y, 1985, QUERY PROCESSING DAT, P62
+   KERSCHBERG L, 1982, ACM T DATABASE SYST, V7, P678, DOI 10.1145/319758.319778
+   KIM W, 1985, QUERY PROCESSING DIS, P207
+   KUMAR A, 1987, SIGMOD REC, V16
+   LAFORTUNE S, 1986, ACM T DATABASE SYST, V11, P294, DOI 10.1145/6314.6460
+   Lamport Leslie, 1978, COMMUN ACM, V21
+   LILIEN CYL, 1983, MAY P ACM SIGMOD 83, P30
+   LOHMAN G, 1985, QUERY PROCESSING DAT, P31
+   MACKERT L, 1986, MAY P ACM SIGMOD C W, P84
+   MACKERT LF, 1986, 12TH P INT C VER LAR, P149
+   MAHMOUD SA, 1979, P IFIP TC 2 VENICE, P32
+   MASUYAMA S, 1987, IEEE T SOFTWARE ENG, V13, P602, DOI 10.1109/TSE.1987.233465
+   NGUYEN NG, 1981, 2ND P INT C DISTR CO, P188
+   OLKEN F, 1986, 12TH P INT C VER LAR, P160
+   OTOO E, 1987, 1987 P INT C DISTR C, P554
+   OUNEGBE E, 1983, JUL P NCC, P229
+   PYRA J, 1988, THESIS TU NOVA SCOTI
+   SALZA S, 1989 P ACM SIGMOD C, P8
+   SELINGER PG, 1980, 1ST P INT C DAT BAS
+   SELLIS TK, 1988, ACM T DATABASE SYST, V13, P23, DOI 10.1145/42201.42203
+   SON SH, 1990, APR P SYST INT 90 C, P358
+   STONEBRAKER M, 1986, INGRES PAPERS ANATOM
+   SU SYW, 1986, 2RD P IEEE INT C DAT, P94
+   Toth K.C., 1982, Distributed Data Sharing Systems. Proceedings of the Second  International Seminar
+   TZVIELI A, 1990, APR P SYST INT 90 C, P528
+   VANDERZANDEN BT, 1986, 12TH P INT C VER LAR, P119
+   VITTER JS, 1985, ACM T MATH SOFTWARE, V11, P37, DOI 10.1145/3147.3165
+   WONG E, 1982, ACM T DATABASE SYST, V7, P470, DOI 10.1145/319732.319747
+   YANG HZ, 1987, 13TH P INT C VLDB, P245
+   YU C, 1986, 4TH P INT C DAT ENG, P86
+   YU C, 1982, 1ST P INT C DAT ENG, P13
+   YU CT, 1985, QUERY PROCESSING DAT, P48
+   YU CT, 1987, IEEE T COMPUT, V36, P1153
+   Yu C., 1990, Sixth International Conference on Data Engineering (Cat.  No.90CH2840-7), DOI 10.1109/ICDE.1990.113469
+NR 60
+TC 1
+Z9 1
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD JUN
+PY 1992
+VL 4
+IS 3
+BP 253
+EP 265
+DI 10.1109/69.142016
+PG 13
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA HY040
+UT WOS:A1992HY04000004
+ER
+
+PT J
+AU YAN, KQ
+   CHIN, YH
+   WANG, SC
+AF YAN, KQ
+   CHIN, YH
+   WANG, SC
+TI OPTIMAL AGREEMENT PROTOCOL IN MALICIOUS FAULTY PROCESSORS AND FAULTY
+   LINKS
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE BYZANTINE AGREEMENT; CONSENSUS; INTERACTIVE CONSISTENCY; FAULT
+   TOLERANCE; DISTRIBUTED PROCESSING; SYNCHRONIZATION
+ID CLOCK SYNCHRONIZATION; BYZANTINE AGREEMENT; CONSENSUS; SYSTEMS
+AB Traditionally, the problems of Byzantine agreement, concensus, and interactive consistency are studied in a fully connected network with processors in malicious failure only. Such problems are re-examined with the assumption of malicious faults on both processors and links. The proposed protocols use the minimum number of message exchanges and can tolerate the maximum number of allowable faulty components to make each fault-free processor reach a common agreement for the cases of processor failure, link failure, or processor and link failure.
+C1 NATL TSING HUA UNIV,INST COMP SCI,HSINCHU 30043,TAIWAN.
+RP YAN, KQ (reprint author), AEROIND DEV CTR,TAICHUNG,TAIWAN.
+CR BABAOGLU O, 1987, ACM T COMPUT SYST, V5, P394, DOI 10.1145/29868.31332
+   BABAOGLU O, 1985, IEEE T SOFTWARE ENG, V11, P546, DOI 10.1109/TSE.1985.232247
+   BARNOY A, 1987, 6TH P ACM S PRINC DI, P42
+   BRACHA G, 1985, J ACM, V32, P824, DOI 10.1145/4221.214134
+   CHANG CL, 1973, SYMBOLIC LOGIC MECHA, P6
+   DOLEV D, 1982, J ALGORITHM, V3, P14, DOI 10.1016/0196-6774(82)90004-9
+   DOLEV D, 1985, J ACM, V32, P191, DOI 10.1145/2455.214112
+   DOLEV D, 1987, J ACM, V34, P77, DOI 10.1145/7531.7533
+   DOLEV D, 1983, SIAM J COMPUT, V12, P656, DOI 10.1137/0212045
+   Dolev D., 1981, 22nd Annual Symposium on Foundations of Computer Science, DOI 10.1109/SFCS.1981.53
+   Ezhilchelvan P.D., 1987, Proceedings of the Sixth Symposium on Reliability in Distributed  Software and Database Systems (Cat. No.87CH2411-7)
+   FISCHER M, 1983, 1983 P INT FCT CON B, P127
+   FISCHER MJ, 1982, INFORM PROCESS LETT, V14, P183, DOI 10.1016/0020-0190(82)90033-3
+   GIFFORD DK, 1979, CSL7914 XER PAL ALT
+   GRAY J, 1979, RJ2699 IBM RES REP
+   KOPETZ H, 1987, IEEE T COMPUT, V36, P933
+   LAMPORT L, 1984, 3RD ACM PODC C P, P10
+   LAMPORT L, 1982, ACM T PROGR LANG SYS, V4, P382, DOI 10.1145/357172.357176
+   LINDSAY BG, 1979, RJ2571 IBM RES REP
+   LYNCH NA, 1982, 14TH P ACM S THEOR C, P46
+   McMillin B.M., 1987, Proceedings of COMPSAC 87. The Eleventh Annual International  Computer Software and Applications Conference (Cat. No.87CH2447-1)
+   PEASE M, 1980, J ACM, V27, P228, DOI 10.1145/322186.322188
+   POPEK G, 1981, 8TH P S OP SYST PRIN, P169
+   REISCHUK R, 1982, IBM RJ3673 RES REP
+   SRIKANTH TK, 1987, J ACM, V34, P626, DOI 10.1145/28869.28876
+   STRONG H, 1982, IBM RJ3714 RES REP
+   TOEUG S, 1987, SIAM J COMPUT, V16, P445
+   TURPIN R, 1984, INFORM PROCESS LETT, V18, P7
+   WENSLEY JH, 1978, P IEEE, V66, P1240, DOI 10.1109/PROC.1978.11114
+   YAN KQ, 1988, AUG P ICCP, P388
+NR 30
+TC 15
+Z9 15
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD JUN
+PY 1992
+VL 4
+IS 3
+BP 266
+EP 280
+PG 15
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA HY040
+UT WOS:A1992HY04000005
+ER
+
+PT J
+AU LIN, Z
+   FALOUTSOS, C
+AF LIN, Z
+   FALOUTSOS, C
+TI FRAME-SLICED SIGNATURE FILES
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE INFORMATION RETRIEVAL; HASHING; OPTICAL DISKS; PERFORMANCE; SIGNATURE
+   FILE; SUPERIMPOSED CODING; TEXT SEARCH
+ID RETRIEVAL
+AB A new superimposed coding method, frame-sliced signature file, is proposed. Performance of this method is studied and compared with other signature file methods. The response time of the new method is improved due to its ability to effectively partition the signature file so that fewer random disk accesses are required on both retrieval and insertion, while the good characteristics of conventional signature file, i.e., low space overhead, low maintenance cost, and the write-once property, are retained. The generalized version of the method is shown to be a unified framework for several popular signature file methods including the sequential signature file (SSF) method , bit-sliced signature file (BSSF) method, and its enhanced version of B'SSF.
+   A prototype system based on the proposed methods were implemented on Unix workstations with the C language. We presented experimental results on a 2.8-Mb database consisting of 2800 technical reports, and a 28-Mb database with 28 000 technical reports. Results from experiments agree well with the theoretical analysis. Particularly, the average response time measured by a real-time clock for a single word query is 127 ms for the 2.8-Mbyte database, and 720 ms for the 28-Mbyte database, with 18% space overhead, on a Unix workstation without buffering.
+C1 UNIV MARYLAND,INST ADV COMP STUDIES,COLLEGE PK,MD 20742.
+RP LIN, Z (reprint author), UNIV MARYLAND,DEPT COMP SCI,COLLEGE PK,MD 20742, USA.
+CR CHRISTODOULAK S, 1986, MAY P ACM SIGMOD
+   CHRISTODOULAKIS S, 1984, IEEE T SOFTWARE ENG, V10, P201
+   DEPPISCH U, 1986, 1986 P ACM C RES DEV, P77
+   FALOUTSOS C, 1990, IEEE DATA ENG, V13, P25
+   FALOUTSOS C, 1984, ACM T OFF INF SYST, V2, P267, DOI 10.1145/2275.357411
+   FALOUTSOS C, 1988, 14TH P VLDB C LOS AN, P280
+   FALOUTSOS C, 1987, ACM T INFORM SYST, V5, P237, DOI 10.1145/27641.28057
+   HOLLAAR LA, 1983, ADV DATABASE MACHINE, P256
+   HOLLAAR LA, 1979, COMPUTER, V12, P40
+   LIN Z, 1988, UMIACSTR8888 U MAR C
+   LIN Z, 1988, CS2146 U MAR COMP SC
+   LIN Z, 1991, 1ST P INT C PAR DIST
+   MCGILL MJ, 1983, INTRO MODERN INFORMA
+   NOFEL PJ, 1986, MOD OFFICE TECHNOL M, P84
+   PRICE J, 1984, VIDEODISC OPT DISK, V4, P424
+   RIJSBERGEN CJV, 1979, INFORMATION RETRIEVA
+   SACKSDAVIS R, 1983, INFORM SYST, V8, P273, DOI 10.1016/0306-4379(83)90013-3
+   SACKSDAVIS R, 1987, ACM T DATABASE SYST, V12
+   STANDFILL C, 1986, CACM, V29, P1129
+   STANDISH TA, 1984, IEEE T SOFTWARE ENG, V10, P495
+   STIASSNY S, 1960, AM DOC, V11, P155, DOI 10.1002/asi.5090110209
+   THOMA GR, 1985, ACM TOOIS, V3
+   TSICHRITZIS D, 1983, ACM T OFF INF SYST, V1, P88, DOI 10.1145/357423.357429
+NR 23
+TC 15
+Z9 15
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD JUN
+PY 1992
+VL 4
+IS 3
+BP 281
+EP 289
+DI 10.1109/69.142018
+PG 9
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA HY040
+UT WOS:A1992HY04000006
+ER
+
+PT J
+AU BOCK, P
+   KLINNERT, R
+   KOBER, R
+   ROVNER, RM
+   SCHMIDT, H
+AF BOCK, P
+   KLINNERT, R
+   KOBER, R
+   ROVNER, RM
+   SCHMIDT, H
+TI GRAY-SCALE ALIAS
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE ADAPTIVE LEARNING; ALIAS; COLLECTIVE LEARNING; CONNECTIONISM; IMAGE
+   PROCESSING; INDUSTRIAL QUALITY CONTROL; MACHINE LEARNING; NEURAL
+   NETWORKS; PARALLEL PROCESSING
+AB Based on the paradigm of collective learning systems, ALIAS (Adaptive Learning Image Analysis System) is an adaptive image-processing engine, specifically designed to detect anomalies in otherwise normal images and signals. To accomplish this, ALIAS requires only one pass through a training set, which typically consists of less than 100 samples. The original version of ALIAS (1.0) was completed in Apr. 1990 at the Research Institute for Applied Knowledge Processing (FAW) in Ulm, Germany. This engine was limited to an input domain of binary images. Although there are many applications that involve binary images, it was clear that ALIAS could be greatly enhanced by extending its input domain to include gray-scale (or color) images. For this reason, Robert Bosch GmbH funded Project ALANN to develop a new gray-scale version of ALIAS (2.3), which was completed in Apr. 1991. Robert Bosch has applied for a patent on the computational methods and system architecture of the current ALIAS engine. This paper presents the theoretical background and technical design of ALIAS, and describes two experiments with the new gray-scale capability.
+C1 RES INST APPL KNOWLEDGE PROC,W-7900 ULM 7,GERMANY.
+RP BOCK, P (reprint author), GEORGE WASHINGTON UNIV,DEPT ELECT ENGN & COMP SCI,WASHINGTON,DC 20052, USA.
+CR BARNSLEY MF, 1988, SCI FRACTAL INAGES
+   BOCK P, 1988, J LATIN AM SOC ARTIF
+   BOCK P, 1989, NOV P INT WORKSH NEU
+   BOCK P, 1990, 1990 P ACM 18TH ANN
+   BOCK P, UNPUB SENSITIVITY AL
+   BOCK P, 1990, ADVANCED NEURAL COMPUTERS, P237
+   BOCK P, 1985, AI MAGAZINE      FAL, V6, P180
+   Bock P., 1988, Annals of Operations Research, V16, DOI 10.1007/BF02283734
+   BOCK P, 1985, AUG P INT INF SCI S
+   BOCK P, 1990, JUN P INT JOINT C NE
+   CHEN D, 1990, IEEE T COMMUN, V38
+   KOCINSKI CJ, IN PRESS DETERMINATI
+   NIEMANN H, 1983, KLASSIJIKATION VONMU
+NR 13
+TC 4
+Z9 4
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD APR
+PY 1992
+VL 4
+IS 2
+BP 109
+EP 122
+DI 10.1109/69.134248
+PG 14
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA HQ606
+UT WOS:A1992HQ60600002
+ER
+
+PT J
+AU ISHIDA, T
+   GASSER, L
+   YOKOO, M
+AF ISHIDA, T
+   GASSER, L
+   YOKOO, M
+TI ORGANIZATION SELF-DESIGN OF DISTRIBUTED PRODUCTION SYSTEMS
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE ADAPTIVE PROBLEM SOLVING; ORGANIZATION SELF-DESIGN; PARALLEL AND
+   DISTRIBUTED PROCESSING; PRODUCTION SYSTEM; REAL-TIME PROBLEM SOLVING
+ID TIME
+AB Organization has emerged as a key concept for structuring the activities of collections of problem-solvers. Organization self-design (OSD) has been studied as an adaptive approach to long term, strategic work-allocation and load-balancing. In this paper, we introduce two new reorganization primitives, composition and decomposition. They change the population of agents and the distribution of knowledge in an organization. To create these primitives, we formalize organizational knowledge, which represents knowledge of potential and necessary interactions among agents in an organization. We develop computational OSD techniques for agents with architectures based on production systems to take advantage of the well-understood body of theory and practice.
+   We first extend parallel production systems, where global control exists, into distributed production systems, where problems are solved by a society of agents using distributed control. We then introduce OSD into distributed production systems to provide adaptive work allocation. Simulation results demonstrate the, effectiveness of our approach in adapting to changing environmental demands. In addition to introducing advanced techniques for flexible OSD, our approach impacts production system design, and improves our ability to build production systems that can adapt to changing real-time constraints.
+C1 UNIV SO CALIF,DEPT COMP SCI,LOS ANGELES,CA 90089.
+RP ISHIDA, T (reprint author), NIPPON TELEGRAPH & TEL PUBL CORP,COMMUN SCI LAB,SEIKA CHO,SORICU KU,KYOTO 61902,JAPAN.
+CR ACHARYA A, 1989, PROCEEDINGS OF THE 1989 INTERNATIONAL CONFERENCE ON PARALLEL PROCESSING, VOL 2, P246
+   Bomans L., 1989, Concurrency: Practice and Experience, V1, DOI 10.1002/cpe.4330010103
+   Bond A. H., 1988, READINGS DISTRIBUTED
+   CLAYTON BD, 1987, ART PROGRAMMING TUTO
+   CORKILL DD, 1982, COINSTR8233 U MASS
+   Dally W.J., 1986, Proceedings of the IEEE International Conference on Computer  Design: VLSI in Computers. ICCD '86 (Cat. No.86CH2348-1)
+   DAVIS R, 1983, ARTIF INTELL, V20, P63, DOI 10.1016/0004-3702(83)90015-2
+   Durfee E.H., 1987, P 10 INT JOINT C ART, P875
+   DURFEE EH, 1987, IEEE T COMPUT, V36, P1275
+   FORGY CL, 1982, ARTIF INTELL, V19, P17, DOI 10.1016/0004-3702(82)90020-0
+   FOX M, 1981, IEEE T SYST MAN CYBE, V11
+   GASSER L, 1986, ACM T INFORM SYST, V4, P205, DOI 10.1145/214427.214429
+   GASSER L, 1991, ARTIF INTELL, V47, P107, DOI 10.1016/0004-3702(91)90052-L
+   GASSER L, 1989, DISTRIBUTED ARTIFICI, V2, P55
+   GASSER L, 1901, P AAAI91, P185
+   GUPTA A, 1988, 17TH P INT C PAR PRO, P271
+   HAYESROTH B, 1989, P 11 INT JOINT C ART, P243
+   HAYESROTH B, 1985, ARTIF INTELL, V26, P251, DOI 10.1016/0004-3702(85)90063-3
+   HEWITT C, 1977, ARTIF INTELL, V8, P323, DOI 10.1016/0004-3702(77)90033-9
+   HOGG T, 1990, SSL9052 DYN COMP GRO
+   ISHIDA T, 1990, PROCEEDINGS : EIGHTH NATIONAL CONFERENCE ON ARTIFICIAL INTELLIGENCE, VOLS 1 AND 2, P52
+   Ishida T., 1991, IEEE Transactions on Knowledge and Data Engineering, V3, DOI 10.1109/69.75883
+   ISHIDA T, 1990, P IEEE C ARTIFICIAL, P116
+   ISHIDA T, 1908, KP INT C PARALLEL P, P568
+   LAFFEY TJ, 1988, AI MAG, V9, P27
+   LESSER VR, 1988, AI MAG, V9, P49
+   MALONE TW, 1987, MANAGE SCI, V33, P1317, DOI 10.1287/mnsc.33.10.1317
+   MIRANKER DP, 1990, 10TH P INT C EXP SYS
+   Moldovan D.I., 1986, Proceedings of the 1986 IEEE International Conference on  Systems, Man, and Cybernetics (Cat. No.86CH2364-8)
+   SCHMOLZE JG, 1990, PROCEEDINGS : EIGHTH NATIONAL CONFERENCE ON ARTIFICIAL INTELLIGENCE, VOLS 1 AND 2, P65
+   Winston P H, 1977, ARTIFICIAL INTELLIGE
+   ZISMAN MD, 1978, PATTERN DIRECTED INF
+NR 32
+TC 47
+Z9 47
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD APR
+PY 1992
+VL 4
+IS 2
+BP 123
+EP 134
+DI 10.1109/69.134249
+PG 12
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA HQ606
+UT WOS:A1992HQ60600003
+ER
+
+PT J
+AU VENKATESH, SS
+AF VENKATESH, SS
+TI THE SCIENCE OF MAKING ERRORS - WHAT ERROR TOLERANCE IMPLIES FOR CAPACITY
+   IN NEURAL NETWORKS
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE ASSOCIATIVE MEMORY; CAPACITY; ERROR TOLERANCE; NEURAL NETWORKS; NEURON
+ID ASSOCIATIVE MEMORY
+AB How does an allowed tolerance for error in output affect the computational capability of a neural network and the ability of the network to learn an underlying problem structure? The subject of this communication is the development of formal protocols for handling error tolerance which allow of a precise determination of the computational gains that may be expected. The error protocols are illustrated in the framework of a densely interconnected neural network architecture (with associative memory the putative application), and rigourous calculations of capacity are shown. Explicit capacities are also derived for the case of feedforward neural network configurations.
+C1 UNIV PENN,NEUROSCI GRAD GRP,PHILADELPHIA,PA 19104.
+RP VENKATESH, SS (reprint author), UNIV PENN,DEPT ELECT ENGN,PHILADELPHIA,PA 19104, USA.
+CR Baum E.B., 1988, Journal of Complexity, V4, DOI 10.1016/0885-064X(88)90020-9
+   BLAKE IF, 1987, IEEE T INFORM THEORY, V33, P426, DOI 10.1109/TIT.1987.1057298
+   CHERNOFF H, 1952, ANN MATH STAT, V23, P493, DOI 10.1214/aoms/1177729330
+   COVER TM, 1965, IEEE TRANS ELECTRON, VEC14, P326, DOI 10.1109/PGEC.1965.264136
+   FUREDI Z, 1986, DISCRETE COMPUT GEOM, V1, P315, DOI 10.1007/BF02187704
+   HOPFIELD JJ, 1982, P NATL ACAD SCI-BIOL, V79, P2554, DOI 10.1073/pnas.79.8.2554
+   KOMLOS J, 1988, NEURAL NETWORKS, V1, P239, DOI 10.1016/0893-6080(88)90029-9
+   MCELIECE RJ, 1977, THEORY INFORMATION C
+   MCELIECE RJ, 1987, IEEE T INFORM THEORY, V33, P461, DOI 10.1109/TIT.1987.1057328
+   NEWMAN CM, 1988, NEURAL NETWORKS, V1, P223, DOI 10.1016/0893-6080(88)90028-7
+   SCHLAFLI L, 1950, GESAMMELTE MATH ABHA, V1, P209
+   VENKATESH SS, 1992, IEEE T PATTERN ANAL, V14, P87, DOI 10.1109/34.107015
+   VENKATESH SS, 1986, NEURAL NETWORKS COMP
+   VENKATESH SS, 1991, NEURAL NETWORKS PERC
+   Venkatesh S.S., 1991, Journal of Complexity, V7, DOI 10.1016/0885-064X(91)90040-5
+   WENDEL J. G., 1962, MATH SCAND, V11, P109
+   *KAHN J, DETERMINANT RANDOM
+NR 17
+TC 2
+Z9 2
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD APR
+PY 1992
+VL 4
+IS 2
+BP 135
+EP 144
+DI 10.1109/69.134250
+PG 10
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA HQ606
+UT WOS:A1992HQ60600004
+ER
+
+PT J
+AU KUMAR, D
+AF KUMAR, D
+TI DEVELOPMENT OF A CLASS OF DISTRIBUTED TERMINATION DETECTION ALGORITHMS
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE COMPUTER NETWORKS; DEADLOCK DETECTION; DESIGN METHODOLOGY; DISTRIBUTED
+   COMPUTING; FIFO LINES; MESSAGE COMMUNICATION; TERMINATION DETECTION
+ID COMPUTATIONS; SYSTEMS
+AB Accessing and updating information in a self organizing data structure in a distributed environment requires execution of various distributed algorithms. Design of such algorithms is often facilitated by the use of a distributed termination detection algorithm superimposed on top of another distributed algorithm. In this paper we consider the problem of distributed termination detection and introduce message counting as an effective technique in designing such algorithms. We present a class of efficient algorithms, based on the idea of message counting, for this problem. After termination has occurred, it is detected within a small number of message communications. These algorithms do not require the FIFO property for the communication lines. Assumptions regarding the connectivity of the processes are simple. The algorithms are incrementally developed, i.e., a succession of algorithms is presented leading to the final algorithms.
+RP KUMAR, D (reprint author), CASE WESTERN RESERVE UNIV,DEPT COMP ENGN & SCI,CLEVELAND,OH 44106, USA.
+CR ARORA RK, 1986, INFORM PROCESS LETT, V22, P311, DOI 10.1016/0020-0190(86)90072-4
+   ARORA RK, 1983, INFORM SYST, V8, P37, DOI 10.1016/0306-4379(83)90028-5
+   CHANDY KM, 1985, TR8502 U TEXAS AUSTI
+   CHANDY KM, 1988, PARALLEL PROGRAM DES
+   CHANDY KM, 1981, COMMUN ACM, V24, P198, DOI 10.1145/358598.358613
+   CHANDY KM, 1982, COMMUN ACM, V25, P833, DOI 10.1145/358690.358717
+   CHANDY KM, 1985, ACM T COMPUT SYST, V3, P63, DOI 10.1145/214451.214456
+   CHANG EJH, 1982, IEEE T SOFTWARE ENG, V8, P391, DOI 10.1109/TSE.1982.235573
+   COHEN S, 1982, P 1 ANN ACM S PRINC, P29, DOI 10.1145/800220.806678
+   DIJKSTRA EW, 1983, INFORM PROCESS LETT, V16, P217, DOI 10.1016/0020-0190(83)90092-3
+   DIJKSTRA EW, 1979, INFORM PROCDESSING L, V11
+   DIJKSTRA EW, 1981, DISTRIBUTED TERMINAT
+   ERIKSEN O, 1988, J PARALLEL DISTR COM, V5, P82, DOI 10.1016/0743-7315(88)90033-0
+   FRANCEZ N, 1980, LECTURE NOTES COMPUT, V107
+   Francez N., 1980, ACM Transactions on Programming Languages and Systems, V2, DOI 10.1145/357084.357087
+   FRANCEZ N, 1982, IEEE T SOFTWARE ENG, V8, P287, DOI 10.1109/TSE.1982.235257
+   FRANCEZ N, 1980, IBM TR72 ISR SCI CTR
+   GLIGOR VD, 1980, IEEE T SOFTWARE ENG, V6
+   GOUDA MG, 1981, TR185 U TEX AUST DEP
+   HOARE CAR, 1978, INFORM P LETT, V21, P666
+   KATZ S, 1987, IEEE T SOFTWARE ENG, V13, P540, DOI 10.1109/TSE.1987.233199
+   KUMAR D, 1987, TR8708 U TEX AUST DE
+   KUMAR D, 1987, THESIS U TEXAS AUSTI
+   KUMAR D, 1985, LECT NOTES COMPUT SC, V206, P73
+   LAI TH, 1986, J PARALLEL DISTR COM, V3, P577, DOI 10.1016/0743-7315(86)90015-8
+   LAMPORT L, 1978, COMMUN ACM, V21, P558, DOI 10.1145/359545.359563
+   MATTEN F, 1982, ACM T PROGR LANG SYS, V4, P678
+   MATTERN F, 1987, DISTRIB COMPUT, V2, P161, DOI 10.1007/BF01782776
+   MISRA J, 1982, ACM T PROGR LANG SYS, V4, P37, DOI 10.1145/357153.357156
+   MISRA J, 1981, IEEE T SOFTWARE ENG, V7, P417, DOI 10.1109/TSE.1981.230844
+   MISRA J, 1983, 2ND P ANN ACM S PRIN, P290
+   OBERMARCK R, 1982, ACM T DATABASE SYST, V7, P187, DOI 10.1145/319702.319717
+   OWICKI S, 1976, ACTA INFORM, V6, P319, DOI 10.1007/BF00268134
+   RANA SP, 1982, INFORM PROCESSING LE, V17, P43
+   TEL G, 1988, SCI COMPUT PROGRAM, V10, P107, DOI 10.1016/0167-6423(88)90024-X
+   TOPER RW, 1984, INFORM PROCESSING LE, V18, P33
+NR 36
+TC 2
+Z9 2
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD APR
+PY 1992
+VL 4
+IS 2
+BP 145
+EP 155
+DI 10.1109/69.134251
+PG 11
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA HQ606
+UT WOS:A1992HQ60600005
+ER
+
+PT J
+AU GOTTHARD, W
+   LOCKEMANN, PC
+   NEUFELD, A
+AF GOTTHARD, W
+   LOCKEMANN, PC
+   NEUFELD, A
+TI SYSTEM-GUIDED VIEW INTEGRATION FOR OBJECT-ORIENTED DATABASES
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE DATABASE DESIGN; DATABASE DESIGN ENVIRONMENT; DESIGN DATABASES FOR
+   SOFTWARE DEVELOPMENT; ENTITY-RELATIONSHIP MODEL; GLOBAL CONCEPTUAL
+   SCHEMA; OBJECT-ORIENTED DATABASES; SEMANTIC MODEL; SCHEMA INTEGRATION;
+   STRUCTURAL OBJECT-ORIENTATION; VIEW INTEGRATION
+ID SCHEMA INTEGRATION; MODEL
+AB View integration refers to the activity of merging the locally developed user-oriented views or schemas for a given environment of users and applications into a unique global conceptual schema. View integration is itself part of the larger activity of database design which has as its objective a database structure that satisfies to the best possible degree all data requirements of the potential users and all process requirements of the intended applications.
+   The paper takes its cues from a survey article by Batini, Lenzerini, and Navathe who point out that despite ten or more years of intense research many issues still remain open. Chief among them are a low emphasis on full-scale automated systems, a lack of algorithmic specifications of the integration activities, inattention to the design of databases with new properties such as databases for computer-aided design, and insufficient experience with data models with a rich set of type and abstraction mechanisms. The paper takes all four into consideration by focusing on the realm of design databases for software engineering, by relying on a semantic model on the basis of structural object-orientation, by utilizing the expressiveness of the model to take first steps toward algorithmic solutions, and by demonstrating how corresponding tools could be embedded methodically within the view integration process and technically within a database design environment. The central idea is to compute so-called assumption predicates that express suggested similarities between structures in two schemas to be integrated, and then have a human integrator confirm or reject them. The basic method is exemplified for a data model that includes molecular aggregation, generalization, and versioning. Appropriate predicates, integration, and transformation primitives for automating part of the integration process are introduced. First experiences with an experimental prototype are related.
+C1 UNIV KARLSRUHE,FAK INFORMAT,W-7500 KARLSRUHE 1,GERMANY.
+RP GOTTHARD, W (reprint author), IBM ENTWICKLUNG & FORSCH,W-7030 BOBLINGEN,GERMANY.
+CR AGHA G, 1987, RES DIRECTIONS OBJEC, P49
+   AGOSTI M, 1986, BRIT COMPUT SOC MONO
+   ATKINSON M, 1989, 1ST P INT C DED OBJ, P40
+   Atwood T.M., 1985, Proceedings of COMPINT 85: Computer Aided Technologies (Cat.  No.85CH2136-0)
+   BANCILHON F, 1988, LECT NOTES COMPUT SC, V334, P1
+   BANERJEE J, 1987, MAY P ACM SIGMOD C M, P311
+   BANERJEE J, 1987, ACM T INFORM SYST, V5, P3, DOI 10.1145/22890.22945
+   BATINI C, 1984, IEEE T SOFTWARE ENG, V10, P650
+   BATINI C, 1986, COMPUT SURV, V18, P323
+   BATORY DS, 1984, 10TH P INT C VER LAR, P172
+   CAREY MJ, 1988, JUN P SIGMOD INT C M, P413
+   DADAM P, 1986, P ACM SIGMOD C WASH, P356, DOI 10.1145/16894.16889
+   DAYAL U, 1986, KNOWLEDGE BASE MANAG, P227
+   DeRemer F., 1976, IEEE Transactions on Software Engineering, VSE-2, DOI 10.1109/TSE.1976.233534
+   DITTRICH KR, 1987, LECTURE NOTES COMPUT, V244, P421
+   DITTRICH KR, 1988, LECTURE NOTES COMPUT, V334
+   DITTRICH KR, 1987, 5TH P INT ER C DIJ, P59
+   DITTRICH KR, 1986, 1986 P INT WORKSH OB
+   FISHMAN DH, 1987, ACM T OFFIC INFORM S, V5, P448
+   Goldberg A., 1983, SMALLTALK 80 LANGUAG
+   GOTTHARD W, 1988, 193 DAT BANK SYST SO
+   HAILPERN B, 1987, RES DIRECTIONS OBJEC, P147
+   HEILER S, 1988, LECT NOTES COMPUT SC, V334, P225
+   KARL S, 1988, INFORM SYST, V13, P335, DOI 10.1016/0306-4379(88)90002-6
+   KEMPER A, 1987, MAY P ACM SIGMOD 87, P299
+   KIM W, 1987, 3RD P INT C DAT ENG, P626
+   LIPSKI A, 1988, THESIS U KARLSRUHE
+   LOCKEMANN PC, 1986, INFORMATION PROCESSI, P617
+   LORIE R, 1985, QUERY PROCESSING DAT
+   MAIER D, 1987, RES DIRECTIONS OBJEC, P355
+   NARAYANASWAMY K, 1987, IEEE T SOFTWARE ENG, V13, P324, DOI 10.1109/TSE.1987.233163
+   NAVATHE S, 1986, IEEE COMPUTER    JUN, P50
+   NAVATHE SB, 1984, 10 INT C VER LARG DA, P78
+   OSSHER HL, 1987, RES DIRECTIONS OBJEC, P219
+   SCHEK HJ, 1986, INFORM SYST, V11, P137, DOI 10.1016/0306-4379(86)90003-7
+   Shriver B., 1987, RES DIRECTIONS OBJEC
+   SIDLE TW, 1980, 17TH P DES AUT C MIN, P57
+   STEMPLE D, 1988, LECT NOTES COMPUT SC, V334, P110
+   STONEBRAKER M, 1986, P ACM SIGMOD INT C M, P340, DOI 10.1145/16894.16888
+   WOELK D, 1987, 13TH P INT C VER LAR, P319
+   1990, UCBERL M9028 U CAL E
+NR 41
+TC 31
+Z9 31
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD FEB
+PY 1992
+VL 4
+IS 1
+BP 1
+EP 22
+DI 10.1109/69.124894
+PG 22
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA HN309
+UT WOS:A1992HN30900001
+ER
+
+PT J
+AU CHANG, TH
+   SCIORE, E
+AF CHANG, TH
+   SCIORE, E
+TI A UNIVERSAL RELATION DATA MODEL WITH SEMANTIC ABSTRACTIONS
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE ISA HIERARCHIES; NONNAVIGATIONAL QUERY PROCESSING; SEMANTIC DATA MODELS;
+   UNIVERSAL RELATIONS; VIEW UPDATES
+AB Two important features of modern database models are support for complex data structures and support for high-level data retrieval and update. The first issue has been studied by the development of various semantic data models; the second issue has been studied through universal relation data models. In this paper we examine how the advantages of these two approaches can be combined. We introduce a new data model, which incorporates standard concepts from semantic data models such as entities, aggregations, and ISA hierarchies. We then show how nonnavigational queries and updates can be interpreted in this model.
+   The main contribution of this paper is to demonstrate how universal relation techniques can be extended to a more powerful data model. Moreover, the semantic constructs of our model allow us to eliminate many of the limitations of previous universal relation models.
+C1 BOSTON COLL,DEPT COMP SCI,CHESTNUT HILL,MA 02167.
+RP CHANG, TH (reprint author), DIGITAL EQUIPMENT CORP,CTR ARTIFICIAL INTELLIGENCE TECHNOL,HUDSON,MA 01749, USA.
+CR ABITEBOUL S, 1987, ACM T DATABASE SYST, V12, P525, DOI 10.1145/32204.32205
+   Brady L.I., 1985, Proceedings of the 4th International Conference on  Entity-Relationship Approach (Cat. No.85CH2226-9)
+   BROSADA V, 1988, ACM T DATAB SYS  DEC, P449
+   CHANG TH, 1988, THESIS BOSTON U
+   Codd E.F., 1979, ACM Transactions on Database Systems, V4, DOI 10.1145/320107.320109
+   DAYAL U, 1982, ACM T DATABASE SYST, V8, P381
+   FAGIN R, 1982, ACM T DATABASE SYST, V7, P343, DOI 10.1145/319732.319735
+   GREENBLATT D, 1978, DATABASE IMPROVING U
+   HULL R, 1987, COMPUT SURVEYS   SEP, P201
+   KELLER AM, 1986, IEEE COMPUT MAG  JAN
+   MAIER D, 1986, ADV COMPUTING RES, P213
+   MAIER D, 1983, ACM T DATABASE SYST, V8, P1, DOI 10.1145/319830.319831
+   MAIER D, 1987, INFORM SYST, V12, P317, DOI 10.1016/0306-4379(87)90008-1
+   Pahwa A., 1985, Proceedings of the 4th International Conference on  Entity-Relationship Approach (Cat. No.85CH2226-9)
+   TEOREY TJ, 1982, DESIGN DATABASE STRU
+   ZHANG ZQ, 1983, ENTITY RELATIONSHIP, P441
+NR 16
+TC 13
+Z9 13
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD FEB
+PY 1992
+VL 4
+IS 1
+BP 23
+EP 33
+DI 10.1109/69.124895
+PG 11
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA HN309
+UT WOS:A1992HN30900002
+ER
+
+PT J
+AU DANFORTH, S
+   VALDURIEZ, P
+AF DANFORTH, S
+   VALDURIEZ, P
+TI A FAD FOR DATA INTENSIVE APPLICATIONS
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE COMPLEX OBJECTS; DATA MODEL; DATABASE PROGRAMMING LANGUAGE; PARALLEL
+   DATABASE SYSTEM; QUERY OPTIMIZATION
+AB FAD is a strongly-typed database programming language designed for uniformly manipulating transient and persistent data on Bubba, a parallel database system developed at MCC. This paper provides an overall description of FAD, and discusses the design rationale behind a number of its distinguishing features. Comparisons with other database programming languages are provided.
+C1 INST NATL RECH INFORMAT & AUTOMAT,F-78153 LE CHESNAY,FRANCE.
+RP DANFORTH, S (reprint author), IBM CORP,ZIP 9641,AUSTIN,TX 78759, USA.
+CR ABADI M, 1989, DEC SRC47 REP
+   ABITEBOUL S, 1984, 3RD P ACM INT S PRIN
+   ALBANO A, 1985, ACM T DATABASE SYST, V10
+   ATKINSON M, 1987, ACM COMPUT SURVEYS, V19
+   ATKINSON MP, 1981, ACM SIGPLAN NOTICES, V17
+   BACKUS J, 1978, COMMUN ACM, V21
+   BANCILHON F, 1987, P INT C VERY LARGE D
+   BANCILHON F, 1986, P ACM INT S PRINCIPL
+   BELLEGRADE F, 1984, P ACM S LISP FUNCT P
+   BORAL H, 1988, DEC P INT S DAT PAR
+   BUNEMAN P, 1981, ACM C FUNCTIONAL PRO
+   CARDELLI L, 1984, 1127184092410TM AT T
+   CAREY M, 1987, 734 U WISC REP COMP
+   CHEN P, 1976, ACM T DATABASE, V1
+   CODD EF, 1970, COMM ACM, V13
+   COPELAND G, 1984, P ACM INT SIGMOD C
+   COPELAND G, 1988, P ACM INT SIGMOD C C
+   DANFORTH S, 1988, MCC ACAST19488Q TECH
+   DEWITT D, 1986, P INT C VERY LARGE D
+   FERGUSON A, 1988, P GLASGLOW WORKSHOP
+   FUH YC, 1988, LNCS, V300
+   FURTADO A, 1977, P ACM INT SIGMOD C
+   GAVER J, 1989, UIUCDCSR891539 U ILL
+   GOPINATH K, 1989, P ACM S PRINCIPLES P
+   Gordon M.J.C., 1979, LNCS, V78
+   HAMMER M, 1981, ACM T DATABASE SYST, V6
+   HART B, 1988, DEC P INT S DAT PAR
+   HULL R, 1984, J ACM, V31
+   JAESCHKE G, 1982, 1ST P ACM INT S PRIN
+   JATEGAONKAR L, 1988, P ACM C LISP FUNCTIO
+   KHOSHAFIAN S, 1986, 1ST P INT WORKSH OBJ
+   KRANZ D, 1986, SIGPLAN NOTICES, V21
+   KUPER G, 1985, P ACM INT SIGMOD C
+   LECLUSE C, 1988, P ACM INT SIGMOD C
+   MILNER R, 1978, J COMPUT SYST SCI, V17
+   MILNER R, 1984, CSR15783 U ED DEP CO
+   NIKHIL R, 1987, P INT WORKSHOP DATAB
+   OHORI A, 1989, P ACM INT SIGMOD C P
+   OZSOYOGLU M, 1985, 4TH P ACM INT S PRIN
+   POULOVASSILIS A, 1988, 6TH P BRIT NAT C DAT
+   REMY M, 1989, P ACM S PRINCIPLES P
+   ROTH M, 1984, TR8436 U TEX AUST DE
+   SCHEK H, 1986, INFORM SYST, V11
+   SCHMIDT JW, 1977, ACM T DATABASE SYST, V2
+   STEELE G, 1978, MIT AITR474 REP
+   Steele jr G. L., 1984, COMMON LISP LANGUAGE
+   STONEBRAKER M, 1986, DATABASE ENG, V9
+   SUSSMANN G, 1975, MIT AI349 MEM
+   THOMAS S, 1982, THESIS VANDERBILT U
+   TRINDLER P, 1988, 1988 P GLASGL WORKSH
+   TSUR S, 1986, 12TH P INT C VER LAR
+   TSUR S, 1984, P ACM INT SIGMOD C
+   VALDURIEZ P, 1989, 1ST P INT C DED OBJ
+   VALDURIEZ P, IN PRESS INFORM SCI
+   VALDURIEZ P, 1989, 2ND P INT WORKSH DAT
+   WAND M, 1987, 2ND P ANN S LOG COMP
+   ZANIOLO C, 1985, 11TH P INT C VER LAR
+   1990, IEEE T KNOWLEDGE DAT, V2
+NR 58
+TC 4
+Z9 4
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD FEB
+PY 1992
+VL 4
+IS 1
+BP 34
+EP 51
+DI 10.1109/69.124896
+PG 18
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA HN309
+UT WOS:A1992HN30900003
+ER
+
+PT J
+AU YOUN, C
+   KIM, HJ
+   HENSCHEN, LJ
+   HAN, JW
+AF YOUN, C
+   KIM, HJ
+   HENSCHEN, LJ
+   HAN, JW
+TI CLASSIFICATION AND COMPILATION OF LINEAR RECURSIVE QUERIES IN DEDUCTIVE
+   DATABASES
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE DEDUCTIVE DATABASE; GRAPH MODEL; KNOWLEDGE BASE; LINEAR RECURSIVE QUERY;
+   QUERY EVALUATION PLAN; RECURSIVE QUERY COMPILATION
+AB In this paper, we present a graph model which is powerful in classifying and compiling linear recursive formulas in deductive databases. The graph model consists of two kinds of graphs: I-graph and Resolution Graph. We can extract essential properties of a recursive formula from its I-graph and can easily figure out the compiled formula and the query evaluation plan of the recursive formula from its resolution graph.
+   We demonstrate that based on the graph model all the linear recursive formulas can be classified into a taxonomy of classes and each class shares some common characteristics in query compilation and query processing. The compiled formulas and the corresponding query evaluation plans can be derived based on the study of the compilation of each class.
+C1 SEOUL NATL UNIV,DEPT COMP ENGN,SEOUL 151,SOUTH KOREA.
+   NORTHWESTERN UNIV,DEPT ELECT ENGN & COMP SCI,EVANSTON,IL 60201.
+   SIMON FRASER UNIV,SCH COMP SCI,BURNABY V5A 1S6,BC,CANADA.
+RP YOUN, C (reprint author), BELL COMMUN RES INC,PISCATAWAY,NJ 08854, USA.
+RI Henschen, Lawrence/B-7168-2009
+CR Bancilhon F., 1986, P ACM SIGMOD INT C M, P16, DOI 10.1145/16894.16859
+   BANCILHON F, 1986, 5TH P ACM S PRINC DA, P1
+   CHANDRA A, 1981, 8TH P ANN ACM S PRIN
+   GALLAIRE H, 1984, COMPUT SURV, V16, P153
+   HAN J, 1988, 1988 P CAN INF PROC
+   HAN J, 1987, P ACM SIGMOD INT C M, P73, DOI 10.1145/38713.38727
+   HAN J, 1985, 629 U WISC COMP SCI
+   HENSCHEN LJ, 1984, J ACM, V31, P47, DOI 10.1145/2422.2423
+   IOANNIDIS Y, 1985, UCBERLM856 U CAL MEM
+   IOANNIDIS YE, 1985, 11TH P INT C VER LAR, P219
+   JAGADISH HV, 1987, JUN P ACM SIGMOD C M, P331
+   LLOYD JW, 1987, F LOGIC PROGRAMMING
+   Maier D., 1983, THEORY RELATIONAL DA
+   MINKER J, 1988, F DEDUCTIVE DATABASE
+   MINKER J, 1978, ACM T DATABASE SYST, V3
+   NAUGHTON J, 1986, P ACM SIGACT SIGMOD
+   NAUGHTON JF, 1989, J ACM, V36, P69, DOI 10.1145/58562.59303
+   NAUGHTON JF, 1987, 6TH P ACM S PRINC DA, P340
+   RAMAKRISHNAN R, 1988, COMMUNICATION
+   Reiter R., 1978, Logic and data bases
+   SHMUELI O, 1987, 5TH P ACM SIGMOD SIG
+   TROY DJ, 1989, IEEE T SOFTWARE ENG, V16, P1109
+   Ullman J.D, 1989, PRINCIPLES DATABASE, VII
+   YOUN C, 1988, JUN P ACM SIGMOD C M
+NR 24
+TC 2
+Z9 3
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD FEB
+PY 1992
+VL 4
+IS 1
+BP 52
+EP 67
+DI 10.1109/69.124897
+PG 16
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA HN309
+UT WOS:A1992HN30900004
+ER
+
+PT J
+AU HACHEM, NI
+   BERRA, PB
+AF HACHEM, NI
+   BERRA, PB
+TI NEW ORDER PRESERVING ACCESS METHODS FOR VERY LARGE FILES DERIVED FROM
+   LINEAR HASHING
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE ACCESS METHOD; CONSECUTIVE RETRIEVAL; DYNAMIC FILE STRUCTURES;
+   MANAGEMENT OF VERY LARGE FILES; ORDER PRESERVING HASHING; RANDOM AND
+   SEQUENTIAL FILES; SEARCHING
+ID PARTIAL EXPANSIONS; ORGANIZATION; PERFORMANCE; INDEX
+AB In this paper a new class of order preserving dynamic hashing structures is introduced and analyzed. The access method is referred to as dynamic random-sequential access method (DRSAM) and is derived from linear hashing. We propose a new logical to physical mapping based on sequential bucket allocations in hash order. With respect to previous methods this allocation technique has the following characteristics: 1) the structure captures the hashed order in consecutive storage areas so that order preserving (OPH) schemes should result in performance improvements for range queries and sequential processing. 2) It adapts elastic buckets [20] for the control of file growth. Under specific conditions, this approach outperforms the partial expansion method previously proposed by Larson [17].
+C1 SYRACUSE UNIV,DEPT COMP & ELECT ENGN,SYRACUSE,NY 13244.
+RP HACHEM, NI (reprint author), WORCESTER POLYTECH INST,DEPT COMP SCI,WORCESTER,MA 01609, USA.
+CR BAEZAYATES RA, 1987, CS8704 U WAT DEP COM
+   Bayer R., 1972, Acta Informatica, V1, DOI 10.1007/BF00288683
+   BERRA PB, 1987, IEEE COMPUT MAG  MAR, P25
+   BURKHARD WA, 1983, BIT, V23, P274, DOI 10.1007/BF01934457
+   BURKHARD WA, 1984, 3RD P ACM SIGACT SIG, P173
+   DEUTSHER RF, 1975, MAY ACM SIGMOD P INT, P224
+   Fagin R., 1979, ACM Transactions on Database Systems, V4, DOI 10.1145/320083.320092
+   GARG AK, 1986, ACM T DATABASE SYST, V11, P213, DOI 10.1145/5922.5923
+   GHOSH SP, 1986, COMPUTER SCI APPLIED
+   GHOSH SP, 1972, COMMUN ACM, V15, P802, DOI 10.1145/361573.361578
+   HACHEM NI, 1988, 21ST P HAW INT C SYS, V1, P10
+   HACHEM NI, 1989, 5TH P INT C DAT ENG, P305
+   HACHEM NI, 1988, THESIS SYRACUSE U SY
+   HUTFLESZ A, 1988, 4TH P IEEE INT C DAT, P572
+   KRIEGEL HP, 1987, 3RD P INT C DAT ENG, P10
+   LARSON PA, 1982, ACM T DATABASE SYST, V7, P566, DOI 10.1145/319758.319763
+   Larson P.-A., 1978, BIT (Nordisk Tidskrift for Informationsbehandling), V18, DOI 10.1007/BF01931695
+   LITWIN W, 1980, 6TH P INT C VER LARG, P212
+   LITWIN W, 1987, IEEE SOFTWARE    MAR
+   LOMET DB, 1987, ACM T DATABASE SYST, V12, P65, DOI 10.1145/12047.12049
+   LOMET DB, 1988, ACM T DATABASE SYST, V13, P525, DOI 10.1145/49346.50067
+   ORENSTEIN JA, 1983, 9TH P INT C VER LARG, P132
+   RAMAMOHANARAO K, 1984, ACM T DATABASE SYST, V9, P369, DOI 10.1145/1270.1285
+   RAMAMOHANARAO K, 1982, COMPUT J, V25, P478
+   ROBINSON JT, 1986, 5TH P ACM SIGACT SIG, P91
+NR 25
+TC 6
+Z9 6
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD FEB
+PY 1992
+VL 4
+IS 1
+BP 68
+EP 82
+DI 10.1109/69.124898
+PG 15
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA HN309
+UT WOS:A1992HN30900005
+ER
+
+PT J
+AU RAMAKRISHNA, MV
+   RAMOS, EA
+AF RAMAKRISHNA, MV
+   RAMOS, EA
+TI OPTIMAL DISTRIBUTION OF SIGNATURES IN SIGNATURE HASHING
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE ANALYSIS OF ALGORITHMS; HASHING; SEARCHING; SIGNATURE HASHING; UNIFORM
+   HASHING
+AB Gonnet and Larson proposed a hashing scheme for external files which guarantees single access retrieval. They provided an asymptotic analysis of the scheme assuming uniform distribution of the signatures. This paper addresses an open problem posed by them about the performance of signatures having a skew distribution. We formulate an optimization problem to obtain the optimal signature distribution which maximizes the resulting load factor. Numerical results indicate that the optimal signature distribution results in significant reduction in the cost of insertions, which is of practical significance.
+RP RAMAKRISHNA, MV (reprint author), MICHIGAN STATE UNIV,DEPT COMP SCI,E LANSING,MI 48824, USA.
+CR Feller W., 1968, INTRO PROBABILITY TH, V1
+   GONNET GH, 1982, P ACM S PRINC DAT SY, P256, DOI 10.1145/588150.588153
+   GONNET GH, 1988, J ACM, V35, P161, DOI 10.1145/42267.42274
+   LARSON PA, 1984, COMMUN ACM, V27, P670, DOI 10.1145/358105.358193
+   LARSON PA, 1983, J ACM, V30, P805, DOI 10.1145/2157.322407
+   THARP AL, 1988, FILE ORG PROCESSING
+NR 6
+TC 1
+Z9 1
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD FEB
+PY 1992
+VL 4
+IS 1
+BP 83
+EP 88
+DI 10.1109/69.124899
+PG 6
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA HN309
+UT WOS:A1992HN30900006
+ER
+
+PT J
+AU CHU, PC
+AF CHU, PC
+TI ESTIMATING BLOCK SELECTIVITIES FOR PHYSICAL DATABASE DESIGN
+SO IEEE TRANSACTIONS ON KNOWLEDGE AND DATA ENGINEERING
+LA English
+DT Article
+DE ACCESS PATH DEPLOYMENT; BLOCK SELECTIVITY; CLUSTERING EFFECT;
+   INDEX-SELECTION; PHYSICAL DATABASE DESIGN; RELATIONAL DATABASE
+ID RELATIONAL DATABASES; SELECTION; ACCESSES; ORGANIZATIONS; INDEX;
+   PERFORMANCE; NUMBER; SET
+AB Access path deployment is a critical issue in physical database design. Access paths typically include a clustered index as the primary access path and a set of secondary indexes as auxiliary access paths. To deploy the right access paths requires an effective algorithm and accurate estimation of the parameters used by the algorithm. One parameter central to any index-selection algorithm is the block selectivity of a query. Existing methods for estimating block selectivities are limited by restrictive assumptions. Furthermore, most existing methods produce estimates useful for aiding the selection of secondary indexes only. Little research has been done in the area of estimating block selectivities for supporting the selection of the clustered index. This paper presents a set of methods that do not depend on any specific assumption, produce accurate estimates, and can be used to aid in selecting the clustered index as well as secondary indexes.
+RP CHU, PC (reprint author), OHIO STATE UNIV,SCH BUSINESS,FAC ACCOUNTING & MIS,COLUMBUS,OH 43210, USA.
+CR Anderson H.D., 1977, ACM Transactions on Database Systems, V2, DOI 10.1145/320521.320537
+   BERGAMASCHI S, 1986, INFORM SYST, V11, P199, DOI 10.1016/0306-4379(86)90028-1
+   BONANNO R, 1985, COMPUT J, V28, P398
+   BONFATTI F, 1983, METHODOLOGY TOOLS DA, P148
+   CARDENAS AF, 1975, COMMUN ACM, V18, P253, DOI 10.1145/360762.360766
+   CHEUNG TY, 1982, COMMUN ACM, V25, P484, DOI 10.1145/358557.358581
+   CHRISTODOULAKIS S, 1984, ACM T DATABASE SYST, V9, P163, DOI 10.1145/329.318578
+   CHRISTODOULAKIS S, 1984, INFORM SYST, V9, P69, DOI 10.1016/0306-4379(84)90017-6
+   CHU PC, 1989, INFORM SYST, V14, P385
+   Comer D., 1978, ACM Transactions on Database Systems, V3, DOI 10.1145/320289.320296
+   FINKELSTEIN S, 1988, ACM T DATABASE SYST, V13, P91, DOI 10.1145/42201.42205
+   GOODMAN LA, 1954, J AM STAT ASSOC, V49, P732, DOI 10.2307/2281536
+   HATZOPOULOS M, 1985, COMPUT J, V28, P406, DOI 10.1093/comjnl/28.4.406
+   IJBEMA A, 1986, FEB P INT C DAT ENG, P30
+   IP MYL, 1983, IEEE T SOFTWARE ENG, V9, P135, DOI 10.1109/TSE.1983.236458
+   KOLLIAS JG, 1979, INFORM SYST, V4, P307, DOI 10.1016/0306-4379(79)90024-3
+   LUK WS, 1983, COMMUN ACM, V26, P945, DOI 10.1145/182.358456
+   MACKERT LF, 1989, ACM T DATABASE SYST, V14, P401, DOI 10.1145/68012.68016
+   MAIO D, 1984, INFORM PROCESS LETT, V19, P157, DOI 10.1016/0020-0190(84)90096-6
+   MANNINO MV, 1988, ACM COMPUT SURV, V20, P191, DOI 10.1145/62061.62063
+   Reynolds H. T, 1984, ANAL NOMINAL DATA
+   Schkolnick M., 1975, Information Systems, V1, DOI 10.1016/0306-4379(75)90003-4
+   Stonebraker M., 1974, International Journal of Computer & Information Sciences, V3, DOI 10.1007/BF00976642
+   VANDERZANDEN BT, 1986, 12TH P INT C VER LAR, P119
+   WHANG KY, 1984, IEEE T COMPUT, V33, P209
+   WHANG KY, 1983, COMMUN ACM, V26, P940, DOI 10.1145/182.358452
+   YAO SB, 1977, COMMUN ACM, V20, P260, DOI 10.1145/359461.359475
+   ZAHORJAN J, 1983, INFORM PROCESS LETT, V16, P249, DOI 10.1016/0020-0190(83)90098-4
+NR 28
+TC 1
+Z9 1
+PU IEEE COMPUTER SOC
+PI LOS ALAMITOS
+PA 10662 LOS VAQUEROS CIRCLE, PO BOX 3014, LOS ALAMITOS, CA 90720-1264
+SN 1041-4347
+J9 IEEE T KNOWL DATA EN
+JI IEEE Trans. Knowl. Data Eng.
+PD FEB
+PY 1992
+VL 4
+IS 1
+BP 89
+EP 98
+DI 10.1109/69.124900
+PG 10
+WC Computer Science, Artificial Intelligence; Computer Science, Information
+   Systems; Engineering, Electrical & Electronic
+SC Computer Science; Engineering
+GA HN309
+UT WOS:A1992HN30900007
+ER
+
+EF

@@ -1,0 +1,37 @@
+31-10-2012 13:24:49
+
+File: null
+Database name: TKDE
+Number of documents: 1033
+Number of dimensions: 250
+
+PREPROCESSING
+Stopwords file: E:\USP\Doutorado\Projetos do Netbeans\TopicEvolutionVis\data\TKDE\stopwords_eng.spw
+
+REPRESENTATION
+Type: Latent Dirichlet Allocation (LDA)
+Luhn's Lower Cut for Terms: 70
+Luhn's Upper Cut for Terms: -1
+Number of Topics: 250
+Number of Iterations: 2500
+Alpha: 0.16
+Beta: 0.01
+
+PROJECTION
+Distance: Hellinger
+Number of control points: 50
+Number of neighboors: 15
+
+TOPIC EXTRACTION
+Technique: LDA
+Parameters: LDA Topic Extraction (minTopics=0.5, minTerms=0.7);LDA Topic Model (#topics=100, #iterations=1000, alpha=0.1, beta=0.01)
+
+MONIC
+Epsilon: 0.07
+MinPoints: 4
+Theta: 0.5
+Theta split: 0.3
+
+STRESS
+Static stress: 16.288713
+Dynamic stress: 0.3584425

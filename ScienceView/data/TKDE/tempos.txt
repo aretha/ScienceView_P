@@ -1,0 +1,4 @@
+TKDE
+Database loading time: 186760
+LDA Total time: 1 minutes 20 seconds
+T-LSP time: 868652

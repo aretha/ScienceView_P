@@ -1,0 +1,5 @@
+drop all objects
+runscript from 'E:\USP\Doutorado\Projetos do Netbeans\TopicEvolutionVis\data\TKDE\backup db\tkde-backup.db'
+
+SELECT year, count(*) FROM DOCUMENTS where (year <= 2005 and gcc>5 ) or (year > 2005 and year <=2010 and gcc>2)  or (year >2010 and year <2013 and gcc>=1) group by year order by year
+DELETE FROM DOCUMENTS WHERE (year <= 2005 and gcc<=5 ) or (year > 2005 and year <=2010 and gcc<=2) or  (year >2010 and year <2013 and gcc<1)
