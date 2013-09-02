@@ -1,0 +1,250 @@
+0	0,00614	hash scheme dynam access hybrid minim manag load heurist evolut tempor control architectur 
+1	0,00466	genet classif program classifi evolut balanc rate formula symbol heurist 
+2	0,00825	sensor network wireless node energi monitor real scheme wide simul mainten spatial reduct overhead messag support 
+3	0,01082	structur unit function real relationship role atom categori link topic synthet ontologi author fault messag experi 
+4	0,0114	valid hybrid loss simul candid bound tree complex collabor observ word failur relationship 
+5	0,01447	local global site simul minim schedul heurist 
+6	0,00862	memori disk i/o cach simul share pair estim insert expert manag 
+7	0,00896	digit librari servic compon natur manag organ architectur bound granular locat level transform independ 
+8	0,00558	benchmark propag point label digit area hierarch direct structur commun expert 
+9	0,01182	scalabl large-scal internet failur scale statist complex synthet file advanc local factor pair broadcast action mobil scheme load declar abstract depend natur 
+10	0,00448	polici resolut organ match resourc request heterogen boundari connect engin static program delai advanc semant 
+11	0,00861	queri predic sql aggreg tabl select extens storag associ index profil map multipl 
+12	0,01028	load balanc scheme node kei simul distribut global heurist manag natur process frequent share individu continu group practic messag binari sensit locat variant control area 
+13	0,00712	induct rule concept predict level neg nois genet expert infer regress statist rule-bas classif uncertain 
+14	0,00729	transform fault toler overhead sequenti access observ error filter select real-tim distribut independ 
+15	0,0088	dbm sql manag queri relat code direct languag integr point unit program storag record scale taxonomi 
+16	0,02171	multipl central time individu resolut statist collabor distinct loss aggreg benchmark record resourc subject area oper valid spatial taxonomi normal buffer class concept experi 
+17	0,00559	granular ident level multipl respons boolean action random compact independ 
+18	0,0056	overhead server cach messag commun multipl network client reduct delai distribut static product observ workload role random 
+19	0,0084	statist control regress aggreg tabl time product posit onlin probabilist 
+20	0,01781	class minim distinct distribut independ relationship multidimension explicit aspect 
+21	0,02402	oper relat role multipl manag map integr direct advanc group evolut project relationship sensit bound workflow closur aggreg 
+22	0,01218	dynam static insert memori practic manag variant period binari record optim probabilist weight signatur time 
+23	0,02079	search engin web retriev queri internet log resourc keyword filter rank document locat large-scal respons monitor kei 
+24	0,01251	complex multipl natur experi compact relationship observ retriev benchmark record level classif select abstract manag advanc 
+25	0,01337	regular decomposit matrix reduct dimension compon subspac recognit factor project term multipl product retriev direct condit insert independ imag power increment object signatur entiti valid 
+26	0,00767	schema integr evolut map structur view resolut attribut autom kei hierarchi increment graph commun heterogen semant conceptu 
+27	0,00727	attribut individu function similar close condit error predict level valid correl chain cluster discret induct probabilist heurist 
+28	0,01166	node term link central multipl factor logic workload boundari level load random ident support 
+29	0,00635	rough reduct concept fuzzi attribut matrix similar decis uncertainti depend k-mean boundari select oper 
+30	0,0054	medic record manag verif similar classif sensit parallel protect project concept 
+31	0,00845	mainten view updat increment propag overhead optim select dynam topic pair prune stream monitor process depend conceptu 
+32	0,01773	similar match retriev distanc pair sequenc wide multipl score scheme metric role relationship scale word variant estim dbm transform 
+33	0,00633	topic spars word term individu dimens natur weight close profil group entiti 
+34	0,01886	rule associ transact itemset support group prune correl reduct statist variant densiti product factor organ relationship classifi 
+35	0,00316	servic web composit peer function univers concept multipl independ resourc natur 
+36	0,00446	segment partit outlier reduct sequenc 
+37	0,02056	tempor interv valid semant relationship dimens event transact organ area support granular time period prune search languag 
+38	0,01223	dimension reduct classif high-dimension discrimin vector project dimens optim compon weight supervis densiti naiv hierarch numer content-bas document ident transform 
+39	0,01144	storag access manag scheme wide rate block overhead term benchmark compress simul partial hierarch hybrid predict 
+40	0,00614	cooper content network scalabl dynam large-scal individu web seri updat polici increment custom load hierarchi concept 
+41	0,0135	architectur real-tim compon integr kei configur softwar propag cluster messag interact virtual role concept real author mobil level engin 
+42	0,01456	neighbor queri point revers spatial search distanc synthet real variant posit optim multidimension sensit materi role support top-k formula 
+43	0,01343	document text web retriev hybrid content concept resourc product xml adapt aspect navig reduct process 
+44	0,01237	dynam program updat transit natur tree aspect insert increment dbm symbol 
+45	0,01522	search kei direct minim bound power iter explicit 
+46	0,02371	manag oper servic control aspect configur access area advanc commun integr busi propag heterogen storag multipl function associ topic chain wide retriev 
+47	0,02393	similar search index distanc high-dimension queri space dimens retriev neighbor dimension multidimension real point multimedia bound sequenti factor synthet spatial tree magnitud filter resolut oper multipl correl reduct random overhead natur form select univers compact 
+48	0,00935	heterogen view individu manag cooper queri organ resolut connect failur loss processor 
+49	0,01858	integr schema logic heterogen relat compon resolut mainten semant softwar practic deduct maxim express minim form base closur incomplet condit period dbm manag oper experi 
+50	0,0054	label categor order maxim overhead manag energi ontologi stream local error binari file real 
+51	0,01609	network neural architectur unit symbol net benchmark explicit scale practic decis 
+52	0,01349	depend function relat integr kei condit schema close monitor practic file optim relationship multipl 
+53	0,01411	reason formal uncertainti explicit expert power rule term infer base kei area profil role distanc practic iter boolean tabl recurs 
+54	0,00594	composit structur tempor continu dynam sensit metric hybrid configur transit event individu autom vector 
+55	0,00353	pair multipl predic kei atom 
+56	0,0084	subject iter error minim incomplet factor observ close wide fragment taxonomi respons dbm relationship 
+57	0,00689	associ support closur activ sequenti decomposit taxonomi color hierarchi 
+58	0,01781	index tree scalabl area point physic storag compact scheme access adapt semant 
+59	0,01475	cluster scalabl hierarchi valid distanc partial vector imag correl hierarch similar iter oper filter kernel loss 
+60	0,00632	correl factor rate synthet repositori rank probabl 
+61	0,01092	queri access index i/o storag disk interv updat formula multidimension time magnitud tabl increment categori bound polici color softwar path aggreg 
+62	0,00373	ensembl classifi base compact pair recoveri label individu optim 
+63	0,01408	optim object class point complex concept minim depend heurist iter search function genet 
+64	0,01199	discret continu interv classif class regress transform supervis compress term dynam concept real svm partit tempor softwar rule 
+65	0,01696	conceptu semant term concept base abstract aspect oper formal schema power object taxonomi distinct activ attribut author engin numer text warehous express mainten wide advanc languag 
+66	0,00353	entiti color structur content candid virtual nois fuzzi segment web similar scalabl semant 
+67	0,023	queri optim plan oper relat transform heurist predic dbm overhead condit formula sql broadcast bandwidth hash tupl 
+68	0,01593	concept hierarchi level onlin term kei softwar increment function space process human natur 
+69	0,01198	partit distribut synthet hierarch minim project fragment period space base memori composit 
+70	0,0175	transact concurr control serializ protocol consist schedul manag access overhead content resourc variant oper central granular level practic respons architectur magnitud atom time dbm 
+71	0,00691	local factor magnitud order predict benchmark kei space random formal 
+72	0,00879	privaci sensit protect secur term commun anonym correl high-dimension attribut simul kei tupl request entiti 
+73	0,00962	network bayesian probabl probabilist node infer tabl condit statist dynam prefer medic process kei gene adapt valid 
+74	0,01923	stream continu onlin sensor window memori compon oper real queri network real-tim monitor block concept time market compact record rank local dynam 
+75	0,02197	decis support busi autom prefer process organ complex action numer power individu subject incomplet weight recognit area close compon social revers evolut market group explicit discret activ 
+76	0,00576	product market custom navig conceptu partit pair increment global program 
+77	0,02551	cluster point real similar categor synthet partit high-dimension scheme compact classif object iter k-mean weight genet outlier normal densiti attribut locat index 
+78	0,00789	privaci anonym k-anonym record protect ident individu attack loss sensit secur control integr minim concept tabl content person multidimension request distribut explicit code cell real 
+79	0,00669	tabl map structur real cube tree scheme link compon 
+80	0,01454	real-tim schedul control time delai support dynam load feedback respons estim polici seri simul market code logic 
+81	0,00994	tupl relat queri oper attribut partial insert incomplet manag compact bandwidth dimens 
+82	0,00708	view materi relat graph fragment univers global class sensit verif formal 
+83	0,00353	repositori retriev multimedia content filter internet access structur independ conceptu imag 
+84	0,00671	filter oper queri stream wide insert probabl candid bound scheme real neighbor posit random reason 
+85	0,00466	document term similar cluster vector kei weight increment 
+86	0,01465	classif recognit class supervis predict area transform bound minim distribut taxonomi regress privaci relationship 
+87	0,00315	experi configur rate depend large-scal similar search individu distribut manag 
+88	0,00858	subspac high-dimension dimens spars correl dimension loss incomplet nois region locat resolut formal advanc natur 
+89	0,00486	cube aggreg compress cell multidimension warehous onlin dimens tupl memori class formula algebra spars advanc map engin 
+90	0,00466	gene express group categori similar code maxim profil process neg signatur 
+91	0,01896	rule order oper form languag discrimin direct navig probabilist 
+92	0,01501	parallel processor architectur partit scalabl aspect memori sequenti overhead natur iter concurr wide simul naiv manag neighbor algebra recognit 
+93	0,0221	activ event action human rule monitor recognit complex busi individu area condit kei formal time select structur static author dynam declar world hierarch similar 
+94	0,01346	candid search magnitud order iter term scale hybrid random process map word protocol 
+95	0,01182	seri sequenc onlin respons energi multidimension sensor market subject 
+96	0,00915	base world autom resolut wide bound factor real-tim text expert 
+97	0,0079	cach scheme server request share rate respons frequent multilevel disk balanc bandwidth web reduct time maxim client agent 
+98	0,02947	real synthet statist observ distribut numer multipl locat practic world area candid estim distanc maxim distinct top-k digit formal probabilist matrix fragment window evolut point 
+99	0,00764	commun delai network synchron real-tim space reduct channel protocol interv loss servic support resourc associ graph failur world metric error transit 
+100	0,00634	control collabor architectur plan softwar oper kei content support independ discret hybrid internet factor alloc program class valid 
+101	0,00372	window spatial statist random regular simul natur event group memori 
+102	0,00409	alloc buffer servic memori parallel level engin 
+103	0,00614	workload metric transact scheme regress medic area benchmark correl entropi object probabilist score bound process random overhead processor incomplet 
+104	0,01329	interact human complex expert natur practic busi simul multipl custom distinct support interfac commun experi boundari nois topic repositori market extens role individu control infer 
+105	0,02044	tree node hierarch sequenc synthet match insert rate organ recognit cell hybrid recoveri label graph alloc term request human 
+106	0,01083	distribut statist error estim probabl neg posit optim reduct point neighbor polici semant 
+107	0,00558	project block metric distinct term interfac 
+108	0,01581	relationship entiti semant conceptu categori decomposit composit busi complex pair univers express regress regular variant categor sequenc search depend 
+109	0,01764	logic semant nonmonoton reason deduct program declar rule incomplet atom natur form extens partial string genet distribut 
+110	0,00676	uncertain probabilist prune probabl uncertainti candid scalabl densiti space prefer aggreg sensor 
+111	0,0039	concurr synchron recoveri control access partial log region protocol depend matrix extens action physic real-tim program 
+112	0,00729	bay naiv classifi classif benchmark estim term weight tree area bayesian sensit log normal compact natur 
+113	0,01854	decis tree classif entropi attribut induct class rule supervis maxim path ensembl predict node scale web role error regress nois search 
+114	0,01895	relat algebra queri languag express tupl oper power tempor optim distinct attribut heterogen form ident manag 
+115	0,0054	factor matrix binari cluster text large-scal scheme formula gene 
+116	0,00409	period seri symbol sequenc valid partial segment nois logic predict scalabl prune maxim activ 
+117	0,00446	prefer person term weight real graph spars similar block adapt conceptu 
+118	0,00372	densiti estim kernel probabl variant color multidimension sensit random 
+119	0,00466	signatur file retriev code scheme overhead disk insert level formula energi prune random advanc 
+120	0,00733	search keyword queri top-k score rank individu link multipl large-scal granular formula wide privaci locat virtual scheme connect declar 
+121	0,00522	closur transit path chain recurs point graph declar binari compon large-scal configur access deduct 
+122	0,00559	normal form organ outlier concept physic algebra kernel function integr entiti 
+123	0,01686	frequent itemset close maxim rule synthet support associ tree memori search prune magnitud real scalabl spars closur compact benchmark minim level respons 
+124	0,0067	order partial string control maxim label binari topic 
+125	0,00595	cell chain relationship factor link order dimens compon kernel partit sequenc unit power pair genet toler 
+126	0,00315	taxonomi graph busi kei decomposit hierarch kernel aspect atom relat 
+127	0,00709	imag spatial direct relationship retriev similar symbol transform reason distinct scale term string composit area 
+128	0,0039	univers access power author area dynam wide support resolut configur global prefer resourc 
+129	0,00466	disjunct atom semant tupl world oper insert level granular ontologi relationship 
+130	0,02275	classif classifi class label predict individu ensembl synthet discrimin benchmark support multipl numer human decis rank logic 
+131	0,01029	rank score vector posit order naiv observ spars distinct 
+132	0,00957	mobil locat wireless network energi area scheme bandwidth optim softwar sensit interfac adapt align market metric loss onlin dimens kei link architectur advanc 
+133	0,0086	protocol log commun share messag recoveri time overhead secur power object 
+134	0,02278	graph subgraph matrix similar node connect match partit label categori relat verif static product express word transit incomplet score log evolut sql chain univers view autom 
+135	0,02523	text categor document word classif categori term languag statist distribut topic supervis natur reduct advanc svm label explicit toler static concept 
+136	0,00578	recommend collabor filter similar person rate predict score aspect servic log densiti sensit busi abstract optim 
+137	0,00782	weight compon seri heurist order protect control program oper 
+138	0,00636	match string word search multipl distanc error text hash resolut oper 
+139	0,00167	formula decomposit block space node regular window power observ express estim imag 
+140	0,01451	sequenc symbol align real frequent string sequenti site variant scheme multipl individu aspect spatial genet parallel induct valid 
+141	0,00561	similar word semant human text rate statist commun correl languag natur ontologi group web complex entiti entropi real distribut 
+142	0,00711	net petri verif rule error matrix structur factor normal transit oper transform algebra iter load distinct decomposit delai 
+143	0,00655	workflow manag process share interfac schema unit term expert rough fragment project sequenti 
+144	0,01735	network node connect manag direct scalabl natur pair graph function 
+145	0,01186	transact recoveri atom consist partial window level i/o error word program autom 
+146	0,00506	top-k queri prefer optim tupl minim search memori score continu rank 
+147	0,00857	multidimension scale index space posit point dimension real similar concept seri balanc wide regular synthet verif period load time 
+148	0,01187	web site document autom hierarch person human onlin induct physic probabilist graph social magnitud observ 
+149	0,01167	resourc alloc schedul load minim architectur workload share adapt term wide metric experi level protocol integr polici matrix verif hybrid monitor estim central 
+150	0,00616	estim select point physic hybrid adapt uncertain atom connect 
+151	0,00539	bound prune condit pair practic buffer independ event large-scal share code time probabilist 
+152	0,00945	broadcast access mobil wireless channel client bandwidth energi scheme alloc power multipl organ adapt commun time index unit scalabl variant minim multilevel univers failur depend 
+153	0,00521	boolean logic retriev minim filter concept document express rank support term boundari partial 
+154	0,0026	evolut synchron conceptu regress point extens area prefer 
+155	0,00915	interfac extens experi semant process engin expert share similar interact prefer resourc 
+156	0,01316	file storag alloc organ retriev disk physic partial sequenti index kei record product unit mainten client engin 
+157	0,02077	imag retriev content-bas queri content visual multimedia color similar index recognit match medic manag repositori segment categori concept semant region scheme direct keyword insert compress log form group word sequenti valid conceptu 
+158	0,00409	neg profil disjunct engin class semant 
+159	0,00673	recurs queri deduct class formula chain extens connect role transform logic regular normal predic symbol author virtual content 
+160	0,01765	web world wide internet agent access site adapt sensit local connect compon interfac extens document resourc independ materi period scalabl evolut feedback 
+161	0,00956	visual interact direct relationship verif function formal symbol polici group cach abstract classif independ 
+162	0,00765	kei scheme role control access secur hierarchi period attack numer author class relat collabor observ express 
+163	0,00467	skylin queri point multidimension vector prefer scalabl power period mainten relationship advanc 
+164	0,0054	failur recoveri toler fault delai complex world real process access estim metric subject 
+165	0,00297	buffer access schedul concurr internet match 
+166	0,00558	block organ decomposit segment workload induct 
+167	0,00692	path graph node search navig express group similar request 
+168	0,02987	queri multipl bound xml term sql increment observ i/o interact 
+169	0,00747	server bandwidth request network servic resourc local plan rate time wide buffer decis protect load synchron oper retriev 
+170	0,0142	independ scheme binari distribut compact compon kei onlin supervis real nois magnitud seri 
+171	0,02703	languag queri natur interfac compon schema power complex univers declar architectur label interact express advanc function fragment repositori large-scal spars imag 
+172	0,00936	sequenti sequenc frequent level magnitud direct scalabl order transact window candid random binari 
+173	0,00502	nois term cluster local probabilist iter filter object multidimension wide multipl 
+174	0,00979	servic profil request content web respons access onlin server distinct annot agent interact synthet statist client 
+175	0,00409	support interact dynam author normal propag level class valid 
+176	0,0041	request server multimedia schedul storag load central site author group i/o bandwidth interact aggreg 
+177	0,01362	network peer-to-p peer distribut structur central share tabl dynam architectur global scalabl internet mainten servic large-scal resourc simul natur hash heterogen bandwidth kei locat random 
+178	0,00805	secur attack protect score network code heurist digit concept hierarch increment univers human experi scalabl 
+179	0,0157	network commun social link dynam web complex spars interact relationship graph connect heterogen subject relat extens chain semant organ alloc signatur wide advanc 
+180	0,00577	object categori binari group engin distinct normal large-scal global hierarch wide categor color sequenti parallel expert 
+181	0,00577	abstract hierarchi term cooper concept aspect dimens softwar view binari classif 
+182	0,00711	increment overhead natur delai storag interact tupl naiv aspect virtual structur abstract autom 
+183	0,00428	warehous decis repositori respons heterogen mainten factor process kei close minim cube numer object project softwar plan scalabl 
+184	0,00855	condit minim independ materi error structur autom activ 
+185	0,02175	spatial queri point region locat relationship oper access index area manag overhead map multidimension concept pair group search adapt segment multimedia categori block class 
+186	0,0114	map local messag concept neighbor algebra digit power entropi semant 
+187	0,01541	heurist optim search decis multipl graph large-scal schedul resourc prune unit extens autom candid practic cell custom closur time sequenc support feedback 
+188	0,01076	ontologi semant concept align web structur match group servic relat conceptu formal valid benchmark level taxonomi similar compon entiti dynam explicit transit 
+189	0,01422	index queri respons search select attribut neighbor prune sequenc term onlin dynam sensor direct retriev semant 
+190	0,00883	agent human cooper collabor level interact multipl practic entiti direct market share global kei independ decis 
+191	0,00598	processor parallel commun synchron architectur heurist hash partit overhead propag sequenc object-ori 
+192	0,00619	video retriev content-bas content visual multimedia index annot tempor sequenc digit segment evolut media profil color signatur adapt view 
+193	0,01419	fuzzi uncertainti reason logic base recognit incomplet concept factor rule function similar architectur classif distribut interv boolean partit atom event predict express access 
+194	0,02213	scheme close wide activ real-tim updat world kernel wireless spars program processor area 
+195	0,00784	log explicit manag event observ point concept support multilevel class file label weight media distinct oper valid 
+196	0,00278	virtual interv action matrix chain consist world resolut real 
+197	0,01115	vector support svm kernel classif term classifi regress loss matrix benchmark logic align client global random program experi 
+198	0,00689	compon retriev correl advanc factor code extens transform librari balanc select process relat 
+199	0,00689	respons maxim real-tim form distribut signatur hash decis select time interact softwar match independ bound aspect graph predic 
+200	0,00411	cluster k-mean scalabl optim entropi time synthet keyword term pair scale manag 
+201	0,00747	custom market segment person multipl direct transact busi profil individu regress site multimedia 
+202	0,00559	access navig relat static physic path recommend bound period 
+203	0,00728	classifi classif benchmark svm supervis process time multipl fuzzi power attack repositori region human 
+204	0,00901	event tempor evolut multipl sequenc complex statist explicit closur outlier simul synthet variant formula 
+205	0,00767	record match align integr entiti schema probabl pair organ similar segment evolut path 
+206	0,00335	outlier point error statist window predict transform prefer filter genet area 
+207	0,00521	monitor commun event continu object window overhead real benchmark process predic file updat oper 
+208	0,00428	person author associ numer entiti function graph window point navig process entropi logic semant 
+209	0,01237	adapt point optim group respons term area valid high-dimension oper statist structur heterogen regular magnitud level error memori estim 
+210	0,00979	xml document queri languag path extens node internet wide scalabl text predic real independ hierarch connect normal access compact decis 
+211	0,02266	object-ori complex semant class languag schema hierarchi manag concept oper declar softwar program integr abstract dbm advanc ident extens access support evolut direct partial consist distinct 
+212	0,00747	secur multilevel channel level access time manag partial sensit advanc kernel failur control infer label 
+213	0,00465	profil person object repositori custom term integr distribut 
+214	0,00791	discrimin kernel regress high-dimension vector estim classifi reduct spars bayesian role human global wide support relationship boundari form large-scal individu 
+215	0,00804	consist updat mainten code semant factor toler protocol period express base univers normal compon individu discret support 
+216	0,00825	content fragment dynam access partial unit load structur parallel decis polici sequenti distinct relationship 
+217	0,0086	softwar metric code mainten autom role valid revers large-scal engin rate project hierarchi 
+218	0,01949	relat tupl tabl world binari virtual real aspect ident vector busi distinct 
+219	0,00726	dimens dimension independ connect valid multidimension distinct point genet alloc 
+220	0,012	expert human heurist reason engin decis area complex direct induct infer weight activ energi internet estim 
+221	0,00803	compress code spars retriev binari compact loss minim social warehous insert expert heurist 
+222	0,00539	boundari region depend decis time classif term recommend adapt dimension distinct class 
+223	0,00559	infer probabl graph incomplet deduct statist chain softwar transit oper 
+224	0,01124	updat consist oper failur control hybrid align channel propag integr 
+225	0,0105	predict classif individu wide vector complex infer topic genet incomplet ensembl regress seri internet error failur concept advanc 
+226	0,00502	action human agent object term parallel distribut benchmark real window predict formal heterogen integr 
+227	0,00577	region area partit naiv neighbor explicit 
+228	0,00734	queri continu locat updat posit servic monitor region distanc point increment spatial mobil boundari manag maxim minim seri sensit tempor toler term individu concept multipl 
+229	0,01137	queri express scalabl complex bound respons interv base updat reduct period server error abstract 
+230	0,00784	onlin factor feedback sequenti commun prefer natur aspect practic manag log server alloc project attribut human 
+231	0,00937	access author control polici secur concept protect neg request sensit aspect materi locat internet engin probabl 
+232	0,01439	logic languag program predic rule deduct infer map formal express control point transform web independ respons relat 
+233	0,00956	disk access buffer i/o file server memori factor rate workload record scale monitor block support 
+234	0,00969	random cluster record bound subspac media distanc densiti tabl order level role graph project natur 
+235	0,0139	group partit cluster loss heurist term kei power dimens block configur product iter direct composit interact binari delai advanc 
+236	0,01394	aggreg queri scalabl algebra individu variant group increment independ power synthet warehous categor factor entropi depend 
+237	0,02398	semant languag reason ontologi base content natur role integr area annot concept entiti organ adapt map human retriev 
+238	0,01046	hierarch hierarchi scheme closur window organ predic segment visual record monitor 
+239	0,01029	distanc normal scale valid pair tabl practic term sequenti compon entropi vector 
+240	0,01882	rule rule-bas base expert reason infer term logic verif scheme transform chain incomplet central integr 
+241	0,00353	messag distribut process medic scale continu role global fault abstract network 
+242	0,01469	probabilist probabl uncertainti distribut entropi uncertain optim numer statist metric balanc subject boundari interv algebra scale rank distinct entiti relat feedback topic 
+243	0,0088	local distribut site commun network decomposit locat sequenc concurr connect cluster messag ident net client base process tupl 
+244	0,01037	multimedia media video tempor synchron retriev continu complex imag relationship composit text advanc aspect relat interact formula heterogen sequenc multipl independ digit point atom bandwidth base integr probabilist 
+245	0,00616	web site content search engin document block text access link product real navig similar entropi factor time repositori author abstract uncertainti classifi topic 
+246	0,00353	annot semant kei term heterogen integr function medic variant scheme toler incomplet 
+247	0,00917	client server media commun bandwidth polici servic scheme cach manag content request storag workload network scalabl collabor space express 
+248	0,00729	program optim physic numer control scale workload interact decomposit link real level path integr 
+249	0,00902	retriev feedback search term queri iter point navig real tupl rank log dimens cluster neural 
