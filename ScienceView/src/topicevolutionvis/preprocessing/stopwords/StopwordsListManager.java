@@ -100,7 +100,7 @@ public class StopwordsListManager {
         }
     }
 
-    private String directory = ".//config";
+    private String directory = ".//resources//config";
     private ArrayList<StopwordsList> stopwords = new ArrayList<>();
     private static StopwordsListManager instance;
 }

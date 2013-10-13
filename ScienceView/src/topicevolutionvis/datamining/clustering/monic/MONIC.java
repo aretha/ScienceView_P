@@ -8,13 +8,16 @@ import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.map.hash.THashMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.SwingWorker;
+
 import topicevolutionvis.datamining.clustering.monic.transitions.CompactnessTransition;
 import topicevolutionvis.datamining.clustering.monic.transitions.ContentChangeTransition;
 import topicevolutionvis.graph.TemporalGraph;
@@ -26,8 +29,9 @@ import topicevolutionvis.topic.TopicFactory;
 import topicevolutionvis.util.Utils;
 import topicevolutionvis.view.TemporalProjectionViewer;
 import weka.clusterers.ClusterEvaluation;
-import weka.clusterers.DBScan;
+import weka.clusterers.DBSCAN;
 import weka.core.Attribute;
+import weka.core.DenseInstance;
 import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
@@ -499,7 +503,7 @@ public class MONIC extends SwingWorker<Void, Void> {
         String[] options;
         Instance instance;
         Instances data;
-        DBScan clusterer;
+        DBSCAN clusterer;
         ClusterEvaluation eval;
         TIntArrayList aux;
         TIntObjectHashMap<TIntArrayList> map = new TIntObjectHashMap<>();
@@ -516,7 +520,7 @@ public class MONIC extends SwingWorker<Void, Void> {
         while (iterator.hasNext()) {
             iterator.advance();
             Vertex v = iterator.value();
-            instance = new Instance(2);
+            instance = new DenseInstance(2);
             instance.setValue(0, v.getX());
             instance.setValue(1, v.getY());
             data.add(instance);
@@ -525,7 +529,7 @@ public class MONIC extends SwingWorker<Void, Void> {
         }
         if (index > 0) {
             try {
-                clusterer = new DBScan();
+                clusterer = new DBSCAN();
                 options = new String[8];
                 options[0] = "-E";
                 options[1] = Double.toString(eps);

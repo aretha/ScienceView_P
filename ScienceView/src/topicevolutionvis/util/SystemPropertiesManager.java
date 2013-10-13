@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class SystemPropertiesManager {
 
-    private String filename = "config/system.properties";
+    private String filename = "resources/config/system.properties";
     //   private Hashtable<String, String> properties = new Hashtable<String, String>();
     private static SystemPropertiesManager _instance = null;
     private Properties properties = null;

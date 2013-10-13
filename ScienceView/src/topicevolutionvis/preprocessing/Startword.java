@@ -76,7 +76,7 @@ public class Startword {
             //Test if the stowords file exist
             File f = new File(staFilename);
             if (!f.exists() || m.getProperty("STW.FILE").trim().length() < 1) {
-                staFilename = "config/startwords.stw";
+                staFilename = "resources/config/startwords.stw";
                 m.setProperty("STW.FILE", staFilename);
             }
 

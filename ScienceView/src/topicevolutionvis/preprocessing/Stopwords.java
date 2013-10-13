@@ -74,7 +74,7 @@ public class Stopwords {
             //Test if the stowords file exist
             File f = new File(stpFilename);
             if (!f.exists() || m.getProperty("SPW.FILE").trim().length() < 1) {
-                stpFilename = "config/stopwords_eng.spw";
+                stpFilename = "resources/config/stopwords_eng.spw";
                 m.setProperty("SPW.FILE", stpFilename);
             }
             instance = new Stopwords(stpFilename);

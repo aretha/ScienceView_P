@@ -523,12 +523,12 @@ public abstract class DatabaseImporter extends SwingWorker<Void, Void> {
         if (content != null) {
             try {
 
-                modelIn = new FileInputStream("libs/en-token.bin");
+                modelIn = new FileInputStream("resources/en-token.bin");
                 TokenizerModel model = new TokenizerModel(modelIn);
                 Tokenizer tokenizer = new TokenizerME(model);
                 String paras[] = tokenizer.tokenize(content);
 
-                rules_POS = new FileInputStream("libs/en-pos-maxent.bin");
+                rules_POS = new FileInputStream("resources/en-pos-maxent.bin");
                 POSModel modelPOS = new POSModel(rules_POS);
                 POSTaggerME tagger = new POSTaggerME(modelPOS);
                 String tags[] = tagger.tag(paras);
@@ -628,7 +628,7 @@ public abstract class DatabaseImporter extends SwingWorker<Void, Void> {
         if (content != null) {
             try {
 
-                modelIn = new FileInputStream("libs/en-token.bin");
+                modelIn = new FileInputStream("resources/en-token.bin");
                 TokenizerModel model = new TokenizerModel(modelIn);
                 Tokenizer tokenizer = new TokenizerME(model);
                 String paras[] = tokenizer.tokenize(content);

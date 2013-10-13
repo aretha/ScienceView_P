@@ -108,7 +108,7 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
 
     private void loadDatabase() throws Exception {
         Properties props = new Properties();
-        props.load(new FileInputStream("./config/database.properties"));
+        props.load(new FileInputStream("./resources/config/database.properties"));
         RunScript.execute(props.getProperty("jdbc.url"), props.getProperty("jdbc.username"), props.getProperty("jdbc.password"), this.db_file.getAbsolutePath(), null, true);
         pdata.setDatabaseCorpus(new DatabaseCorpus(pdata.getCollectionName()));
     }

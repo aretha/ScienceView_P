@@ -1,0 +1,303 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+>
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>pex</groupId>
+	<artifactId>scienceview</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+
+	<name>Science View</name>
+	<description>Visualization tool for scientific publications</description>
+	<inceptionYear>2009</inceptionYear>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments />
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>aretha</id>
+			<name>Aretha Barbosa Alencar</name>
+			<email>arethaalencar@utfpr.edu.br</email>
+			<organization>Department of Computing -- Federal University of Technology - Paraná</organization>
+			<organizationUrl>http://dacom.cm.utfpr.edu.br</organizationUrl>
+			<timezone>+3</timezone>
+			<roles>
+				<role>Manager</role>
+				<role>Main developer</role>
+			</roles>
+		</developer>
+	
+
+		<developer>
+			<id>magsilva</id>
+			<name>Marco Aurélio Graciotto Silva</name>
+			<email>magsilva@utfpr</email>
+			<organization>Department of Computing -- Federal University of Technology - Paraná</organization>
+			<organizationUrl>http://dacom.cm.utfpr.edu.br</organizationUrl>
+			<timezone>+3</timezone>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<distributionManagement>
+		<repository>
+			<id>IroniaCorp</id>
+			<url>dav:http://www.ironiacorp.com/repo/maven2/</url>
+		</repository>
+	</distributionManagement>
+
+	<repositories>
+		<repository>
+                        <id>repo1</id>
+                        <url>http://repo1.maven.org/maven2/</url>
+                        <releases>
+                                <enabled>true</enabled>
+                                <updatePolicy>interval:10080</updatePolicy>
+                        </releases>
+                        <snapshots>
+                                <enabled>false</enabled>
+                        </snapshots>
+                </repository>
+
+                <repository>
+                        <id>IroniaCorp</id>
+                        <name>Ironia Corporation</name>
+                        <url>http://www.ironiacorp.com/repo/maven2</url>
+                        <releases>
+                                <enabled>true</enabled>
+                                <updatePolicy>interval:10080</updatePolicy>
+                        </releases>
+                        <snapshots>
+                                <enabled>true</enabled>
+                                <updatePolicy>interval:10080</updatePolicy>
+                        </snapshots>
+                </repository>
+
+		<repository>
+			<id>Java.net</id>
+			<url>http://download.java.net/maven/2/</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>interval:10080</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>[4.8,)</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.3.154</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.0.13</version>
+		</dependency>
+
+		<dependency>
+			<groupId>jfree</groupId>
+			<artifactId>jcommon</artifactId>
+			<version>1.0.15</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.tartarus</groupId>
+			<artifactId>snowball</artifactId>
+			<version>1.0.2</version>
+			<type>jar</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>[1.8.2,)</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.jabref</groupId>
+			<artifactId>jabref</artifactId>
+			<version>2.9</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>looks</artifactId>
+					<groupId>com.jgoodies</groupId>
+				</exclusion>
+			</exclusions>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>cc.mallet</groupId>
+			<artifactId>mallet</artifactId>
+			<version>[2.0.7,)</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.opennlp</groupId>
+			<artifactId>opennlp-maxent</artifactId>
+			<version>3.0.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.opennlp</groupId>
+			<artifactId>opennlp-tools</artifactId>
+			<version>1.5.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.opennlp</groupId>
+			<artifactId>opennlp-uima</artifactId>
+			<version>1.5.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.trove4j</groupId>
+			<artifactId>trove4j</artifactId>
+			<version>3.0.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>nz.ac.waikato.cms.weka</groupId>
+			<artifactId>weka-dev</artifactId>
+			<version>[3.7.10,)</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>nz.ac.waikato.cms.weka</groupId>
+			<artifactId>optics_dbScan</artifactId>
+			<version>[1.0.3,)</version>
+		</dependency>
+		
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+			<version>[3.2,)</version>
+		</dependency>
+
+		<dependency>
+			<groupId>colt</groupId>
+			<artifactId>colt</artifactId>
+			<version>[1.2.0,)</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.vividsolutions</groupId>
+			<artifactId>jts</artifactId>
+			<version>[1.8.0,)</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>dacom-utfpr-cm</groupId>
+		    <artifactId>bubble-sets</artifactId>
+		    <version>[0.0.1,)</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>pex</groupId>
+		    <artifactId>lspsolver</artifactId>
+		    <version>[1.0.0,)</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}-${project.version}</finalName>
+
+		<directory>target</directory>
+
+		<sourceDirectory>src</sourceDirectory>
+		<testSourceDirectory>test</testSourceDirectory>
+
+		<outputDirectory>target/classes</outputDirectory>
+		<testOutputDirectory>target/test-classes</testOutputDirectory>
+
+		<resources>
+			<resource>
+				<directory>${project.basedir}/resources</directory>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+
+		<testResources>
+			<testResource>
+				<directory>${project.basedir}/resources</directory>
+				<filtering>false</filtering>
+			</testResource>
+		</testResources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<fork>true</fork>
+					<meminitial>128m</meminitial>
+					<maxmem>512m</maxmem>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<index>true</index>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>topicevolutionvis.Main</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<archive>
+						<index>true</index>
+						<manifest>
+							<mainClass>topicevolutionvis.Main</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
+		</plugins>			
+	</build>
+</project>

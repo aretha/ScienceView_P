@@ -1,12 +1,14 @@
 package topicevolutionvis.projection.distance;
 
-import gnu.trove.TIntArrayList;
 import gnu.trove.list.array.TDoubleArrayList;
+import gnu.trove.list.array.TIntArrayList;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import topicevolutionvis.matrix.SparseMatrix;
 import topicevolutionvis.matrix.SparseVector;
 

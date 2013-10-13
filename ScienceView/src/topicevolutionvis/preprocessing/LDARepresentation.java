@@ -144,7 +144,7 @@ public class LDARepresentation extends Representation {
         //Tokenize raw strings
         pipeList.add(new CharSequence2TokenSequence(Pattern.compile("\\p{L}[\\p{L}\\p{P}]+\\p{L}")));
 
-        pipeList.add(new TokenSequenceRemoveStopwords(new File("libs/mallet-en.txt"), "UTF-8", false, false, false));
+        pipeList.add(new TokenSequenceRemoveStopwords(new File("resources/mallet-en.txt"), "UTF-8", false, false, false));
 
         // Rather than storing tokens as strings, convert
         //  them to integers by looking them up in an alphabet.

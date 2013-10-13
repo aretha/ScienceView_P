@@ -6,9 +6,12 @@ package topicevolutionvis.datamining.clustering;
 
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.list.array.TIntArrayList;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import javax.swing.SwingWorker;
+
 import topicevolutionvis.graph.Scalar;
 import topicevolutionvis.graph.TemporalGraph;
 import topicevolutionvis.graph.Vertex;
@@ -16,8 +19,9 @@ import topicevolutionvis.projection.temporal.TemporalProjection;
 import topicevolutionvis.topic.TopicFactory;
 import topicevolutionvis.view.TemporalProjectionViewer;
 import weka.clusterers.ClusterEvaluation;
-import weka.clusterers.DBScan;
+import weka.clusterers.DBSCAN;
 import weka.core.Attribute;
+import weka.core.DenseInstance;
 import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
@@ -61,7 +65,7 @@ public class DBScanCluster extends SwingWorker<Void, Void> {
         String[] options;
         Instance instance;
         Instances data;
-        DBScan clusterer;
+        DBSCAN clusterer;
         ClusterEvaluation eval;
         HashMap<Double, TIntArrayList> map;
         for (ArrayList<TemporalGraph> graphs : projection.getGraphs().values()) {
@@ -73,7 +77,7 @@ public class DBScanCluster extends SwingWorker<Void, Void> {
                 while (iterator.hasNext()) {
                     iterator.advance();
                     Vertex v = iterator.value();
-                    instance = new Instance(2);
+                    instance = new DenseInstance(2);
                     instance.setValue(0, v.getX());
                     instance.setValue(1, v.getY());
                     data.add(instance);
@@ -82,7 +86,7 @@ public class DBScanCluster extends SwingWorker<Void, Void> {
                 }
 
                 if (index > 0) {
-                    clusterer = new DBScan();
+                    clusterer = new DBSCAN();
                     options = new String[8];
                     options[0] = "-E";
                     options[1] = Double.toString(eps);

@@ -313,7 +313,7 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
 
     private void save_database() throws Exception {
         Properties props = new Properties();
-        try (FileInputStream in = new FileInputStream("./config/database.properties")) {
+        try (FileInputStream in = new FileInputStream("./resources/config/database.properties")) {
             props.load(in);
             db_file = File.createTempFile("database", ".db");
             Script.execute(props.getProperty("jdbc.url"), props.getProperty("jdbc.username"), props.getProperty("jdbc.password"), this.db_file.getAbsolutePath());

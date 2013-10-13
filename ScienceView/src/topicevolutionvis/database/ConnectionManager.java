@@ -25,8 +25,8 @@ public class ConnectionManager {
 
     private java.sql.Connection conn;
     private static ConnectionManager _instance;
-    private final String properties = "./config/database.properties";
-    private final String temp = "./data_base/temp.sql";
+    private final String properties = "./resources/config/database.properties";
+    private final String temp = "./resources/data_base/temp.sql";
 
     public ConnectionManager() throws IOException {
         FileInputStream in = null;

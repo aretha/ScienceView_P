@@ -31,10 +31,6 @@ import setvis.SetOutline;
 import setvis.bubbleset.BubbleSet;
 import setvis.shape.AbstractShapeGenerator;
 import setvis.shape.BSplineShapeGenerator;
-import signalprocesser.voronoi.VPoint;
-import signalprocesser.voronoi.VoronoiAlgorithm;
-import signalprocesser.voronoi.representation.RepresentationFactory;
-import signalprocesser.voronoi.representation.triangulation.TriangulationRepresentation;
 import topicevolutionvis.database.DatabaseCorpus;
 import topicevolutionvis.graph.TemporalGraph;
 import topicevolutionvis.graph.Vertex;
@@ -535,51 +531,6 @@ public abstract class Topic {
         return false;
     }
 
-    private GeneralPath calcConcavePolygon() {
-        //in case, the convex hull contains vertices that do not belong to the cluster, build a concave hull        
-        ArrayList<VPoint> points = new ArrayList<>(this.vertex_id.size() + this.fake_vertex.size());
-        for (int i = 0; i < this.vertex_id.size(); i++) {
-            Vertex v = graph.getVertexById(vertex_id.get(i));
-            points.add(new VPoint((int) v.getX(), (int) v.getY())); // canto esquerdo superior
-        }
-
-        for (Coordinate p : this.fake_vertex) {
-            points.add(new VPoint((int) p.x, (int) p.y)); // canto esquerdo superior
-        }
-        TriangulationRepresentation representation = new TriangulationRepresentation(new TriangulationRepresentation.CalcCutOff() {
-            @Override
-            public int calculateCutOff(TriangulationRepresentation rep) {
-                return rep.getMaxLengthOfMinimumSpanningTree();
-            }
-        });
-
-        // Convert points to the right form
-        points = RepresentationFactory.convertPointsToTriangulationPoints(points);
-
-        VoronoiAlgorithm.generateVoronoi(representation, points);
-
-        ArrayList<VPoint> outterpoints = representation.getPointsFormingOutterBoundary();
-        if (outterpoints != null) {
-            Coordinate[] coords = new Coordinate[outterpoints.size()];
-            for (int i = 0; i < outterpoints.size(); i++) {
-                coords[i] = new Coordinate(outterpoints.get(i).x, outterpoints.get(i).y);
-            }
-
-            com.vividsolutions.jts.geom.Polygon poly = new com.vividsolutions.jts.geom.Polygon(new LinearRing(new CoordinateArraySequence(coords), new GeometryFactory()), null, new GeometryFactory());
-            geom = poly.buffer(10, 8);
-            this.centroid = geom.getCentroid();
-            coords = geom.getCoordinates();
-
-            GeneralPath concave_polygon = new GeneralPath(GeneralPath.WIND_EVEN_ODD, coords.length);
-            concave_polygon.moveTo(coords[0].x, coords[0].y);
-            for (int i = 1; i < coords.length; i++) {
-                concave_polygon.lineTo(coords[i].x, coords[i].y);
-            }
-            concave_polygon.closePath();
-            return concave_polygon;
-        }
-        return null;
-    }
 
     private GeneralPath calcBubbleSet() {
         int ray, index = 0, type;

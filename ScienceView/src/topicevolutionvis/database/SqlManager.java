@@ -31,7 +31,7 @@ public class SqlManager {
         try {
             //read the file containing the sql statements
             this.properties = new Properties();
-            FileInputStream file = new FileInputStream("./config/sql.properties");
+            FileInputStream file = new FileInputStream("./resources/config/sql.properties");
             this.properties.load(file);
             if (file != null) {
                 file.close();
