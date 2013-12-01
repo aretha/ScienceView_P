@@ -699,12 +699,11 @@ public abstract class DatabaseImporter extends SwingWorker<Void, Void> {
     }
 
     public String multipleLines(BufferedReader in, String line) {
-        String aux = line;
+        StringBuilder content = new StringBuilder(line.substring(3).trim());
         try {
-            StringBuilder content = new StringBuilder(line.substring(3).trim());
             in.mark(10000);
             while ((line = in.readLine()) != null) {
-                if (line.matches("[A-Z]{2}\\s.*|[A-Z]{1}[1-9]{1}\\s.*|ER")) {
+                if (! line.startsWith("   ")) {
                     in.reset();
                     break;
                 } else {
@@ -712,16 +711,11 @@ public abstract class DatabaseImporter extends SwingWorker<Void, Void> {
                     in.mark(10000);
                 }
             }
-            return content.toString();
         } catch (IOException ex) {
-            System.out.println("RESET PROBLEM: " + aux);
             Logger.getLogger(DatabaseImporter.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
-        return null;
-
-
+        return content.toString();
     }
 
     private String addNextWord(String[] ngram, String word) {
