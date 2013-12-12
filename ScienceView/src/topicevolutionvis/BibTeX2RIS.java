@@ -154,7 +154,7 @@ public class BibTeX2RIS
 			String[] authors;
 			String year = null;
 			String doi;
-			int pages;
+			int pages = 0;
 
 			entry = database.getEntryByKey(entryKey.trim());
 
@@ -166,16 +166,22 @@ public class BibTeX2RIS
 			
 			if (entry.getType() == BibtexEntryType.INPROCEEDINGS){
 				year =  crossref.getField("year");
-			} else if (entry.getType() == BibtexEntryType.ARTICLE || entry.getType() == BibtexEntryType.BOOK) {
+			} else if (entry.getType() == BibtexEntryType.ARTICLE || entry.getType() == BibtexEntryType.BOOK || entry.getType() == BibtexEntryType.MISC) {
 			    year =  entry.getField("year");
 			}
 
 			if (entry.getType() == BibtexEntryType.BOOK) {
 				pages = Integer.parseInt(entry.getField("pages"));
 			} else {
-				int[] pageRange;
-				pageRange = pages(entry.getField("pages"));
-				pages = pageRange[1] - pageRange[0];
+				try {
+					int[] pageRange;
+					pageRange = pages(entry.getField("pages"));
+					pages = pageRange[1] - pageRange[0];
+				} catch (Exception e) {
+					if (entry.getType() == BibtexEntryType.MISC) {
+						pages = 0;
+					}
+				}
 			}
 				
 			doi = entry.getField("doi");
@@ -199,6 +205,11 @@ public class BibTeX2RIS
 				sb.append(", ");
 				sb.append(entry.getField("booktitle"));
 			}
+			if (entry.getType() == BibtexEntryType.MISC) {
+				sb.append(", ");
+				sb.append(entry.getField("title"));
+			}
+			
 			sb.append(", ");
 			sb.append("P");
 			sb.append(pages);
@@ -212,7 +223,7 @@ public class BibTeX2RIS
 		return references;
 	}
 
-	private static int[] pages(String field) {
+	private int[] pages(String field) {
 		/**
 		 * tem que declarar o tamanho do vetor!!! Com Integer[] pages; --> não funciona.  
 		 */
