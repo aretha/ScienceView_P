@@ -148,26 +148,35 @@ public class BibTeX2RIS
 		
 		for (int i = 0; i < entryKeys.length; i++) {
 			String entryKey = entryKeys[i];
-			BibtexEntry entry, crossref;
+			String crossrefKey;
+			BibtexEntry entry;
+			BibtexEntry crossref = null;
 			String[] authors;
-			String year;
+			String year = null;
 			String doi;
-			int[] pageRange;
 			int pages;
 
 			entry = database.getEntryByKey(entryKey.trim());
 
-			authors = entry.getField("author").split(" and "); 
-			crossref = database.getEntryByKey(entry.getField("crossref"));
-			year = null;
+			authors = entry.getField("author").split(" and ");
+			crossrefKey = entry.getField("crossref");
+			if (crossrefKey != null && ! crossrefKey.isEmpty()) {
+				crossref = database.getEntryByKey(crossrefKey);
+			}
+			
 			if (entry.getType() == BibtexEntryType.INPROCEEDINGS){
 				year =  crossref.getField("year");
-			} else if (entry.getType() == BibtexEntryType.ARTICLE) {
+			} else if (entry.getType() == BibtexEntryType.ARTICLE || entry.getType() == BibtexEntryType.BOOK) {
 			    year =  entry.getField("year");
 			}
 
-			pageRange = pages(entry.getField("pages"));
-			pages = pageRange[1] - pageRange[0];
+			if (entry.getType() == BibtexEntryType.BOOK) {
+				pages = Integer.parseInt(entry.getField("pages"));
+			} else {
+				int[] pageRange;
+				pageRange = pages(entry.getField("pages"));
+				pages = pageRange[1] - pageRange[0];
+			}
 				
 			doi = entry.getField("doi");
 				
@@ -185,6 +194,10 @@ public class BibTeX2RIS
 			if (entry.getType() == BibtexEntryType.INPROCEEDINGS) {
 				sb.append(", ");
 				sb.append(crossref.getField("booktitle"));
+			}
+			if (entry.getType() == BibtexEntryType.BOOK) {
+				sb.append(", ");
+				sb.append(entry.getField("booktitle"));
 			}
 			sb.append(", ");
 			sb.append("P");
@@ -227,13 +240,17 @@ public class BibTeX2RIS
 			}
 		 	printField("AU", authors);
 		 	
-			printField("TI", entry.getField("title"));
-
-			printField("AB", entry.getField("abstract"));
-
-			printField("KW", entry.getField("keywords"));	
-
-			int[] pages = pages(entry.getField("pages"));
+		 	if (entry.getField("lang") != null && ! entry.getField("lang").equals("en")) {
+		 		printField("TI", entry.getField("title-en"));
+				printField("AB", entry.getField("abstract-en"));
+				printField("KW", entry.getField("keywords-en"));
+		 	} else {
+		 		printField("TI", entry.getField("title"));
+				printField("AB", entry.getField("abstract"));
+				printField("KW", entry.getField("keywords"));
+		 	}
+		 			
+		 	int[] pages = pages(entry.getField("pages"));
 		    printField("BP", Integer.toString(pages[0]));
 		    printField("EP", Integer.toString(pages[1]));
 	
