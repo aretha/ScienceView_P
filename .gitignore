@@ -1,3 +1,6 @@
+# Maven's generated data
+ScienceView/target/
+
 # Database
 ScienceView/resources/data_base/
 
