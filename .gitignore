@@ -1,6 +1,10 @@
+# Database
+ScienceView/resources/data_base/
+
+# Java bytecode
 *.class
 
-# Package Files #
+# Package Files
 *.jar
 *.war
 *.ear
