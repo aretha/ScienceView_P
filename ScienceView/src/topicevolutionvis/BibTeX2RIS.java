@@ -2,6 +2,9 @@ package topicevolutionvis;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import net.sf.jabref.BibtexDatabase;
 import net.sf.jabref.BibtexEntry;
@@ -9,16 +12,38 @@ import net.sf.jabref.BibtexEntryType;
 import net.sf.jabref.imports.BibtexParser;
 import net.sf.jabref.imports.ParserResult;
 
-public class BibTeX2RIS
-{
+public class BibTeX2RIS {
 	private BibtexDatabase database;
-
-	private boolean referencesEnabled = true;
 	
-	public BibTeX2RIS(File bibfile) throws Exception {
-		ParserResult parseResult = BibtexParser.parse(new FileReader(bibfile));
+	private boolean referencesEnabled = true;
+
+	private PrintWriter outputWriter;																																																										
+	
+	public String outputFilename;
+	
+	
+	public BibTeX2RIS(String  file) throws Exception {
+		File arquivo = new File(file);
+		ParserResult parseResult = BibtexParser.parse(new FileReader(arquivo));
 		database = parseResult.getDatabase();
+		// TODO: usar IoUtil para pegar a extensão e usar .isi ao invés de .bib
+		setOutputFile(file + ".isi");
+	}								
+	
+	public String getOutputFilename() {
+		return outputFilename;
 	}
+	
+    public void setOutputFile(String filename) throws IOException {
+    	outputFilename = filename;
+		FileWriter writer = new FileWriter(new File(outputFilename));
+		/**
+		 * especificando o segundo parametro como true, os dados serão enviados para o arquivo a toda chamada do método println(), 
+		 * caso contrário, os dados só são enviados quando enviar uma quebra de linha.
+		 */
+		outputWriter = new PrintWriter(writer, true);
+	}
+	
 	
 	private String convertAuthor(String author, String separator) {
 		StringBuilder sb = new StringBuilder();
@@ -69,18 +94,19 @@ public class BibTeX2RIS
 	 			 
 		 return data;
 	}
-
+	
 	public void printEndOfEntry() {
-		System.out.printf("\nER\n");
+		outputWriter.println("\nER\n");
 	}
 
-	public void printBeginOfRecord() {
-		System.out.printf("FN ScienceView");
-		System.out.printf("\nVR 1.0\n");
+	public void printBeginOfRecord() throws IOException {
+		outputWriter.println("FN ScienceView");
+		outputWriter.println("VR 1.0\n");
 	}
 	
 	public void printEndOfRecord() {
 		System.out.printf("\nEF");
+		outputWriter.println("\nEF");
 	}
 
 	
@@ -91,17 +117,21 @@ public class BibTeX2RIS
 		
 		String risFieldName = tira_caracter(name);
 		String risFieldValue = tira_caracter(values[0]);
-		System.out.printf("\n%s %s", risFieldName, risFieldValue);
+		outputWriter.printf(risFieldName);
+		outputWriter.printf(" ");
+		outputWriter.println(risFieldValue);
 		for (int i = 1; i < values.length; i++) {
 			risFieldValue = tira_caracter(values[i]);
-			System.out.printf("\n   %s", risFieldValue);
+			outputWriter.printf("   ");
+			outputWriter.println(risFieldValue);
 		}
 	}
 
 
-	public void convert() {
+	public void convert() throws IOException {
 		String crossrefKey;
 		BibtexEntry crossref;
+	
 		
 		printBeginOfRecord();
 		
@@ -117,6 +147,7 @@ public class BibTeX2RIS
 				show_inproceedings(entry, database);
 				printField("PY", crossref.getField("year"));
 				printField("JF", crossref.getField("booktitle"));
+				
 				if (crossref.getField("location") != null) {
 					printField("CY", crossref.getField("address"));
 				} else {
@@ -274,12 +305,5 @@ public class BibTeX2RIS
 		    	}
 		    }
 	}
-	
-	public static void main(String[] args) throws Exception {
-		File arquivo = new File("/home/magsilva/Dropbox/Projects/RS-Mariane/referencias_mojo.bib");
-		BibTeX2RIS bib2ris = new BibTeX2RIS(arquivo);
-		bib2ris.convert();
-	}
-
 }
 

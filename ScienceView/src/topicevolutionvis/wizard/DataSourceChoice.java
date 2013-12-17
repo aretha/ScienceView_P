@@ -17,8 +17,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+
+import topicevolutionvis.BibTeX2RIS;
 import topicevolutionvis.data.*;
 import topicevolutionvis.database.CollectionsManager;
 import topicevolutionvis.projection.ProjectionData;
@@ -204,7 +207,12 @@ public class DataSourceChoice extends WizardPanel implements ActionListener {
         loadButton.setText("Load");
         loadButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loadButtonActionPerformed(evt);
+                try {
+					loadButtonActionPerformed(evt);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
         jPanel5.add(loadButton);
@@ -297,7 +305,7 @@ public class DataSourceChoice extends WizardPanel implements ActionListener {
         this.statusProgressBar.setIndeterminate(running);
     }
 
-    private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
+    private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_loadButtonActionPerformed
         String collectionName = this.collectionnameTextField.getText().trim();
         String filename = this.filenameTextField.getText().trim();
         if (filename.compareTo("") != 0 && collectionName.compareTo("") != 0) {
@@ -305,7 +313,9 @@ public class DataSourceChoice extends WizardPanel implements ActionListener {
             String corpusType = filename.substring(filename.lastIndexOf(".") + 1);
             int nrGrams = Integer.valueOf((String) this.nrgramsComboBox.getSelectedItem()).intValue();
             if (corpusType.compareTo("bib") == 0) {
-                importer = new BibtexDatabaseImporter(filename, collectionName, nrGrams, this, removeStopwordsByTaggingCheckBox.isSelected());
+            	BibTeX2RIS bib = new BibTeX2RIS(filename);
+            	bib.convert();
+            	importer = new ISICorpusDatabaseImporter(bib.getOutputFilename(), collectionName, nrGrams, this, removeStopwordsByTaggingCheckBox.isSelected());
             } else if (corpusType.compareTo("isi") == 0) {
                 importer = new ISICorpusDatabaseImporter(filename, collectionName, nrGrams, this, removeStopwordsByTaggingCheckBox.isSelected());
             } else if (corpusType.compareTo("enw") == 0) {
