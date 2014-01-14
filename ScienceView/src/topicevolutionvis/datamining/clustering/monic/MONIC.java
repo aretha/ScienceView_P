@@ -528,6 +528,7 @@ public class MONIC extends SwingWorker<Void, Void> {
             index++;
         }
         if (index > 0) {
+        	// TODO: Replace DBSCAN by ELKI: http://elki.dbs.ifi.lmu.de/
             try {
                 clusterer = new DBSCAN();
                 options = new String[8];
