@@ -1,0 +1,31 @@
+FN ScienceView
+VR 1.0
+
+PT JOUR
+AU Aanderaa, S
+   Fischer, P
+TI The Solvability of the Halting Problem for 2-State Post Machines
+BP 677
+EP 682
+DI 10.1145/321420.321426
+JF Journal of the ACM
+VL 14
+PY 1967
+CY New York, NY, USA
+ER
+
+PT CPAPER
+AU Aaltonen, K
+   Ihantola, P
+   Seppälä, O
+TI Mutation analysis vs. code coverage in automated assessment of students' testing skills
+AB Learning to program should include learning about proper software testing. Some automatic assessment systems, e.g. Web-CAT, allow assessing student-generated test suites using coverage metrics. While this encourages testing, we have observed that sometimes students can get rewarded from high coverage although their tests are of poor quality. Exploring alternative methods of assessment, we have tested mutation analysis to evaluate students' solutions. Initial results from applying mutation analysis to real course submissions indicate that mutation analysis could be used to fix some problems of code coverage in the assessment. Combining both metrics is likely to give more accurate feedback.
+KW automated assessment, mutation analysis, mutation testing, programming assignments, test coverage
+BP 153
+EP 160
+DI 10.1145/1869542.1869567
+PY 2010
+JF Conference on Systems, Programming, Languages and Applications: Software for Humanity (SPLASH 2010)
+ER
+
+EF

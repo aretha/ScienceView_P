@@ -23,5 +23,15 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="libs/flanagan.jar"/>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/test-classes" path="test-resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

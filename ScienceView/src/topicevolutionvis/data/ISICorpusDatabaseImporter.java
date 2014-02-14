@@ -26,7 +26,10 @@ import topicevolutionvis.wizard.DataSourceChoice;
  *
  * @author Aretha
  */
-public class ISICorpusDatabaseImporter extends DatabaseImporter {
+public class ISICorpusDatabaseImporter extends DatabaseImporter
+{
+	// TODO: Move this to JabRef
+	public static final String FILE_EXTENSION = ".isi";
 
     public ISICorpusDatabaseImporter(String filename, String collection, int nrGrams, DataSourceChoice view, boolean removeStopwordsByTagging) {
         super(filename, collection, nrGrams, view, removeStopwordsByTagging);
