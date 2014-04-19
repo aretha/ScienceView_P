@@ -1,13 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * DataSourceChoice.java
- *
- * Created on 14/05/2009, 15:02:37
- */
 package topicevolutionvis.wizard;
 
 import java.awt.event.ActionEvent;
@@ -23,7 +13,8 @@ import javax.swing.JOptionPane;
 
 import topicevolutionvis.BibTeX2RIS;
 import topicevolutionvis.data.*;
-import topicevolutionvis.database.CollectionsManager;
+import topicevolutionvis.database.CollectionManager;
+import topicevolutionvis.database.DatabaseCorpus;
 import topicevolutionvis.projection.ProjectionData;
 import topicevolutionvis.util.SystemPropertiesManager;
 import topicevolutionvis.utils.filefilter.*;
@@ -32,10 +23,14 @@ import topicevolutionvis.utils.filefilter.*;
  *
  * @author Aretha
  */
-public class DataSourceChoice extends WizardPanel implements ActionListener {
+public class DataSourceChoice extends WizardPanel implements ActionListener
+{
 
     private ProjectionData pdata;
-    private DatabaseImporter importer = null;
+    
+    private DatabaseImporter importer;
+    
+    private CollectionManager collectionManager;
 
     /**
      * Creates new form DataSourceChoice
@@ -43,29 +38,27 @@ public class DataSourceChoice extends WizardPanel implements ActionListener {
     public DataSourceChoice(ProjectionData pdata) {
         this.pdata = pdata;
         initComponents();
-        this.updateCollections("");
+        collectionManager = new CollectionManager();
+        updateCollections("");
     }
 
     private void updateCollections(String collection) {
-        try {
-            String index = null;
-            this.corpusComboBox.removeAllItems();
-            ArrayList<String> collections = CollectionsManager.getCollections();
-            this.corpusComboBox.addItem("Select...");
-            for (String col : collections) {
-                this.corpusComboBox.addItem(col);
-                if (collection.equalsIgnoreCase(col)) {
-                    index = col;
-                }
+    	String index = null;
+        
+        ArrayList<String> collections = collectionManager.getCollections();
+        corpusComboBox.removeAllItems();
+        corpusComboBox.addItem("Select...");
+        for (String col : collections) {
+            corpusComboBox.addItem(col);
+            if (col.equalsIgnoreCase(collection)) {
+                index = col;
             }
-            if (collection.equalsIgnoreCase("")) {
-                corpusComboBox.setSelectedIndex(0);
-            }
-            if (index != null) {
-                corpusComboBox.setSelectedItem(index);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(DataSourceChoice.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (collection.isEmpty()) {
+            corpusComboBox.setSelectedIndex(0);
+        } else if (index != null) {
+            corpusComboBox.setSelectedItem(index);
         }
     }
 
@@ -96,8 +89,18 @@ public class DataSourceChoice extends WizardPanel implements ActionListener {
         loadButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        corpusComboBox = new javax.swing.JComboBox();
+        corpusComboBox = new javax.swing.JComboBox<String>();
         removeButton = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        name_collection = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        ngrams = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        number_documents = new javax.swing.JTextField();
+        number_references = new javax.swing.JTextField();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Choose the Data Source"));
         setLayout(new java.awt.GridBagLayout());
@@ -207,12 +210,7 @@ public class DataSourceChoice extends WizardPanel implements ActionListener {
         loadButton.setText("Load");
         loadButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-					loadButtonActionPerformed(evt);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                loadButtonActionPerformed(evt);
             }
         });
         jPanel5.add(loadButton);
@@ -237,11 +235,21 @@ public class DataSourceChoice extends WizardPanel implements ActionListener {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.ipadx = -1;
+        gridBagConstraints.ipady = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 18, 82, 0);
         add(jPanel1, gridBagConstraints);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Collection already loaded into the database"));
         jPanel2.setLayout(new java.awt.BorderLayout());
+
+        corpusComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                corpusComboBoxActionPerformed(evt);
+            }
+        });
         jPanel2.add(corpusComboBox, java.awt.BorderLayout.CENTER);
 
         removeButton.setText("Remove");
@@ -253,8 +261,96 @@ public class DataSourceChoice extends WizardPanel implements ActionListener {
         jPanel2.add(removeButton, java.awt.BorderLayout.EAST);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 454;
+        gridBagConstraints.ipady = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(28, 18, 0, 0);
         add(jPanel2, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(7, 6, 0, 18);
+        add(jPanel6, gridBagConstraints);
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Informations"));
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel6.setText("Nome Collection");
+
+        name_collection.setEditable(false);
+        name_collection.setText("jTextField1");
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel7.setText("NGrams");
+        jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+
+        ngrams.setEditable(false);
+        ngrams.setText("jTextField2");
+
+        jLabel8.setText("Number Of Documents");
+
+        jLabel9.setText("Number Of References");
+
+        number_documents.setEditable(false);
+        number_documents.setText("jTextField3");
+
+        number_references.setEditable(false);
+        number_references.setText("jTextField4");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(number_references, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel7))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(number_documents, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                            .addComponent(ngrams)
+                            .addComponent(name_collection))))
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(1, 1, 1)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(name_collection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ngrams, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel8))
+                    .addComponent(number_documents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel9))
+                    .addComponent(number_references, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        add(jPanel7, new java.awt.GridBagConstraints());
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -287,14 +383,10 @@ public class DataSourceChoice extends WizardPanel implements ActionListener {
 }//GEN-LAST:event_searchButtonActionPerformed
 
     private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
-        if (this.corpusComboBox.getSelectedIndex() > 0) {
-            try {
-                String collection = (String) this.corpusComboBox.getSelectedItem();
-                CollectionsManager.removeCollection(collection);
-                this.corpusComboBox.removeItem(collection);
-            } catch (IOException ex) {
-                Logger.getLogger(DataSourceChoice.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if (corpusComboBox.getSelectedIndex() > 0) {
+        	String collection = (String) corpusComboBox.getSelectedItem();
+        	collectionManager.removeCollection(collection);
+            corpusComboBox.removeItem(collection);
         } else {
             JOptionPane.showMessageDialog(this, "A collection must be selected.", "Warning", JOptionPane.WARNING_MESSAGE);
         }
@@ -305,7 +397,7 @@ public class DataSourceChoice extends WizardPanel implements ActionListener {
         this.statusProgressBar.setIndeterminate(running);
     }
 
-    private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) throws Exception {//GEN-FIRST:event_loadButtonActionPerformed
+    private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
         String collectionName = this.collectionnameTextField.getText().trim();
         String filename = this.filenameTextField.getText().trim();
         if (filename.compareTo("") != 0 && collectionName.compareTo("") != 0) {
@@ -313,9 +405,18 @@ public class DataSourceChoice extends WizardPanel implements ActionListener {
             String corpusType = filename.substring(filename.lastIndexOf(".") + 1);
             int nrGrams = Integer.valueOf((String) this.nrgramsComboBox.getSelectedItem()).intValue();
             if (corpusType.compareTo("bib") == 0) {
-            	BibTeX2RIS bib = new BibTeX2RIS(filename);
-            	bib.convert();
-            	importer = new ISICorpusDatabaseImporter(bib.getOutputFilename(), collectionName, nrGrams, this, removeStopwordsByTaggingCheckBox.isSelected());
+                BibTeX2RIS bib = null;
+                try {
+                    bib = new BibTeX2RIS(filename);
+                } catch (Exception ex) {
+                    Logger.getLogger(DataSourceChoice.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    bib.convert();
+                } catch (IOException ex) {
+                    Logger.getLogger(DataSourceChoice.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                importer = new ISICorpusDatabaseImporter(bib.getOutputFilename(), collectionName, nrGrams, this, removeStopwordsByTaggingCheckBox.isSelected());
             } else if (corpusType.compareTo("isi") == 0) {
                 importer = new ISICorpusDatabaseImporter(filename, collectionName, nrGrams, this, removeStopwordsByTaggingCheckBox.isSelected());
             } else if (corpusType.compareTo("enw") == 0) {
@@ -339,6 +440,15 @@ public class DataSourceChoice extends WizardPanel implements ActionListener {
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         this.importer.cancel(true);
     }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void corpusComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_corpusComboBoxActionPerformed
+        try {
+            this.getInformations((String) this.corpusComboBox.getSelectedItem());
+        } catch (IOException ex) {
+            Logger.getLogger(DataSourceChoice.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_corpusComboBoxActionPerformed
 
     private void loadingCollection() {
         this.loadButton.setEnabled(false);
@@ -380,18 +490,28 @@ public class DataSourceChoice extends WizardPanel implements ActionListener {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton cancelButton;
     private javax.swing.JTextField collectionnameTextField;
-    private javax.swing.JComboBox corpusComboBox;
+    private javax.swing.JComboBox<String> corpusComboBox;
     private javax.swing.JTextField filenameTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JButton loadButton;
+    private javax.swing.JTextField name_collection;
+    private javax.swing.JTextField ngrams;
     private javax.swing.JComboBox nrgramsComboBox;
     private javax.swing.JLabel nrgramsLabel;
+    private javax.swing.JTextField number_documents;
+    private javax.swing.JTextField number_references;
     private javax.swing.JButton removeButton;
     private javax.swing.JCheckBox removeStopwordsByTaggingCheckBox;
     private javax.swing.JButton searchButton;
@@ -402,5 +522,22 @@ public class DataSourceChoice extends WizardPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    private void getInformations(String collectionName) throws IOException {
+    	if (collectionName != null && (collectionName.equals("Select...") || collectionName.trim().isEmpty())) {
+            this.name_collection.setText("");
+            this.ngrams.setText("");
+            this.number_documents.setText("");
+            this.number_references.setText("");
+        } else {
+            DatabaseCorpus corpus = new DatabaseCorpus(collectionName);
+            Integer ngrams = corpus.getNumberGrams();
+            Integer numberDocs = corpus.getNumberOfDocuments();
+            this.name_collection.setText(collectionName);
+            this.ngrams.setText(ngrams.toString());
+            this.number_documents.setText(numberDocs.toString());
+
+        }
     }
 }

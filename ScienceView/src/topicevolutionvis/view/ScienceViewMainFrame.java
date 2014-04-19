@@ -1,13 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * TopicEvolutionVisMainFrame.java
- *
- * Created on 28/04/2009, 15:19:29
- */
 package topicevolutionvis.view;
 
 import java.awt.Cursor;
@@ -28,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -37,7 +28,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
-import topicevolutionvis.database.ConnectionManager;
+
+import topicevolutionvis.database.SqlManager;
 import topicevolutionvis.datamining.clustering.DBScanSettings;
 import topicevolutionvis.datamining.clustering.monic.MONICSettings;
 import topicevolutionvis.graph.Edge;
@@ -1295,11 +1287,7 @@ public class ScienceViewMainFrame extends javax.swing.JFrame implements TreeSele
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        try {
-            ConnectionManager.getInstance().dispose();
-        } catch (IOException ex) {
-            Logger.getLogger(ScienceViewMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    	this.close();
     }//GEN-LAST:event_formWindowClosing
 
     private void nearestNeighborsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nearestNeighborsListMouseClicked
@@ -1503,6 +1491,11 @@ public class ScienceViewMainFrame extends javax.swing.JFrame implements TreeSele
             }
         }
     }
+    
+    public void close() {
+    	SqlManager.getInstance().close();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu ToolMenu;
     private javax.swing.JMenuItem aboutMenuItem;

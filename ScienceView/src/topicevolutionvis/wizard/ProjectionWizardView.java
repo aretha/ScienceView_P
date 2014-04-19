@@ -126,24 +126,14 @@ public class ProjectionWizardView extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public int display(TemporalProjection tproj) {
-        Connection conn = null;
-        try {
-            conn = ConnectionManager.getInstance().getConnection();
-        } catch (IOException ex) {
-           Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (conn != null) {
-            this.exit = ProjectionWizardView.PROJECTION_GENERATED;
-            this.process = new ProjectionWizardCore(tproj);
-            this.definePanel(ProjectionWizardCore.NEXT_STATE);
-
-            this.setLocationRelativeTo(this.getParent());
-            this.setVisible(true);
-            return this.exit;
-        } else {
-            return ProjectionWizardView.PROJECTION_CANCELED;
-        }
+    public int display(TemporalProjection tproj)
+    {
+        this.exit = ProjectionWizardView.PROJECTION_GENERATED;
+        this.process = new ProjectionWizardCore(tproj);
+        this.definePanel(ProjectionWizardCore.NEXT_STATE);
+        this.setLocationRelativeTo(this.getParent());
+        this.setVisible(true);
+        return this.exit;
     }
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing

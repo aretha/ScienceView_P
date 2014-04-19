@@ -1,10 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package topicevolutionvis.data;
 
 import java.io.*;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,8 +12,11 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+
+import topicevolutionvis.database.ConnectionManager;
 import topicevolutionvis.database.DatabaseCorpus;
 import topicevolutionvis.database.SqlManager;
+import topicevolutionvis.database.SqlUtil;
 import topicevolutionvis.preprocessing.Ngram;
 import topicevolutionvis.util.PExConstants;
 import topicevolutionvis.wizard.DataSourceChoice;
@@ -34,20 +34,23 @@ public class EndnoteDatabaseImporter extends DatabaseImporter {
     }
 
     @Override
-    protected Void doInBackground() throws Exception {
+    protected Void doInBackground() throws Exception
+    {
+    	ConnectionManager connManager = ConnectionManager.getInstance();
+    	Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
             //checking if the collection name already exist
-            if (!DatabaseCorpus.uniqueName(collection)) {
+            if (!collectionManager.isUnique(collection)) {
                 this.cancel(true);
                 this.msg = "A collection intitled \"" + collection + "\" already exists. Please choose another name.";
             }
             this.dropIndexForBibliographicCoupling();
             //creating the collection
 
-
-            stmt = SqlManager.getInstance().getSqlStatement("INSERT.COLLECTION", -1, -1);
+            conn = connManager.getConnection();
+            stmt = SqlManager.getInstance().getSqlStatement(conn, "INSERT.COLLECTION", -1, -1);
             stmt.setString(1, collection);
             stmt.setString(2, filename);
             stmt.setInt(3, nrGrams);
@@ -61,28 +64,18 @@ public class EndnoteDatabaseImporter extends DatabaseImporter {
             readEndnoteFile();
             this.matchReferencesToPapers();
             this.createIndexForBibliographicCoupling();
-        } catch (IOException | SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(ISICorpusDatabaseImporter.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ISICorpusDatabaseImporter.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ISICorpusDatabaseImporter.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+        	SqlUtil.fullyClose(rs);
         }
         return null;
     }
 
     private void readEndnoteFile() {
+    	ConnectionManager connManager = ConnectionManager.getInstance();
+    	Connection conn = null;
+
         BufferedReader in = null;
         PreparedStatement stmt = null;
         try {
@@ -96,6 +89,7 @@ public class EndnoteDatabaseImporter extends DatabaseImporter {
             ArrayList<EndnoteEntry> entries = new ArrayList<>();
             HashMap<String, Integer> corpusNgrams = new HashMap<>();
 
+            conn = connManager.getConnection();
             in = new BufferedReader(new FileReader(this.filename));
             while (((line = in.readLine()) != null)) {
                 if (line.length() > 1 && Character.isIdentifierIgnorable(line.charAt(0))) {
@@ -208,7 +202,7 @@ public class EndnoteDatabaseImporter extends DatabaseImporter {
                     oos.flush();
 
                     //inserting the ngrams
-                    stmt = SqlManager.getInstance().getSqlStatement("UPDATE.NGRAMS.DOCUMENT", -1, -1);
+                    stmt = SqlManager.getInstance().getSqlStatement(conn, "UPDATE.NGRAMS.DOCUMENT", -1, -1);
                     stmt.setBytes(1, baos.toByteArray());
                     stmt.setInt(2, e.getId());
                     stmt.setInt(3, id_collection);
@@ -238,7 +232,7 @@ public class EndnoteDatabaseImporter extends DatabaseImporter {
             oos.flush();
 
 
-            stmt = SqlManager.getInstance().getSqlStatement("UPDATE.NGRAMS.COLLECTION", -1, -1);
+            stmt = SqlManager.getInstance().getSqlStatement(conn, "UPDATE.NGRAMS.COLLECTION", -1, -1);
             stmt.setBytes(1, baos.toByteArray());
             stmt.setInt(2, id_collection);
             stmt.executeUpdate();
@@ -248,14 +242,26 @@ public class EndnoteDatabaseImporter extends DatabaseImporter {
         } catch (IOException | NumberFormatException | SQLException ex) {
             Logger.getLogger(EndnoteDatabaseImporter.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            try {
-                in.close();
-                if (stmt != null) {
-                    stmt.close();
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (Exception ex) {
                 }
-            } catch (IOException | SQLException ex) {
-                Logger.getLogger(EndnoteDatabaseImporter.class.getName()).log(Level.SEVERE, null, ex);
             }
+
+        	if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                }
+            }
+
         }
     }
 

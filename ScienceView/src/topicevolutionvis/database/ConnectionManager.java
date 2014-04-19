@@ -1,126 +1,162 @@
-                                                   /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package topicevolutionvis.database;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+
 import org.h2.jdbcx.JdbcConnectionPool;
-import org.h2.tools.DeleteDbFiles;
-import org.h2.tools.RunScript;
-import org.h2.tools.Script;
+
 
 /**
- *
- * @author Aretha
+ * Manager of database connections.
  */
-public class ConnectionManager {
-
-    private java.sql.Connection conn;
+public class ConnectionManager
+{
+	/**
+	 * Singleton for ConnectionManager.
+	 */
     private static ConnectionManager _instance;
-    private final String properties = "./resources/config/database.properties";
-    private final String temp = "./resources/data_base/temp.sql";
+    
+    /**
+     * Pool of database connection. Whenever you need to get a new database connection,
+     * you should ask for the pool using JdbcConnectionPool.getConnection().
+     */
+    private JdbcConnectionPool connPool;
+    
+    /**
+     * File that hosts the configuration required to connect to the database.
+     */
+    private static final String DEFAULT_DATABASE_CONFIG = "/scienceview/database.properties";
+    
+    /**
+     * Create the ConnectionManager. The constructor must be private due to the Singleton
+     * pattern.
+     * @throws FileNotFoundException 
+     */
+    private ConnectionManager(File file) throws FileNotFoundException
+    {
+        this(new FileInputStream(file));
+            
+    }
 
-    public ConnectionManager() throws IOException {
-        FileInputStream in = null;
+    /**
+     * Create the ConnectionManager. The constructor must be private due to the Singleton
+     * pattern.
+     */
+    private ConnectionManager(String resourcePath)
+    {
+        this(ConnectionManager.class.getResourceAsStream(resourcePath));
+    }
+
+    /**
+     * Create the ConnectionManager. The constructor must be private due to the Singleton
+     * pattern.
+     */
+    private ConnectionManager(InputStream in)
+    {
         try {
             Properties props = new Properties();
-            in = new FileInputStream(this.properties);
             props.load(in);
 
             String url = props.getProperty("jdbc.url");
             String username = props.getProperty("jdbc.username");
             String password = props.getProperty("jdbc.password");
-
-            this.conn = this.createConnection(url, username, password);
-
-        } catch (Exception ex) {
-            Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
-            throw new IOException(ex.getMessage());
+            connPool = JdbcConnectionPool.create(url, username, password);
+            if (connPool == null) {
+            	throw new IllegalArgumentException("Cannot create pool of database connections");
+            }
+            connPool.setMaxConnections(30);
+            System.out.println("Max database connections: " + connPool.getMaxConnections());
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Cannot load configuration for database connection", e);
         } finally {
             if (in != null) {
-                in.close();
+                try {
+					in.close();
+				} catch (IOException e) {
+				}
             }
         }
     }
-
-    private Connection createConnection(String url, String username, String password) {
-        Connection connection = null;
-        try {
-            JdbcConnectionPool cp = JdbcConnectionPool.create(url, username, password);
-            connection = cp.getConnection();
-        } catch (SQLException ex) {
-            Object[] options = {"Retry", "Cancel"};
-            int n = JOptionPane.showOptionDialog(null,
-                    "The database is already open. Close the previous instance and retry.",
-                    "Warning",
-                    JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.WARNING_MESSAGE,
-                    null,
-                    options,
-                    options[0]);
-            if (n == 0) {
-                connection = this.createConnection(url, username, password);
-            } else if (n == 1) {
-                return null;
-            }
-        } finally {
-            return connection;
-        }
-    }
-
-    public static void compress() throws IOException {
-        try {
-            Properties props = new Properties();
-            FileInputStream in = new FileInputStream(ConnectionManager.getInstance().properties);
-            props.load(in);
-
-            String url = props.getProperty("jdbc.url");
-            String username = props.getProperty("jdbc.username");
-            String password = props.getProperty("jdbc.password");
-            String dir = props.getProperty("jdbc.dir");
-            String database = props.getProperty("jdbc.database");
-
-            Script.execute(url, username, password, ConnectionManager.getInstance().temp);
-            DeleteDbFiles.execute(dir, database, true);
-            RunScript.execute(url, username, password, ConnectionManager.getInstance().temp, null, false);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
-            throw new IOException(ex.getMessage());
-        }
-    }
-
-    public java.sql.Connection getConnection() {
-        return conn;
-    }
-
-    public static ConnectionManager getInstance() throws IOException {
-        if (_instance == null || _instance.getConnection() == null) {
-            _instance = new ConnectionManager();
+    
+    
+    /**
+     * Get the instance of ConnectionManager (Singleton pattern).
+     * 
+     * @return ConnectionManager
+     * 
+     * @throws IllegalArgumentException if configuration data could not be loaded or the
+     * data was incorrect (and no connection to the database was possible).
+     */
+    public synchronized static ConnectionManager getInstance() 
+    {
+        if (_instance == null) {
+       		_instance = new ConnectionManager(DEFAULT_DATABASE_CONFIG);
         }
 
         return _instance;
     }
 
-    public void dispose() throws IOException {
-        //closing the data base connection
-        if (this.conn != null) {
-            try {
-                this.conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
-                throw new IOException(ex.getMessage());
-            }
+    /**
+     * Get the instance of ConnectionManager (Singleton pattern).
+     * 
+     * @return ConnectionManager
+     * 
+     * @throws IllegalArgumentException if configuration data could not be loaded or the
+     * data was incorrect (and no connection to the database was possible).
+     */
+    public synchronized static ConnectionManager getInstance(File properties) 
+    {
+        if (_instance == null) {
+        	try {
+        		_instance = new ConnectionManager(properties);
+        	} catch (FileNotFoundException fnfe) {
+        		throw new IllegalArgumentException(fnfe);
+        	}
         }
 
+        return _instance;
+    }
+    
+    /**
+     * Get JDBC connection from database connection pool.
+     * 
+     * @return Database connection
+     */
+    public Connection getConnection() {
+    	Connection conn = null;
+    	try {
+    		while (conn == null) {
+    			conn = connPool.getConnection();
+    			if (conn == null) {
+    				System.out.println("Currently active database connections: " + connPool.getActiveConnections());
+    				Thread.sleep(1000);
+    			}
+    		}
+    	} catch (SQLException e) {
+    		return null;
+    	} catch (InterruptedException e) {
+    		Thread.currentThread().interrupt();
+    	}
+		return conn;
+    }
+
+
+
+    /**
+     * Close the connection manager.
+     */
+    public synchronized void close()
+    {
+        if (connPool != null) {
+        	connPool.dispose();
+        	connPool = null;
+        }
         _instance = null;
     }
 }

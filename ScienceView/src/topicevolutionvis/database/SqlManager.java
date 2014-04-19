@@ -1,89 +1,100 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package topicevolutionvis.database;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- *
- * @author Aretha
+ * Manager of SQL statements (queries).
  */
-public class SqlManager {
-
+public class SqlManager
+{
+	/**
+	 * Instance of the SqlManager (only one per application, singleton pattern).
+	 */
     private static SqlManager _instance;
-    private Properties properties;
 
     /**
-     * Creates a new instance of SqlManager
+     * Name of the file which holds the SQL statements.
      */
-    private SqlManager() throws IOException {
-        try {
-            //read the file containing the sql statements
-            this.properties = new Properties();
-            FileInputStream file = new FileInputStream("./resources/config/sql.properties");
-            this.properties.load(file);
-            if (file != null) {
-                file.close();
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(SqlManager.class.getName()).log(Level.SEVERE, null, ex);
-            throw new IOException(ex.getMessage());
-        }
-    }
+	private static final String SQL_STATEMENTS_CONFIG = "/scienceview/sql.properties";
 
-    public PreparedStatement getSqlStatement(String id, int resultSetType, int resultSetConcurrency) throws IOException {
-        Connection conn;
-        try {
-            conn = ConnectionManager.getInstance().getConnection();
-            if (resultSetType != -1 && resultSetConcurrency != -1) {
-                return conn.prepareStatement(properties.getProperty(id), resultSetType, resultSetConcurrency);
-            } else {
-                return conn.prepareStatement(properties.getProperty(id));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SqlManager.class.getName()).log(Level.SEVERE, null, ex);
-            throw new IOException(ex.getMessage());
-        }
-    }
+    /**
+     * SQL statements.
+     */
+    private Properties properties;
+	
 
-    public String getNome(Connection con, int id) {
-        String nome = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        String consulta = "SELECT nome FROM Funcionarios WHERE id_func=" + id;
-        try {
-            rs = stmt.executeQuery();
-            if (rs.next()) {
-                nome = rs.getString("nome");
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+    /**
+     * Creates a new instance of SqlManager (singleton pattern)
+     */
+    private SqlManager()
+    {
+    	InputStream is = null;
+
+    	try {
+    		is = SqlManager.class.getResourceAsStream(SQL_STATEMENTS_CONFIG);
+    		properties = new Properties();
+    		properties.load(is);
+        } catch (IOException ioe) {
+        	throw new RuntimeException("Cannot load configuration from file", ioe);
         } finally {
-            try {
-                stmt.close();
-                rs.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-        return nome;
+        	if (is != null) {
+        		try {
+        			is.close();
+        		} catch (IOException e) {
+        			
+        		}
+        	}
+		}
     }
 
-    public static SqlManager getInstance() throws IOException {
-        if (_instance == null) {
+    /**
+     * Create an instance of the SqlManager (singleton pattern).
+     * 
+     * @return SqlManager.
+     */
+    public synchronized static SqlManager getInstance()
+    {
+    	if (_instance == null) {
             _instance = new SqlManager();
         }
         return _instance;
+    }
+    
+    public PreparedStatement getSqlStatement(Connection conn, String id) {
+    	return getSqlStatement(conn, id, -1, -1);
+    }
+    
+    public PreparedStatement getSqlStatement(Connection conn, String id, int resultSetType, int resultSetConcurrency)
+    {
+    	return createSqlStatement(conn, properties.getProperty(id), resultSetType, resultSetConcurrency);
+    }
+    
+    public PreparedStatement createSqlStatement(Connection conn, String query)
+    {
+    	return createSqlStatement(conn, query, -1, -1);
+    }
+
+    public PreparedStatement createSqlStatement(Connection conn, String query, int resultSetType, int resultSetConcurrency)
+    {
+    	try {
+       	    if (resultSetType != -1 && resultSetConcurrency != -1) {
+                return conn.prepareStatement(query, resultSetType, resultSetConcurrency);
+            } else {
+                return conn.prepareStatement(query);
+            }
+        } catch (SQLException ex) {
+            throw new UnsupportedOperationException("Error preparing the SQL query", ex);
+        }
+    }
+
+    
+    public synchronized void close() {
+    	properties = null;
+    	_instance = null;
     }
 }

@@ -4,6 +4,7 @@
  */
 package topicevolutionvis.database;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -11,58 +12,64 @@ import java.sql.SQLException;
  * 
  * @author Aretha
  */
-public class CreateDataBase {
-
+public class CreateDataBase
+{
+	ConnectionManager connManager;
+	
+	private SqlManager sqlManager;
+	
 	public void create() throws Exception {
+		connManager = ConnectionManager.getInstance();
+		sqlManager = SqlManager.getInstance();
 		removeTables();
 		createTables();
-		ConnectionManager.getInstance().dispose();
+		sqlManager.close();
 	}
 
 	private void createTables() throws Exception {
+		Connection conn = connManager.getConnection();
 		PreparedStatement stmt = null;
 		try {
-
-			stmt = SqlManager.getInstance().getSqlStatement("CREATE.TABLE.COLLECTIONS", -1, -1);
+			stmt = sqlManager.getSqlStatement(conn, "CREATE.TABLE.COLLECTIONS");
 			stmt.executeUpdate();
 			stmt.close();
 
-			stmt = SqlManager.getInstance().getSqlStatement("CREATE.TABLE.AUTHORS", -1, -1);
+			stmt = sqlManager.getSqlStatement(conn, "CREATE.TABLE.AUTHORS");
 			stmt.executeUpdate();
 			stmt.close();
 
-			stmt = SqlManager.getInstance().getSqlStatement("CREATE.TABLE.CONTENT", -1, -1);
+			stmt = sqlManager.getSqlStatement(conn, "CREATE.TABLE.CONTENT");
 			stmt.executeUpdate();
 			stmt.close();
 
-			stmt = SqlManager.getInstance().getSqlStatement("CREATE.TABLE.REFERENCES", -1, -1);
+			stmt = sqlManager.getSqlStatement(conn, "CREATE.TABLE.REFERENCES");
 			stmt.executeUpdate();
 			stmt.close();
 
-			stmt = SqlManager.getInstance().getSqlStatement("CREATE.TABLE.DOCUMENTS.TO.REFERENCES", -1, -1);
+			stmt = sqlManager.getSqlStatement(conn, "CREATE.TABLE.DOCUMENTS.TO.REFERENCES");
 			stmt.executeUpdate();
 			stmt.close();
 
-			stmt = SqlManager.getInstance().getSqlStatement("CREATE.TABLE.DOCUMENTS.TO.AUTHORS", -1, -1);
+			stmt = sqlManager.getSqlStatement(conn, "CREATE.TABLE.DOCUMENTS.TO.AUTHORS");
 			stmt.executeUpdate();
 			stmt.close();
 
-			stmt = SqlManager.getInstance().getSqlStatement("CREATE.INDEX.REFERENCES", -1, -1);
+			stmt = sqlManager.getSqlStatement(conn, "CREATE.INDEX.REFERENCES");
 			stmt.executeUpdate();
 			stmt.close();
 
-			stmt = SqlManager.getInstance().getSqlStatement("CREATE.INDEX.AUTHORS", -1, -1);
+			stmt = sqlManager.getSqlStatement(conn, "CREATE.INDEX.AUTHORS");
 			stmt.executeUpdate();
 			stmt.close();
 
-			stmt = SqlManager.getInstance().getSqlStatement("CREATE.INDEX.MATCH", -1, -1);
+			stmt = sqlManager.getSqlStatement(conn, "CREATE.INDEX.MATCH");
 			stmt.executeUpdate();
 			stmt.close();
 
 		} finally {
-			if (stmt != null) {
+			if (conn != null) {
 				try {
-					stmt.close();
+					conn.close();
 				} catch (SQLException ex) {
 				}
 			}
@@ -71,36 +78,37 @@ public class CreateDataBase {
 
 	/** Remove the tables of this data base. */
 	private void removeTables() throws Exception {
+		Connection conn = connManager.getConnection();
 		PreparedStatement stmt = null;
 
 		try {
-			stmt = SqlManager.getInstance().getSqlStatement("DROP.TABLE.COLLECTIONS", -1, -1);
+			stmt = SqlManager.getInstance().getSqlStatement(conn, "DROP.TABLE.COLLECTIONS");
 			stmt.executeUpdate();
 			stmt.close();
 			
-			stmt = SqlManager.getInstance().getSqlStatement("DROP.TABLE.DOCUMENTS", -1, -1);
+			stmt = SqlManager.getInstance().getSqlStatement(conn, "DROP.TABLE.DOCUMENTS");
 			stmt.executeUpdate();
 			stmt.close();
 
-			stmt = SqlManager.getInstance().getSqlStatement("DROP.TABLE.REFERENCES", -1, -1);
+			stmt = SqlManager.getInstance().getSqlStatement(conn, "DROP.TABLE.REFERENCES");
 			stmt.executeUpdate();
 			stmt.close();
 
-			stmt = SqlManager.getInstance().getSqlStatement("DROP.TABLE.DOCUMENTS.TO.REFERENCES", -1, -1);
+			stmt = SqlManager.getInstance().getSqlStatement(conn, "DROP.TABLE.DOCUMENTS.TO.REFERENCES");
 			stmt.executeUpdate();
 			stmt.close();
 
-			stmt = SqlManager.getInstance().getSqlStatement("DROP.TABLE.AUTHORS", -1, -1);
+			stmt = SqlManager.getInstance().getSqlStatement(conn, "DROP.TABLE.AUTHORS");
 			stmt.executeUpdate();
 			stmt.close();
 
-			stmt = SqlManager.getInstance().getSqlStatement("DROP.TABLE.DOCUMENTS.TO.AUTHORS", -1, -1);
+			stmt = SqlManager.getInstance().getSqlStatement(conn, "DROP.TABLE.DOCUMENTS.TO.AUTHORS");
 			stmt.executeUpdate();
 			stmt.close();
 		} finally {
-			if (stmt != null) {
+			if (conn != null) {
 				try {
-					stmt.close();
+					conn.close();
 				} catch (SQLException ex) {
 				}
 			}

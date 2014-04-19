@@ -1,12 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package topicevolutionvis.database;
 
 import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.map.hash.TIntIntHashMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
+
 import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,11 +12,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
 import org.apache.commons.collections.map.MultiKeyMap;
+
 import topicevolutionvis.data.Encoding;
 import topicevolutionvis.preprocessing.Ngram;
 import topicevolutionvis.preprocessing.Reference;
@@ -33,34 +30,46 @@ import topicevolutionvis.util.Pair;
 public class DatabaseCorpus {
 
     protected float[] cdata;
+    
     protected int[] documents_ids;
+    
     protected String name;
+    
     protected int nrDocuments;
+    
     protected static Encoding encoding = Encoding.ASCII;
+    
     private int id_collection = 0;
+    
     private TIntObjectHashMap<ArrayList<Pair>> citation_core = new TIntObjectHashMap<>();
+    
     private MultiKeyMap coreCitationHistogram = new MultiKeyMap();
+    
     private double[][] norm_bc;
+    
     private int[] ascending_dates;
+    
     private int n_unique_references = 0;
+    
+    private ConnectionManager connManager;
+    
+    private SqlManager sqlManager;
 
     public DatabaseCorpus(String name) {
         this.name = name;
-        this.initDatabaseCorpus();
-        Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.INFO, "Collection name: {0}", this.name);
-        Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.INFO, "Collection id: {0}", this.id_collection);
-        Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.INFO, "Number documents: {0}", this.nrDocuments);
-
+        connManager = ConnectionManager.getInstance();
+        sqlManager = SqlManager.getInstance();
+        initDatabaseCorpus();
     }
 
     private void initDatabaseCorpus() {
-        this.retrieveCollectionId();
-        this.retrieveNrDocuments();
-        this.retrieveDocumentsIds();
-        this.retrievetAscendingDates();
-        this.matchCoreCitations();
-        this.generateCoreCitationsHistogram();
-        this.getNumberOfUniqueReferences_Query();
+        retrieveCollectionId();
+        retrieveNrDocuments();
+        retrieveDocumentsIds();
+        retrievetAscendingDates();
+        matchCoreCitations();
+        generateCoreCitationsHistogram();
+        getNumberOfUniqueReferences_Query();
     }
 
     public String getCollectionName() {
@@ -80,62 +89,24 @@ public class DatabaseCorpus {
     }
 
     public void updateClasses(ArrayList<Integer> ids_docs, int class_docs) {
+        StringBuilder query = new StringBuilder("UPDATE Documents SET class=? WHERE id_doc IN (");
+        String docs = ids_docs.toString();
+        query.append(docs.substring(1, docs.length() - 1)).append(") AND id_collection=?");
+        PreparedStatement stmt = null; 
+        Connection conn = null;
+        
         try {
-            //preparing the update query
-            StringBuilder query = new StringBuilder("UPDATE Documents SET class=? WHERE id_doc IN (");
-            String docs = ids_docs.toString();
-            query.append(docs.substring(1, docs.length() - 1)).append(") AND id_collection=?");
-            PreparedStatement stmt = ConnectionManager.getInstance().getConnection().prepareStatement(query.toString());
+        	conn = connManager.getConnection();
+            stmt = sqlManager.createSqlStatement(conn, query.toString());
             stmt.setInt(1, class_docs);
             stmt.setInt(2, id_collection);
             stmt.executeUpdate();
-
-
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not update class for selected documents", e);
+        } finally {
+        	SqlUtil.fullyClose(stmt);
         }
     }
-//    
-//    public int[] getCitationsFromDocument(int id_doc) {
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//        int[] citations = null;
-//        
-//        try {
-//            
-//            stmt = SqlManager.getInstance().getSqlStatement("SELEC.CITATIONS.FROM.DOCUMENT", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-//            stmt.setInt(1, id_collection);
-//            stmt.setInt(2, id_doc);
-//            rs = stmt.executeQuery();
-//            
-//            rs.last();
-//            int size = rs.getRow();
-//            rs.beforeFirst();
-//            
-//            if (size > 0) {
-//                citations = new int[size];
-//                for (int i = 0; i < size; i++) {
-//                    rs.next();
-//                    citations[i] = rs.getInt(1);
-//                }
-//            }
-//            return citations;
-//        } catch (Exception ex) {
-//            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-//        } finally {
-//            try {
-//                if (rs != null) {
-//                    rs.close();
-//                }
-//                if (stmt != null) {
-//                    stmt.close();
-//                }
-//            } catch (SQLException ex) {
-//                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//        return null;
-//    }
 
     public TIntObjectHashMap<ArrayList<Pair>> getCoreReferences() {
         return this.citation_core;
@@ -154,54 +125,50 @@ public class DatabaseCorpus {
     }
 
     private void generateCoreCitationsHistogram() {
-        int n_citations, id_doc;
+        int id_doc;
+        int count;
         int[] years = this.getAscendingDates();
         TIntIntHashMap citation_histogram = new TIntIntHashMap(years.length);
         TIntArrayList ids;
 
         for (int i = 0; i < this.documents_ids.length; i++) {
             id_doc = this.documents_ids[i];
+            
             //ids of docucments citing id_doc
             ids = new TIntArrayList();
             for (Pair citation : citation_core.get(id_doc)) {
                 ids.add(citation.index);
             }
+            
             if (!ids.isEmpty()) {
                 //discovering how many ids cite id_doc until year[i]
+                Connection conn = null;
                 PreparedStatement stmt = null;
                 ResultSet rs = null;
                 try {
                     StringBuilder sqlStatement = new StringBuilder("Select year, count(id_citation) FROM citations WHERE id_citation in(");
                     sqlStatement.append(ids.toString().substring(1, ids.toString().length() - 1));
                     sqlStatement.append(") and id_collection=").append(this.id_collection).append("group by year order by year");
-                    stmt = ConnectionManager.getInstance().getConnection().prepareStatement(sqlStatement.toString());
+
+                	conn = connManager.getConnection();
+                	stmt = sqlManager.createSqlStatement(conn, sqlStatement.toString());
                     rs = stmt.executeQuery();
                     while (rs.next()) {
                         citation_histogram.put(rs.getInt(1), rs.getInt(2));
                     }
-
-                } catch (IOException | SQLException ex) {
-                    Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException e) {
+                    throw new RuntimeException("Could not load citation data to build the histogram", e);
                 } finally {
-                    try {
-                        if (rs != null) {
-                            rs.close();
-                        }
-                        if (stmt != null) {
-                            stmt.close();
-                        }
-                    } catch (SQLException ex) {
-                        Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                	SqlUtil.fullyClose(rs);
                 }
             }
-            int count;
+
             for (int j = 0; j < years.length; j++) {
                 count = 0;
                 for (int n = 0; n <= j; n++) {
                     count += citation_histogram.get(years[n]);
                 }
-                this.coreCitationHistogram.put(id_doc, years[j], count);
+                coreCitationHistogram.put(id_doc, years[j], count);
             }
         }
     }
@@ -211,64 +178,47 @@ public class DatabaseCorpus {
     }
 
     public String getCollectionFilename() {
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            //getting the collection id
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.COLLECTION.FILENAME", -1, -1);
+            // Get the collection id
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.COLLECTION.FILENAME");
             stmt.setInt(1, this.id_collection);
             rs = stmt.executeQuery();
             if (rs.next()) {
                 return rs.getString(1);
             } else {
-                throw new IOException("There is not exist a collection called \""
-                        + this.name + "\"");
+                throw new IllegalArgumentException("There is not exist a collection called \"" + this.name + "\"");
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not get collection filename", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        	SqlUtil.fullyClose(rs);
         }
-        return null;
     }
 
     private void retrieveCollectionId() {
         if (this.name != null) {
+            Connection conn = null;
             PreparedStatement stmt = null;
             ResultSet rs = null;
             try {
-                //getting the collection id
-                stmt = SqlManager.getInstance().getSqlStatement("SELECT.COLLECTION.BY.NAME", -1, -1);
+                // Getting the collection id
+            	conn = connManager.getConnection();
+                stmt = sqlManager.getSqlStatement(conn, "SELECT.COLLECTION.BY.NAME");
                 stmt.setString(1, this.name);
                 rs = stmt.executeQuery();
                 if (rs.next()) {
                     this.id_collection = rs.getInt(1);
                 } else {
-                    throw new IOException("There is not exist a collection called \""
-                            + this.name + "\"");
+                    throw new IllegalArgumentException("There is not exist a collection called \"" + this.name + "\"");
                 }
-            } catch (IOException | SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException e) {
+                throw new RuntimeException("Could not get collection filename", e);
             } finally {
-                try {
-                    if (rs != null) {
-                        rs.close();
-                    }
-                    if (stmt != null) {
-                        stmt.close();
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            	SqlUtil.fullyClose(rs);
             }
         }
     }
@@ -277,14 +227,17 @@ public class DatabaseCorpus {
         return this.nrDocuments;
     }
 
-    private void retrieveDocumentsIds() {
-        if (this.nrDocuments > 0) {
+    private void retrieveDocumentsIds()
+    {
+        if (nrDocuments > 0) {
+            Connection conn = null;
             PreparedStatement stmt = null;
             ResultSet rs = null;
-            try {
-                this.documents_ids = new int[this.nrDocuments];
+            documents_ids = new int[this.nrDocuments];
 
-                stmt = SqlManager.getInstance().getSqlStatement("SELECT.DOCUMENTS.IDS", -1, -1);
+            try {
+            	conn = connManager.getConnection();
+                stmt = sqlManager.getSqlStatement(conn, "SELECT.DOCUMENTS.IDS");
                 stmt.setInt(1, this.id_collection);
                 rs = stmt.executeQuery();
 
@@ -296,66 +249,49 @@ public class DatabaseCorpus {
                 //to ensure that different "import" of the same data set on
                 //different moments returns the same order of ids
                 Arrays.sort(this.documents_ids);
-            } catch (IOException | SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException e) {
+            	throw new RuntimeException("Could not retrieve document data from database", e);
             } finally {
-                try {
-                    if (rs != null) {
-                        rs.close();
-                    }
-                    if (stmt != null) {
-                        stmt.close();
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            	SqlUtil.fullyClose(rs);
             }
         }
     }
 
     private void retrieveNrDocuments() {
         if (this.id_collection > 0) {
+            Connection conn = null;
             PreparedStatement stmt = null;
             ResultSet rs = null;
             try {
                 //getting the number of documents on the collection
-                stmt = SqlManager.getInstance().getSqlStatement("SELECT.NUMBER.DOCUMENTS", -1, -1);
+            	conn = connManager.getConnection();
+                stmt = sqlManager.getSqlStatement(conn, "SELECT.NUMBER.DOCUMENTS");
                 stmt.setInt(1, this.id_collection);
                 rs = stmt.executeQuery();
 
                 if (rs.next()) {
                     this.nrDocuments = rs.getInt(1);
                 } else {
-                    throw new IOException("Problems retrieving the number of documents.");
+                    throw new IllegalArgumentException("Problems retrieving the number of documents.");
                 }
-            } catch (IOException | SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException e) {
+            	throw new RuntimeException("Could not retrieve document data from database", e);
             } finally {
-                try {
-                    if (rs != null) {
-                        rs.close();
-                    }
-                    if (stmt != null) {
-                        stmt.close();
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            	SqlUtil.fullyClose(rs);
             }
         }
     }
 
     public String getFullContent(int id) {
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         StringBuilder content = new StringBuilder();
-        StringTokenizer tokenizer;
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.CONTENT.DOCUMENT", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.CONTENT.DOCUMENT");
             stmt.setInt(1, id);
             stmt.setInt(2, this.id_collection);
-
-            //getting the result
             rs = stmt.executeQuery();
             if (rs.next()) {
                 //title
@@ -377,21 +313,11 @@ public class DatabaseCorpus {
                 if (rs.getString(5).compareTo("") != 0) {
                     content.append(rs.getString(5)).append("\r\n\n");
                 }
-
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+        	throw new RuntimeException("Could not retrieve document data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        	SqlUtil.fullyClose(rs);
         }
         return content.toString();
     }
@@ -401,49 +327,51 @@ public class DatabaseCorpus {
     }
 
     public int getMinIdCitation() {
-        PreparedStatement stmt;
-        ResultSet rs;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         int min_id;
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.MIN.ID.CITATION", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.MIN.ID.CITATION");
             stmt.setInt(1, this.id_collection);
             rs = stmt.executeQuery();
             rs.next();
-
             min_id = rs.getInt(1);
-            rs.close();
-            stmt.close();
             return min_id;
-
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return 0;
+        } catch (SQLException e) {
+        	throw new RuntimeException("Could not retrieve citation data from database", e);
+    	} finally {
+    		SqlUtil.fullyClose(rs);
+    	}
     }
 
     private void getNumberOfUniqueReferences_Query() {
+        Connection conn = null;
         PreparedStatement stmt;
-        ResultSet rs;
+        ResultSet rs = null;
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("COUNT.UNIQUE.REFERENCES", -1, -1);
-            stmt.setInt(1, this.id_collection);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "COUNT.UNIQUE.REFERENCES");
+            stmt.setInt(1, id_collection);
             rs = stmt.executeQuery();
             rs.next();
 
-            this.n_unique_references = rs.getInt(1);
-            rs.close();
-            stmt.close();
-
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            n_unique_references = rs.getInt(1);
+        } catch (SQLException e) {
+        	throw new RuntimeException("Could not retrieve citation data from database", e);
+        } finally {
+    		SqlUtil.fullyClose(rs);
+    	}
     }
 
     public int getNumberOfSameAuthors(int id1, int id2) {
+        Connection conn = null;
         PreparedStatement stmt;
-        ResultSet rs;
+        ResultSet rs = null;
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("COAUTHORSHIP", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "COAUTHORSHIP");
             stmt.setInt(1, id1);
             stmt.setInt(2, this.id_collection);
             stmt.setInt(3, id2);
@@ -452,15 +380,12 @@ public class DatabaseCorpus {
             rs.next();
 
             int number = rs.getInt(1);
-
-            rs.close();
-            stmt.close();
             return number;
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return 0;
-    }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
+        } finally {
+            SqlUtil.fullyClose(rs);
+        }    }
 
     public double getBibliographicCoupling_Log(int id1, int id2) {
         if (id1 > id2) {
@@ -471,10 +396,12 @@ public class DatabaseCorpus {
     }
 
     private int getBibliographicCoupling(int id1, int id2) {
+        Connection conn = null;
         PreparedStatement stmt;
-        ResultSet rs;
+        ResultSet rs = null;
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("BIBLIOGRAPHIC.COUPLING", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "BIBLIOGRAPHIC.COUPLING");
             stmt.setInt(1, id1);
             stmt.setInt(2, this.id_collection);
             stmt.setInt(3, id2);
@@ -482,16 +409,16 @@ public class DatabaseCorpus {
             rs = stmt.executeQuery();
             rs.next();
             int bc = rs.getInt(1);
-            rs.close();
-            stmt.close();
             return bc;
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
+        } finally {
+            SqlUtil.fullyClose(rs);
         }
-        return 0;
     }
 
     public String getViewContent(int id) {
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         StringBuilder content = new StringBuilder();
@@ -499,7 +426,8 @@ public class DatabaseCorpus {
 
 
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.AUTHORS.FROM.DOCUMENT", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.AUTHORS.FROM.DOCUMENT");
             stmt.setInt(1, id);
             stmt.setInt(2, this.id_collection);
             rs = stmt.executeQuery();
@@ -508,8 +436,9 @@ public class DatabaseCorpus {
                 content.append(rs.getString(1)).append("; ");
             }
             content.append("\r\n\n");
+            rs.close();
 
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.CONTENT.DOCUMENT", -1, -1);
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.CONTENT.DOCUMENT");
             stmt.setInt(1, id);
             stmt.setInt(2, this.id_collection);
 
@@ -580,19 +509,10 @@ public class DatabaseCorpus {
                     }
                 }
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SqlUtil.fullyClose(rs);
         }
         return content.toString();
     }
@@ -701,7 +621,6 @@ public class DatabaseCorpus {
 //            }
 //        } else {
         out = new ZipOutputStream(new FileOutputStream(filename));
-        int semAbstract = 0;
 
         if (pdata.getScalarFilename().compareToIgnoreCase("") != 0) {
             //writing scalar value for TrueLbL
@@ -756,9 +675,7 @@ public class DatabaseCorpus {
                     bufferedWriter.newLine();
                     bufferedWriter.newLine();
                     bufferedWriter.flush();
-                } else {
-                    semAbstract++;
-                }
+                } 
 
                 //keywords
                 if (pdata.getSaveKeywordsToPExFormat() && keywords != null) {
@@ -785,24 +702,26 @@ public class DatabaseCorpus {
                 while ((count = in.read(buffer)) != -1) {
                     out.write(buffer, 0, count);
                 }
+                in.close();
 
                 file.delete();
-            } //            }
+            }
             if (bufferedWriterScalar != null) {
                 bufferedWriterScalar.close();
             }
-            System.out.println("Documentos sem abstract: " + semAbstract);
             out.close();
         }
     }
 
     public ArrayList<Ngram> getNgrams(int id) throws IOException {
         ArrayList<Ngram> ngrams = null;
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.NGRAMS.DOCUMENT", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.NGRAMS.DOCUMENT");
             stmt.setInt(1, id);
             stmt.setInt(2, this.id_collection);
             rs = stmt.executeQuery();
@@ -813,29 +732,21 @@ public class DatabaseCorpus {
                 ngrams = (ArrayList<Ngram>) ois.readObject();
             }
 
-        } catch (IOException | SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | SQLException | ClassNotFoundException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SqlUtil.fullyClose(rs);
         }
         return ngrams;
     }
 
     public boolean doesThisDocumentCitesThisReference(int id_doc, int index_citation) {
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("DOES.THIS.DOCUMENT.CITES.THIS.REFERENCE", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "DOES.THIS.DOCUMENT.CITES.THIS.REFERENCE");
             stmt.setInt(1, id_doc);
             stmt.setInt(2, index_citation);
             stmt.setInt(3, this.id_collection);
@@ -845,25 +756,16 @@ public class DatabaseCorpus {
             } else {
                 return false;
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SqlUtil.fullyClose(rs);
         }
-        return false;
     }
 
     public ArrayList<Reference> getCorpusReferences(int lower, int upper) {
         ArrayList<Reference> references = new ArrayList<>();
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         int id_citation;
@@ -883,7 +785,9 @@ public class DatabaseCorpus {
                     lower_ok = true;
                 }
             }
-            stmt = ConnectionManager.getInstance().getConnection().prepareStatement(sql.toString());
+
+            conn = connManager.getConnection();
+            stmt = sqlManager.createSqlStatement(conn, sql.toString());
             stmt.setInt(1, this.id_collection);
             if (upper_ok) {
                 stmt.setInt(2, upper);
@@ -901,30 +805,23 @@ public class DatabaseCorpus {
                 id_citation = rs.getInt(1);
                 references.add(new Reference(this.getReferenceText(id_citation), rs.getInt(2), id_citation));
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SqlUtil.fullyClose(rs);
         }
         return references;
     }
 
     public ArrayList<Ngram> getCorpusNgrams() throws IOException {
         ArrayList<Ngram> ngrams = null;
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.NGRAMS.COLLECTION", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.NGRAMS.COLLECTION");
             stmt.setInt(1, this.id_collection);
             rs = stmt.executeQuery();
 
@@ -932,53 +829,34 @@ public class DatabaseCorpus {
                 InputStream is = rs.getBlob(1).getBinaryStream();
                 ObjectInputStream ois = new ObjectInputStream(is);
                 ngrams = (ArrayList<Ngram>) ois.readObject();
-
             }
-        } catch (IOException | SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            throw new IOException(ex.getMessage());
+        } catch (IOException | SQLException | ClassNotFoundException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-                throw new IOException(ex.getMessage());
-            }
+            SqlUtil.fullyClose(rs);
         }
         return ngrams;
     }
 
     public int getNumberGrams() {
         int nrGrams = 0;
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.NUMBER.GRAMS", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.NUMBER.GRAMS");
             stmt.setInt(1, this.id_collection);
             rs = stmt.executeQuery();
 
             if (rs.next()) {
                 nrGrams = rs.getInt(1);
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SqlUtil.fullyClose(rs);
         }
         return nrGrams;
     }
@@ -988,12 +866,14 @@ public class DatabaseCorpus {
     }
 
     private void retrievetAscendingDates() {
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
 
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.DISTINCT.YEARS", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.DISTINCT.YEARS", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             stmt.setInt(1, this.id_collection);
             rs = stmt.executeQuery();
 
@@ -1006,34 +886,23 @@ public class DatabaseCorpus {
                 rs.next();
                 ascending_dates[i] = rs.getInt(1);
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SqlUtil.fullyClose(rs);
         }
     }
 
     public int[] getDocumentsWithLCC(int value, String comparison) {
+        Connection conn = null;
         PreparedStatement stmt;
-        ResultSet rs;
-        Connection conn;
+        ResultSet rs = null;
         int[] ids = null;
         StringBuilder sql_statement = new StringBuilder("SELECT ID_DOC FROM DOCUMENTS WHERE LCC ");
         sql_statement = sql_statement.append(comparison).append(" ").append(value);
         try {
-            conn = ConnectionManager.getInstance().getConnection();
-            stmt = conn.prepareStatement(sql_statement.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-
+        	conn = connManager.getConnection();
+            stmt = sqlManager.createSqlStatement(conn, sql_statement.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery();
             rs.last();
             int size = rs.getRow();
@@ -1043,8 +912,10 @@ public class DatabaseCorpus {
                 rs.next();
                 ids[i] = rs.getInt(1);
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
+        } finally {
+            SqlUtil.fullyClose(rs);
         }
         return ids;
 
@@ -1052,16 +923,16 @@ public class DatabaseCorpus {
 
     public int[] getDocumentsWithGCC(int value, String comparison) {
         PreparedStatement stmt;
-        ResultSet rs;
+        ResultSet rs = null;
         Connection conn;
         int[] ids = null;
-        StringBuilder sql_statement = new StringBuilder("SELECT ID_DOC FROM DOCUMENTS WHERE GCC ");
-        sql_statement = sql_statement.append(comparison).append(" ").append(value);
 
         try {
-            conn = ConnectionManager.getInstance().getConnection();
-            stmt = conn.prepareStatement(sql_statement.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            StringBuilder sql_statement = new StringBuilder("SELECT ID_DOC FROM DOCUMENTS WHERE GCC ");
+            sql_statement = sql_statement.append(comparison).append(" ").append(value);
 
+            conn = connManager.getConnection();
+            stmt = sqlManager.createSqlStatement(conn, sql_statement.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery();
             rs.last();
             int size = rs.getRow();
@@ -1071,20 +942,23 @@ public class DatabaseCorpus {
                 rs.next();
                 ids[i] = rs.getInt(1);
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
+        } finally {
+            SqlUtil.fullyClose(rs);
         }
-
         return ids;
     }
 
     public TIntArrayList getDocumentsIdsFromYearToYear(int begin_year, int end_year) {
 
+        Connection conn = null;
         PreparedStatement stmt;
-        ResultSet rs;
+        ResultSet rs = null;
         TIntArrayList ids = new TIntArrayList();
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.ID.DOCUMENTS.FROM.YEAR.TO.YEAR", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.ID.DOCUMENTS.FROM.YEAR.TO.YEAR");
             stmt.setInt(1, this.id_collection);
             stmt.setInt(2, begin_year);
             stmt.setInt(3, end_year);
@@ -1094,19 +968,23 @@ public class DatabaseCorpus {
                 ids.add(rs.getInt(1));
             }
 
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
+        } finally {
+            SqlUtil.fullyClose(rs);
         }
         return ids;
     }
 
     public int[] getDocumentsIdsSortedByTitle(int year) {
+        Connection conn = null;
         PreparedStatement stmt;
-        ResultSet rs;
+        ResultSet rs = null;
         int[] ids = null;
 
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.ID.DOCUMENTS.FROM.YEAR.ORDER.BY.TITLE.ORDER.BY.TITLE", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.ID.DOCUMENTS.FROM.YEAR.ORDER.BY.TITLE.ORDER.BY.TITLE", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             stmt.setInt(1, this.id_collection);
             stmt.setInt(2, year);
             rs = stmt.executeQuery();
@@ -1120,19 +998,22 @@ public class DatabaseCorpus {
                 rs.next();
                 ids[i] = rs.getInt(1);
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
+        } finally {
+            SqlUtil.fullyClose(rs);
         }
         return ids;
     }
 
     public int[] getDocumentsFromAuthor(String author_name, int year) {
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         int[] ids = null;
         try {
-
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.ID.DOCUMENTS.FROM.AUTHOR.TO.YEAR", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.ID.DOCUMENTS.FROM.AUTHOR.TO.YEAR", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             stmt.setString(1, author_name);
             stmt.setInt(2, id_collection);
             stmt.setInt(3, year);
@@ -1148,13 +1029,16 @@ public class DatabaseCorpus {
                 rs.next();
                 ids[i] = rs.getInt(1);
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
+        } finally {
+            SqlUtil.fullyClose(rs);
         }
         return ids;
     }
 
     public Object[][] getMainAuthors(TIntArrayList docs_ids) {
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
@@ -1166,47 +1050,37 @@ public class DatabaseCorpus {
             docs = docs.append(docs_ids.get(docs_ids.size() - 1));
 
             StringBuilder sql = new StringBuilder("SELECT name, aUTHORS.ID_AUTHOR, COUNT(authors.id_author) as c FROM DOCUMENTS_TO_AUTHORS INNER JOIN authors where id_DOC in (" + docs + ") AND aUTHORS.ID_AUTHOR =dOCUMENTS_TO_AUTHORs.ID_AUTHOR AND AUTHORS.ID_COLLECTION =? GROUP BY Authors.ID_AUTHOR order by c desc");
-            stmt = ConnectionManager.getInstance().getConnection().prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.createSqlStatement(conn, sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             stmt.setInt(1, this.id_collection);
-
             rs = stmt.executeQuery();
-
             rs.last();
+
             int size = rs.getRow();
             Object[][] data = new Object[size][2];
             rs.beforeFirst();
-
             for (int i = 0; i < size; i++) {
                 rs.next();
                 data[i][0] = rs.getString(1);
                 data[i][1] = rs.getInt(3);
             }
             return data;
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SqlUtil.fullyClose(rs);
         }
-        return null;
     }
 
     public TIntIntHashMap searchTerm(String term) {
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-
             TIntIntHashMap aux = new TIntIntHashMap();
 
-            stmt = SqlManager.getInstance().getSqlStatement("SEARCH.TERM", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SEARCH.TERM");
             stmt.setString(1, term);
             stmt.setString(2, term);
             stmt.setString(3, term);
@@ -1217,30 +1091,22 @@ public class DatabaseCorpus {
                 aux.put(rs.getInt(1), rs.getInt(2));
             }
             return aux;
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
+        } finally {
+            SqlUtil.fullyClose(rs);
         }
-        return null;
     }
 
     public int[] getDocumentsIds(int year) {
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         int[] ids = null;
 
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.ID.DOCUMENTS.FROM.YEAR", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.ID.DOCUMENTS.FROM.YEAR", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             stmt.setInt(1, this.id_collection);
             stmt.setInt(2, year);
             rs = stmt.executeQuery();
@@ -1254,30 +1120,23 @@ public class DatabaseCorpus {
                 rs.next();
                 ids[i] = rs.getInt(1);
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-        }finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
+        } finally {
+            SqlUtil.fullyClose(rs);
         }
         return ids;
     }
 
     public String getAbstract(int id) {
         String abstractText = null;
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.DOCUMENT.ABSTRACT", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.DOCUMENT.ABSTRACT");
             stmt.setInt(1, this.id_collection);
             stmt.setInt(2, id);
             rs = stmt.executeQuery();
@@ -1285,94 +1144,69 @@ public class DatabaseCorpus {
                 abstractText = rs.getString(1);
             }
 
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SqlUtil.fullyClose(rs);
         }
         return abstractText;
     }
 
     public String getTitle(int id) {
         String title = null;
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.DOCUMENT.TITLE", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.DOCUMENT.TITLE");
             stmt.setInt(1, this.id_collection);
             stmt.setInt(2, id);
             rs = stmt.executeQuery();
             if (rs.next()) {
                 title = rs.getString(1);
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SqlUtil.fullyClose(rs);
         }
         return title;
     }
 
     public int getYear(int id) {
         int year = -1;
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
-
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.DOCUMENT.YEAR", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.DOCUMENT.YEAR");
             stmt.setInt(1, this.id_collection);
             stmt.setInt(2, id);
             rs = stmt.executeQuery();
             if (rs.next()) {
                 year = rs.getInt(1);
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-
-                if (stmt != null) {
-                    stmt.close();
-                }
-
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SqlUtil.fullyClose(rs);
         }
         return year;
     }
 
     public String getPDFFile(int id) {
         String pdfFile = "";
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
-
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.PDF.DOCUMENT", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.PDF.DOCUMENT");
             stmt.setInt(1, this.id_collection);
             stmt.setInt(2, id);
 
@@ -1382,30 +1216,23 @@ public class DatabaseCorpus {
                 pdfFile = rs.getString(1);
             }
 
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SqlUtil.fullyClose(rs);
         }
         return pdfFile;
     }
 
     public String getKeywords(int id) {
         String keywords = null;
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.DOCUMENT.KEYWORDS", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.DOCUMENT.KEYWORDS");
             stmt.setInt(1, this.id_collection);
             stmt.setInt(2, id);
 
@@ -1413,59 +1240,46 @@ public class DatabaseCorpus {
             if (rs.next()) {
                 keywords = rs.getString(1);
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SqlUtil.fullyClose(rs);
+
         }
         return keywords;
     }
 
     private String getReferenceText(int id_citation) {
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String text = null;
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.REFERENCE", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.REFERENCE");
             stmt.setInt(1, id_citation);
             stmt.setInt(2, id_collection);
             rs = stmt.executeQuery();
             if (rs.next()) {
                 text = rs.getString(1);
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SqlUtil.fullyClose(rs);
         }
         return text;
     }
 
     public ArrayList<String> getReferences(int id) {
         ArrayList<String> references = new ArrayList<>();
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.REFERENCES.DOCUMENT", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.REFERENCES.DOCUMENT");
             stmt.setInt(1, id);
             stmt.setInt(2, this.id_collection);
 
@@ -1474,19 +1288,11 @@ public class DatabaseCorpus {
                 references.add(rs.getString(1));
             }
 
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SqlUtil.fullyClose(rs);
+
         }
         return references;
     }
@@ -1496,11 +1302,17 @@ public class DatabaseCorpus {
             this.citation_core.put(documents_ids[i], new ArrayList<Pair>());
         }
 
-        PreparedStatement stmt = null, stmt2, stmt3;
-        ResultSet rs = null, rs2;
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        PreparedStatement stmt2 = null;
+        PreparedStatement stmt3 = null;
+        ResultSet rs = null;
+        ResultSet rs2 = null;
         int count;
+        
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("CORE.REFERENCES", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "CORE.REFERENCES");
             stmt.setInt(1, id_collection);
             rs = stmt.executeQuery();
 
@@ -1509,23 +1321,22 @@ public class DatabaseCorpus {
                 id_citation = rs.getInt(1);
                 id_doc_cited = rs.getInt(2);
 
-                stmt2 = SqlManager.getInstance().getSqlStatement("DOCUMENTS.CITING.REFERENCE", -1, -1);
+                stmt2 = sqlManager.getSqlStatement(conn, "DOCUMENTS.CITING.REFERENCE");
                 stmt2.setInt(1, id_citation);
                 stmt2.setInt(2, id_collection);
                 rs2 = stmt2.executeQuery();
 
                 count = 0;
-                boolean contains = this.citation_core.containsKey(id_doc_cited);
+                boolean contains = citation_core.containsKey(id_doc_cited);
                 if (contains) {
                     while (rs2.next()) {
                         this.citation_core.get(id_doc_cited).add(new Pair(rs2.getInt(1), -1));
                         count++;
                     }
                 }
-                stmt2.close();
-                rs2.close();
+ 
                 if (contains) {
-                    stmt3 = SqlManager.getInstance().getSqlStatement("UPDATE.LCC.DOCUMENT", -1, -1);
+                    stmt3 = sqlManager.getSqlStatement(conn, "UPDATE.LCC.DOCUMENT");
                     stmt3.setInt(1, count);
                     stmt3.setInt(2, id_doc_cited);
                     stmt3.setInt(3, id_collection);
@@ -1534,21 +1345,12 @@ public class DatabaseCorpus {
                 }
 
             }
-            stmt.close();
-            rs.close();
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SqlUtil.fullyClose(rs);
+            SqlUtil.fullyClose(rs2);
+            SqlUtil.fullyClose(stmt3);
         }
     }
 
@@ -1564,38 +1366,6 @@ public class DatabaseCorpus {
             }
         }
         return coauthorship;
-    }
-
-    public static boolean uniqueName(String collection) throws IOException {
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.COLLECTION.BY.NAME", -1, -1);
-            stmt.setString(1, collection);
-            rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                return false;
-            } else {
-                return true;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            throw new IOException(ex.getMessage());
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                if (rs != null) {
-                    rs.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-                throw new IOException(ex.getMessage());
-            }
-        }
     }
 
     public TIntObjectHashMap<TIntIntHashMap> getBibliographicCoupling() {
@@ -1614,94 +1384,39 @@ public class DatabaseCorpus {
         return bibliographic_coupling;
     }
 
-//    public void generateBibliographicCoupling() {
-//        for (int i = 0; i < this.documents_ids.length; i++) {
-//            bibliographic_coupling.add(new ArrayList<Pair>());
-//        }
-//
-//        int bc;
-//        double min = Double.MAX_VALUE, max = 0;
-//        this.norm_bc = new double[documents_ids.length][];
-//
-//
-//        for (int i = 1; i < documents_ids.length; i++) {
-//            this.norm_bc[i] = new double[i];
-//            for (int j = 0; j < i; j++) {
-//                bc = getBibliographicCoupling(documents_ids[i], documents_ids[j]);
-//                this.norm_bc[i][j] = bc;
-//                if (bc < min) {
-//                    min = bc;
-//                }
-//                if (bc > max) {
-//                    max = bc;
-//                }
-//                if (bc > 0) {
-//                    bibliographic_coupling.get(i).add(new Pair(j, bc));
-//                }
-//            }
-//        }
-//
-//        double min_log = 0;
-//        if (min != 0) {
-//            min_log = Math.log(min);
-//        }
-//
-//        double max_log = 0;
-//        if (max != 0) {
-//            max_log = Math.log(max);
-//        }
-//
-//        double bc_log;
-//
-//        for (int i = 1; i < documents_ids.length; i++) {
-//            for (int j = 0; j < i; j++) {
-//                bc_log = 0;
-//                bc = (int) this.norm_bc[i][j];
-//                if (bc != 0) {
-//                    bc_log = Math.log(bc);
-//                }
-//                this.norm_bc[i][j] = (bc_log - min_log) / (max_log - min_log);
-//            }
-//        }
-//    }
     public int getGlobalCitationCount(int id) {
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.TIMESCITED.DOCUMENT", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.TIMESCITED.DOCUMENT");
             stmt.setInt(1, id);
             stmt.setInt(2, this.id_collection);
 
             rs = stmt.executeQuery();
             if (rs.next()) {
                 return rs.getInt(1);
+            } else {
+            	return 0;
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
+            SqlUtil.fullyClose(rs);
 
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
-        return 0;
     }
 
     public String getAuthors(int id) {
         String authors = null;
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.AUTHORS.DOCUMENT", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.AUTHORS.DOCUMENT");
             stmt.setInt(1, this.id_collection);
             stmt.setInt(2, id);
 
@@ -1709,28 +1424,20 @@ public class DatabaseCorpus {
             if (rs.next()) {
                 authors = rs.getString(1);
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SqlUtil.fullyClose(rs);
         }
         return authors;
     }
 
     public String getDOI(int id) {
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.DOCUMENT.DOI", -1, -1);
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.DOCUMENT.DOI");
             stmt.setInt(1, this.id_collection);
             stmt.setInt(2, id);
             rs = stmt.executeQuery();
@@ -1740,52 +1447,34 @@ public class DatabaseCorpus {
             } else {
                 return null;
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SqlUtil.fullyClose(rs);
         }
-        return null;
     }
 
     public int getClass(int id) {
         int classId = -1;
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.DOCUMENT.CLASS", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = sqlManager.getSqlStatement(conn, "SELECT.DOCUMENT.CLASS");
             stmt.setInt(1, this.id_collection);
             stmt.setInt(2, id);
-
             rs = stmt.executeQuery();
             if (rs.next()) {
                 classId = rs.getInt(1);
-                return classId;
             }
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
+            return classId;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
         } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            SqlUtil.fullyClose(rs);
         }
-        return classId;
     }
 }

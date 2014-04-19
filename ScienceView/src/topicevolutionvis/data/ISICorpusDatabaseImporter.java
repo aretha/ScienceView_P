@@ -5,6 +5,7 @@
 package topicevolutionvis.data;
 
 import java.io.*;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,6 +17,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import topicevolutionvis.database.ConnectionManager;
 import topicevolutionvis.database.DatabaseCorpus;
 import topicevolutionvis.database.SqlManager;
 import topicevolutionvis.preprocessing.Ngram;
@@ -33,21 +36,23 @@ public class ISICorpusDatabaseImporter extends DatabaseImporter {
     }
 
     @Override
-    protected Void doInBackground() throws Exception {
-
-        long time1 = System.currentTimeMillis();
-        //checking if the collection nam already exist
-        if (!DatabaseCorpus.uniqueName(collection)) {
+    protected Void doInBackground() throws Exception
+    {
+        // Check if the collection name already exist
+        if (! collectionManager.isUnique(collection)) {
             this.cancel(true);
             this.msg = "A collection intitled \"" + collection + "\" already exists. Please choose another name.";
         }
 
-        //creating the collection
-        this.dropIndexForBibliographicCoupling();
+        // Create the collection
+        dropIndexForBibliographicCoupling();
+        ConnectionManager connManager = ConnectionManager.getInstance();
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("INSERT.COLLECTION", -1, -1);
+        	conn = connManager.getConnection();
+            stmt = SqlManager.getInstance().getSqlStatement(conn, "INSERT.COLLECTION");
 
             stmt.setString(1, collection);
             stmt.setString(2, filename);
@@ -57,36 +62,43 @@ public class ISICorpusDatabaseImporter extends DatabaseImporter {
 
             rs = stmt.getGeneratedKeys();
             rs.next();
-            this.id_collection = rs.getInt(1);
-
+            
+            id_collection = rs.getInt(1);
             readISIFile();
-            this.matchReferencesToPapers();
-            this.createIndexForBibliographicCoupling();
-            long time2 = System.currentTimeMillis();
-            System.out.println("Database loading time:" + (time2 - time1));
+            matchReferencesToPapers();
+            createIndexForBibliographicCoupling();
         } catch (SQLException ex) {
             Logger.getLogger(ISICorpusDatabaseImporter.class.getName()).log(Level.SEVERE, null, ex);
             throw new IOException(ex.getMessage());
         } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(ISICorpusDatabaseImporter.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(ISICorpusDatabaseImporter.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                }
+            }
+
         }
         return null;
     }
 
     private void readISIFile() {
+        ConnectionManager connManager = ConnectionManager.getInstance();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
         String line = "";
         try {
             HashMap<String, Integer> corpusNgrams = new HashMap<String, Integer>();
@@ -96,12 +108,14 @@ public class ISICorpusDatabaseImporter extends DatabaseImporter {
             Integer year = 0, times_cited = 0;
             StringBuilder content = new StringBuilder();
             ArrayList<Ngram> fngrams;
-            PreparedStatement stmt = null;
             BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "UTF8"));
             title = authors = research_address = doi = abs = author_keywords = keywords = references = journal = journal_abbrev = volume = begin_page = end_page = null;
             year = 0;
             times_cited = 0;
             index++;
+        	conn = connManager.getConnection();
+
+            
             while ((line = in.readLine()) != null) {
           
             	try {
@@ -109,13 +123,12 @@ public class ISICorpusDatabaseImporter extends DatabaseImporter {
             	} catch (IndexOutOfBoundsException e) {
             		continue;
             	}
+            	
                 if (tag.compareTo("FN") == 0) {
                 	continue;
-                } else
-                if (tag.compareTo("VR") == 0) {
+                } else if (tag.compareTo("VR") == 0) {
                 	continue;
-                } else
-                if (tag.compareTo("PT") == 0) {
+                } else if (tag.compareTo("PT") == 0) {
                 	type = -1;
                 	aux = line.substring(3).trim();
                 	if (aux.compareToIgnoreCase("J") == 0 || aux.compareToIgnoreCase("JOUR") == 0) {
@@ -137,57 +150,41 @@ public class ISICorpusDatabaseImporter extends DatabaseImporter {
                     } else if (aux.compareToIgnoreCase("LECTURE") == 0) {
                         type = PExConstants.LECTURE;
                     }
-                } else
-                if (tag.compareTo("TI") == 0) {
+                } else if (tag.compareTo("TI") == 0) {
                     title = multipleLines(in, line);
                     content = new StringBuilder(title);
-                } else
-                if (tag.compareTo("AU") == 0) {
+                } else if (tag.compareTo("AU") == 0) {
                     authors = processAuthors(in, line);
-                } else
-                if (tag.compareTo("AB") == 0 | tag.compareTo("ABS") == 0) {
+                } else if (tag.compareTo("AB") == 0 | tag.compareTo("ABS") == 0) {
                     abs = multipleLines(in, line);
                     content = content.append(" ").append(abs);
-                } else
-                if (tag.compareTo("PY") == 0) {
+                } else if (tag.compareTo("PY") == 0) {
                     year = Integer.valueOf(line.substring(3).trim());
-                } else
-                if (tag.compareTo("CR") == 0) {
+                } else if (tag.compareTo("CR") == 0) {
                     references = processReferences(in, line);
-                } else
-                if (tag.compareTo("ID") == 0 || tag.compareTo("KW") == 0) {
+                } else if (tag.compareTo("ID") == 0 || tag.compareTo("KW") == 0) {
                     keywords = multipleLines(in, line);
                     content = content.append(" ").append(keywords);
-                } else
-                if (tag.compareTo("TC") == 0) {
+                } else if (tag.compareTo("TC") == 0) {
                     times_cited = Integer.valueOf(line.substring(3));
-                } else
-                if (tag.compareTo("VL") == 0) {
+                } else if (tag.compareTo("VL") == 0) {
                     volume = line.substring(3);
-                } else
-                if (tag.compareTo("DI") == 0) {
+                } else if (tag.compareTo("DI") == 0) {
                     doi = line.substring(3).trim();
-                } else
-                if (tag.compareTo("C1") == 0) {
+                } else if (tag.compareTo("C1") == 0) {
                     research_address = this.multipleLinesWithDelimiter(in, line);
-                } else
-                if (tag.compareTo("SO") == 0 || tag.compareTo("JF") == 0) {
+                } else if (tag.compareTo("SO") == 0 || tag.compareTo("JF") == 0) {
                     journal = line.substring(3).trim();
-                } else
-                if (tag.compareTo("J9") == 0) {
+                } else if (tag.compareTo("J9") == 0) {
                     journal_abbrev = line.substring(3).trim();
-                } else
-                if (tag.compareTo("DE") == 0) {
+                } else if (tag.compareTo("DE") == 0) {
                     author_keywords = multipleLines(in, line);
                     content = content.append(" ").append(author_keywords);
-                } else
-                if (tag.compareTo("BP") == 0) {
+                } else if (tag.compareTo("BP") == 0) {
                     begin_page = line.substring(3);
-                } else
-                if (tag.compareTo("EP") == 0) {
+                } else if (tag.compareTo("EP") == 0) {
                     end_page = line.substring(3);
-                } else
-                if (tag.compareTo("ER") == 0) {
+                } else if (tag.compareTo("ER") == 0) {
                     saveToDataBase(index, type, title, research_address, authors, abs, keywords, author_keywords, references, year, times_cited, doi, begin_page, end_page, "", journal, journal_abbrev, volume, 0);
                     fngrams = getNgramsFromFile(content.toString());
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -196,7 +193,7 @@ public class ISICorpusDatabaseImporter extends DatabaseImporter {
                     oos.flush();
 
                     //inserting the ngrams
-                    stmt = SqlManager.getInstance().getSqlStatement("UPDATE.NGRAMS.DOCUMENT", -1, -1);
+                    stmt = SqlManager.getInstance().getSqlStatement(conn, "UPDATE.NGRAMS.DOCUMENT");
                     stmt.setBytes(1, baos.toByteArray());
                     stmt.setInt(2, index);
                     stmt.setInt(3, id_collection);
@@ -229,7 +226,7 @@ public class ISICorpusDatabaseImporter extends DatabaseImporter {
             oos.writeObject(ngrams);
             oos.flush();
 
-            stmt = SqlManager.getInstance().getSqlStatement("UPDATE.NGRAMS.COLLECTION", -1, -1);
+            stmt = SqlManager.getInstance().getSqlStatement(conn, "UPDATE.NGRAMS.COLLECTION");
             stmt.setBytes(1, baos.toByteArray());
             stmt.setInt(2, id_collection);
             stmt.executeUpdate();
@@ -237,7 +234,20 @@ public class ISICorpusDatabaseImporter extends DatabaseImporter {
         } catch (Exception ex) {
             System.out.println(line);
             Logger.getLogger(ISICorpusDatabaseImporter.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } finally {
+	        if (stmt != null) {
+	            try {
+	                stmt.close();
+	            } catch (SQLException ex) {
+	            }
+	        }
+	        if (conn != null) {
+	            try {
+	                conn.close();
+	            } catch (SQLException ex) {
+	            }
+	        }
+    	}
     }
 
     private String processReferences(BufferedReader in, String line) {
