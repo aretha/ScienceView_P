@@ -224,6 +224,11 @@
 		    <artifactId>lspsolver</artifactId>
 		    <version>[1.0.0,)</version>
 		</dependency>
+		<dependency>
+			<groupId>ironiacorp</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>5.0.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -246,7 +251,7 @@
 
 		<testResources>
 			<testResource>
-				<directory>${project.basedir}/resources</directory>
+				<directory>${project.basedir}/test-resources</directory>
 				<filtering>false</filtering>
 			</testResource>
 		</testResources>

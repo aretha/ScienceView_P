@@ -86,6 +86,7 @@ public class ProjectionWizardView extends javax.swing.JDialog {
     private void initComponents() {
 
         buttonPanel = new javax.swing.JPanel();
+        cancelButton = new javax.swing.JButton();
         previousButton = new javax.swing.JButton();
         nextButton = new javax.swing.JButton();
         processPanel = new javax.swing.JPanel();
@@ -100,6 +101,14 @@ public class ProjectionWizardView extends javax.swing.JDialog {
         });
 
         buttonPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
+        buttonPanel.add(cancelButton);
 
         previousButton.setText("<< Back");
         previousButton.addActionListener(new java.awt.event.ActionListener() {
@@ -168,6 +177,12 @@ public class ProjectionWizardView extends javax.swing.JDialog {
         this.definePanel(ProjectionWizardCore.PREVIOUS_STATE);
     }//GEN-LAST:event_previousButtonActionPerformed
 
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        // TODO add your handling code here:
+       this.cancelWizard();
+        
+    }//GEN-LAST:event_cancelButtonActionPerformed
+
     public static ProjectionWizardView getInstance() {
         if (instance == null) {
             instance = new ProjectionWizardView();
@@ -218,6 +233,7 @@ public class ProjectionWizardView extends javax.swing.JDialog {
     private WizardPanel dataPanel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel buttonPanel;
+    private javax.swing.JButton cancelButton;
     private javax.swing.JButton nextButton;
     private javax.swing.JButton previousButton;
     private javax.swing.JPanel processPanel;
