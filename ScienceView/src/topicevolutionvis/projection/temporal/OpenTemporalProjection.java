@@ -52,8 +52,6 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
         try {
             view.setStatus(true);
             tproj = new TemporalProjection();
-            pdata = new ProjectionData();
-            tproj.setProjectionData(pdata);
             sdots = tproj.addVertexScalar(PExConstants.DOTS);
 
             this.unzip();

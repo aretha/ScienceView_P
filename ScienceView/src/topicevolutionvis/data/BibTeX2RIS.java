@@ -1,4 +1,4 @@
-package topicevolutionvis;
+package topicevolutionvis.data;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,8 +10,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.nio.charset.Charset;
-
-import topicevolutionvis.data.ISICorpusDatabaseImporter;
 
 import com.ironiacorp.io.IoUtil;
 import com.ironiacorp.string.StringUtil;

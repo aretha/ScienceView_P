@@ -57,7 +57,7 @@ import topicevolutionvis.view.tools.LuhnCutAnalizer;
  *
  * @author Fernando Vieira Paulovich
  */
-public class Preprocessing extends WizardPanel {
+public class PreprocessingWizard extends WizardPanel {
 
     ProjectionData pdata;
 
@@ -66,7 +66,7 @@ public class Preprocessing extends WizardPanel {
      *
      * @param pdata
      */
-    public Preprocessing(ProjectionData pdata) {
+    public PreprocessingWizard(ProjectionData pdata) {
         this.pdata = pdata;
         initComponents();
 
@@ -563,7 +563,7 @@ public class Preprocessing extends WizardPanel {
         this.alphaTextField.setCaretPosition(0);
     }//GEN-LAST:event_refreshAlphaButtonActionPerformed
 
-    public Preprocessing reset() {
+    public PreprocessingWizard reset() {
         return this;
     }
 
@@ -652,4 +652,45 @@ public class Preprocessing extends WizardPanel {
     private javax.swing.ButtonGroup wordListTypeButtonGroup;
     private javax.swing.JPanel wordListTypePanel;
     // End of variables declaration//GEN-END:variables
+
+	@Override
+	public boolean isNextStepTerminal() {
+		return false;
+	}
+
+	@Override
+	public boolean canGoToNextStep() {
+		return true;
+	}
+
+	@Override
+	public boolean canGoToPreviousStep() {
+		return true;
+	}
+
+	@Override
+	public boolean canCancel() {
+		return true;
+	}
+
+	@Override
+	public void cancel() {
+	}
+
+	@Override
+	public boolean hasPreviousStep() {
+		return true;
+	}
+
+	@Override
+	public boolean canResetConfiguration() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void resetConfiguration() {
+		// TODO Auto-generated method stub
+		
+	}
 }

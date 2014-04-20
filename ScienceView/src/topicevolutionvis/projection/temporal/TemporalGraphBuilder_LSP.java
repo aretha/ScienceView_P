@@ -34,7 +34,7 @@ import topicevolutionvis.projection.lsp.LSPProjection2D;
 import topicevolutionvis.projection.stress.LoetStress;
 import topicevolutionvis.util.PExConstants;
 import topicevolutionvis.util.Utils;
-import topicevolutionvis.wizard.ProjectionView;
+import topicevolutionvis.wizard.ProjectionViewWizard;
 
 /**
  *
@@ -42,7 +42,7 @@ import topicevolutionvis.wizard.ProjectionView;
  */
 public class TemporalGraphBuilder_LSP {
 
-    private ProjectionView view;
+    private ProjectionViewWizard view;
     private TemporalProjection tproj;
     private IOException exception;
     private TreeMap<Integer, TemporalGraph> graphs = new TreeMap<>();
@@ -64,7 +64,7 @@ public class TemporalGraphBuilder_LSP {
      * @param corpus
      * @param graph
      */
-    public TemporalGraphBuilder_LSP(ProjectionView view, TemporalProjection tproj, DatabaseCorpus corpus) {
+    public TemporalGraphBuilder_LSP(ProjectionViewWizard view, TemporalProjection tproj, DatabaseCorpus corpus) {
         this.view = view;
         this.tproj = tproj;
         this.exception = null;

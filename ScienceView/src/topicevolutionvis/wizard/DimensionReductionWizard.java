@@ -21,12 +21,12 @@ import topicevolutionvis.utils.filefilter.DATAFilter;
  *
  * @author barbosaa
  */
-public class DimensionReduction extends WizardPanel {
+public class DimensionReductionWizard extends WizardPanel {
 
     private ProjectionData pdata;
 
     /** Creates new form DimensionReduction */
-    public DimensionReduction(ProjectionData projectionData) {
+    public DimensionReductionWizard(ProjectionData projectionData) {
         this.pdata = projectionData;
         initComponents();
 
@@ -141,7 +141,7 @@ public class DimensionReduction extends WizardPanel {
         }
 }//GEN-LAST:event_saveDocumetsTermsMatrixCheckBoxActionPerformed
 
-    public DimensionReduction reset() {
+    public DimensionReductionWizard reset() {
         return this;
     }
 
@@ -177,4 +177,45 @@ public class DimensionReduction extends WizardPanel {
     private javax.swing.JPanel parametersPanel;
     private javax.swing.JCheckBox saveDocumetsTermsMatrixCheckBox;
     // End of variables declaration//GEN-END:variables
+
+	@Override
+	public boolean isNextStepTerminal() {
+		return false;
+	}
+
+	@Override
+	public boolean canGoToNextStep() {
+		return true;
+	}
+
+	@Override
+	public boolean canGoToPreviousStep() {
+		return true;
+	}
+
+	@Override
+	public boolean canCancel() {
+		return true;
+	}
+
+	@Override
+	public void cancel() {
+	}
+
+	@Override
+	public boolean hasPreviousStep() {
+		return true;
+	}
+
+	@Override
+	public boolean canResetConfiguration() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void resetConfiguration() {
+		// TODO Auto-generated method stub
+		
+	}
 }

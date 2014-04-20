@@ -28,7 +28,7 @@ import topicevolutionvis.database.ConnectionManager;
 import topicevolutionvis.database.SqlManager;
 import topicevolutionvis.database.SqlUtil;
 import topicevolutionvis.preprocessing.Ngram;
-import topicevolutionvis.wizard.DataSourceChoice;
+import topicevolutionvis.wizard.DataSourceChoiceWizard;
 
 /**
  *
@@ -42,7 +42,7 @@ public abstract class DatabaseImporter extends SwingWorker<Void, Void> {
     
     protected boolean removeStopwordsByTagging;
     
-    protected DataSourceChoice view = null;
+    protected DataSourceChoiceWizard view = null;
     
     protected CollectionManager collectionManager;
     
@@ -54,7 +54,7 @@ public abstract class DatabaseImporter extends SwingWorker<Void, Void> {
     
     private SqlManager sqlManager;
     
-    public DatabaseImporter(String filename, String collection, int nrGrams, DataSourceChoice view, boolean removeStopwordsByTagging) {
+    public DatabaseImporter(String filename, String collection, int nrGrams, DataSourceChoiceWizard view, boolean removeStopwordsByTagging) {
         this.filename = filename;
         this.collection = collection;
         this.nrGrams = nrGrams;
@@ -67,29 +67,30 @@ public abstract class DatabaseImporter extends SwingWorker<Void, Void> {
 
     @Override
     public void done() {
-       if (!this.isCancelled()) {
+       if (! isCancelled()) {
             view.setStatus("Finished", false);
         } else {
             view.setStatus("", false);
-            JOptionPane.showMessageDialog(view, this.msg, "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(view, msg, "Warning", JOptionPane.WARNING_MESSAGE);
         }
-        view.finishedLoadingCollection(collection, this.isCancelled());
+       
+        view.finishedLoadingCollection(collection, isCancelled());
     }
 
-    public void matchReferencesToPapers() {
-        Connection conn;
-        PreparedStatement stmt = null, stmt2;
+    protected void matchReferencesToPapers(Connection conn) {
+        PreparedStatement stmt = null;
+        PreparedStatement stmt2 = null;
         ResultSet result = null;
         try {
-        	conn = connManager.getConnection();
             stmt = sqlManager.getSqlStatement(conn, "MATCH.CORE.REFERENCES");
             stmt.setInt(1, id_collection);
             stmt.setInt(2, id_collection);
             stmt.setInt(3, id_collection);
             stmt.setInt(4, id_collection);
             result = stmt.executeQuery();
-            int id_doc, id_ref;
+
             while (result.next()) {
+                int id_doc, id_ref;
                 id_doc = result.getInt(1);
                 id_ref = result.getInt(2);
 
@@ -103,7 +104,9 @@ public abstract class DatabaseImporter extends SwingWorker<Void, Void> {
         } catch (SQLException e) {
             throw new RuntimeException("Error loading data from database", e);
         } finally {
-        	SqlUtil.fullyClose(result);
+        	SqlUtil.close(stmt);
+        	SqlUtil.close(stmt2);
+        	SqlUtil.close(result);
         }
     }
 
@@ -128,330 +131,30 @@ public abstract class DatabaseImporter extends SwingWorker<Void, Void> {
         }
     }
 
-    public synchronized void saveToDataBase(int id, int type, String title, String research_address, String authors, String abs, String keywords, String authors_keywords, String references, int year, int times_cited, String doi, String begin_page, String end_page, String pdf_file, String journal, String journal_abbrev, String volume, int classId) {
-        Connection conn;
+
+    protected void createIndexForBibliographicCoupling(Connection conn) {
         PreparedStatement stmt = null;
         try {
-            //inserting the content
-        	conn = connManager.getConnection();
-            stmt = sqlManager.getSqlStatement(conn, "INSERT.CONTENT");
-            stmt.setInt(1, id);
-            stmt.setInt(2, id_collection);
-            stmt.setInt(3, type);
-            stmt.setString(4, title.substring(0, 1) + title.substring(1).toLowerCase(Locale.ENGLISH));
-            stmt.setString(5, research_address);
-            stmt.setString(6, abs);
-            stmt.setString(7, keywords);
-            stmt.setString(8, authors_keywords);
-            stmt.setInt(9, year);
-            stmt.setInt(10, times_cited);
-            stmt.setString(11, doi);
-            stmt.setString(12, begin_page);
-            stmt.setString(13, end_page);
-            stmt.setString(14, pdf_file);
-            stmt.setString(15, journal);
-            stmt.setString(16, journal_abbrev);
-            stmt.setString(17, volume);
-            stmt.setInt(18, classId);
-            stmt.executeUpdate();
-
-            if (authors != null) {
-                saveAuthors(id, authors);
-            }
-
-            saveReferences(id, references);
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Error loading data from database", e);
-        } finally {
-        	SqlUtil.fullyClose(stmt);
-        }
-    }
-
-    private void saveAuthors(int id, String authors) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        PreparedStatement stmt2 = null;
-        PreparedStatement stmt3 = null;
-        ResultSet result = null;
-        ResultSet result2 = null;
-        StringTokenizer authorsTokenizer = new StringTokenizer(authors, "|");
-        String author;
-        int author_order = 0, index_author;
-
-        try {
-        	conn = connManager.getConnection();
-            while (authorsTokenizer.hasMoreTokens()) {
-                author = authorsTokenizer.nextToken().trim().toUpperCase();
-                stmt = sqlManager.getSqlStatement(conn, "SELECT.SAME.AUTHOR");
-                stmt.setString(1, author);
-                result = stmt.executeQuery();
-                author_order++;
-                if (result.next()) {
-                    index_author = result.getInt(1);
-                    stmt2 = sqlManager.getSqlStatement(conn, "INSERT.DOCUMENT.TO.AUTHOR");
-                    stmt2.setInt(1, id);
-                    stmt2.setInt(2, id_collection);
-                    stmt2.setInt(3, index_author);
-                    stmt2.setInt(4, author_order);
-                    stmt2.executeUpdate();
-                	SqlUtil.close(stmt2);
-                } else {
-                    stmt2 = sqlManager.getSqlStatement(conn, "INSERT.AUTHOR");
-                    stmt2.setString(1, author);
-                    stmt2.setInt(2, id_collection);
-                    stmt2.executeUpdate();
-                    result2 = stmt2.getGeneratedKeys();
-                    result2.next();
-                    index_author = result2.getInt(1);
-                	SqlUtil.close(result2);
-                	SqlUtil.close(stmt2);
-
-                    
-                    stmt3 = sqlManager.getSqlStatement(conn, "INSERT.DOCUMENT.TO.AUTHOR");
-                    stmt3.setInt(1, id);
-                    stmt3.setInt(2, id_collection);
-                    stmt3.setInt(3, index_author);
-                    stmt3.setInt(4, author_order);
-                    stmt3.executeUpdate();
-                	SqlUtil.close(stmt3);
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Error loading data from database", e);
-        } finally {
-        	SqlUtil.close(result);
-        	SqlUtil.close(result2);
-        	SqlUtil.close(stmt);
-        	SqlUtil.close(stmt2);
-        	SqlUtil.close(stmt3);
-        	SqlUtil.close(conn);
-        }
-    }
-
-    private void saveReferences(int id, String references) {
-    	ConnectionManager connManager = ConnectionManager.getInstance();
-    	Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet result = null;
-        int id_author, id_ref = 0;
-        String reference = null, aux;
-        Matcher referenceMatcher;
-        try {
-        	conn = connManager.getConnection();
-            if ((references != null) && (references.contains("|"))) {
-                StringTokenizer referencesTokenizer = new StringTokenizer(references, "|");
-                String authorReference, doiReference, journalReference, volumeReference, pagesReference, typeReference, chapterReference, artnReference;
-
-                int yearReference;
-                while (referencesTokenizer.hasMoreTokens()) {
-                    reference = referencesTokenizer.nextToken().trim();
-                    referenceMatcher = referencePattern.matcher(reference);
-                    if (referenceMatcher.matches()) {
-                        id_ref = -1;
-                        yearReference = -1;
-                        journalReference = volumeReference = doiReference = pagesReference = chapterReference = artnReference = null;
-                        typeReference = "CONF";
-
-                        //splitting the reference
-                        aux = referenceMatcher.group(1);
-                        if (aux != null && !aux.isEmpty()) {
-                            authorReference = aux.trim().replace(". ", "").replace(".", "").toUpperCase();
-                            //trying to find out if the author of this reference is already on the authors table
-                            stmt = sqlManager.getSqlStatement(conn, "SELECT.SAME.AUTHOR");
-                            stmt.setString(1, authorReference);
-                            result = stmt.executeQuery();
-                            if (result.next()) {
-                                id_author = result.getInt(1);
-                                result.close();
-                                stmt.close();
-                            } else {
-                                stmt = sqlManager.getSqlStatement(conn, "INSERT.AUTHOR");
-                                stmt.setString(1, authorReference);
-                                stmt.setInt(2, id_collection);
-                                stmt.executeUpdate();
-                                result = stmt.getGeneratedKeys();
-                                result.next();
-                                id_author = result.getInt(1);
-                                result.close();
-                                stmt.close();
-                            }
-                        } else {
-                            id_author = -1;
-                        }
-
-                        aux = referenceMatcher.group(10);
-                        if (aux != null && !aux.isEmpty()) {
-                            chapterReference = aux;
-                        }
-
-                        aux = referenceMatcher.group(6).trim();
-                        if (aux != null && !aux.isEmpty()) {
-                            journalReference = aux;
-                        }
-
-                        aux = referenceMatcher.group(3);
-                        if (aux != null && !aux.isEmpty()) {
-                            yearReference = Integer.valueOf(aux);
-                        }
-
-                        aux = referenceMatcher.group(8);
-                        if (aux != null && !aux.isEmpty()) {
-                            volumeReference = aux;
-                        }
-
-                        aux = referenceMatcher.group(12);
-                        if (aux != null && !aux.isEmpty()) {
-                            if (aux.startsWith("p") || aux.startsWith("P")) {
-                                pagesReference = aux.substring(1);
-                            } else {
-                                pagesReference = aux;
-                            }
-                        }
-
-                        aux = referenceMatcher.group(17);
-                        if (aux != null && !aux.isEmpty()) {
-                            doiReference = aux;
-                        }
-
-                        aux = referenceMatcher.group(15);
-                        if (aux != null && !aux.isEmpty()) {
-                            artnReference = aux;
-                        }
-
-                        //descobrindo se esta referencia já apareceu antes na colecao
-                        if (doiReference != null) {
-                            stmt = sqlManager.getSqlStatement(conn, "SELECT.CITATION.WITH.DOI");
-                            stmt.setString(1, doiReference);
-                            stmt.setInt(2, id_collection);
-                            result = stmt.executeQuery();
-                            if (result.next()) {
-                                id_ref = result.getInt(1);
-                            }
-                            result.close();
-                            stmt.close();
-                        }
-
-                        if (id_ref == -1) {
-                            StringBuilder sqlStatement = new StringBuilder("SELECT id_citation FROM Citations Where");
-                            sqlStatement.append(" type LIKE '").append(typeReference).append("'");
-                            sqlStatement.append(" and id_author=").append(id_author);
-                            sqlStatement.append(" and year=").append(yearReference);
-                            if (volumeReference == null) {
-                                sqlStatement.append(" and volume is null");
-                            } else {
-                                sqlStatement.append(" and volume='").append(volumeReference).append("'");
-                            }
-                            if (pagesReference == null) {
-                                sqlStatement.append(" and pages is null");
-                            } else {
-                                sqlStatement.append(" and pages='").append(pagesReference).append("'");
-                            }
-                            if (journalReference == null) {
-                                sqlStatement.append(" and journal is null");
-                            } else {
-                                sqlStatement.append(" and journal='").append(journalReference).append("'");
-                            }
-
-                            if (chapterReference == null) {
-                                sqlStatement.append(" and chapter is null");
-                            } else {
-                                sqlStatement.append(" and chapter='").append(chapterReference).append("'");
-                            }
-
-                            if (artnReference == null) {
-                                sqlStatement.append(" and artn is null");
-                            } else {
-                                sqlStatement.append(" and artn='").append(artnReference).append("'");
-                            }
-
-                            sqlStatement.append(" and id_collection=").append(this.id_collection);
-
-                            stmt = sqlManager.createSqlStatement(conn, sqlStatement.toString());
-                            result = stmt.executeQuery();
-
-                            if (result.next()) {
-                                id_ref = result.getInt(1);
-                                stmt = sqlManager.getSqlStatement(conn, "INSERT.DOCUMENT.TO.REFERENCE");
-                                stmt.setInt(1, id);
-                                stmt.setInt(2, id_collection);
-                                stmt.setInt(3, id_ref);
-                                stmt.executeUpdate();
-                                result.close();
-                                stmt.close();
-                            } else {
-                                //inserindo referencia na tabela de citacoes
-                                stmt.close();
-                                stmt = sqlManager.getSqlStatement(conn, "INSERT.REFERENCE");
-                                stmt.setInt(1, id_collection);
-                                stmt.setInt(2, id_author);
-                                stmt.setString(3, typeReference);
-                                stmt.setInt(4, yearReference);
-                                stmt.setString(5, journalReference);
-                                stmt.setString(6, volumeReference);
-                                stmt.setString(7, chapterReference);
-                                stmt.setString(8, doiReference);
-                                stmt.setString(9, pagesReference);
-                                stmt.setString(10, artnReference);
-                                stmt.setString(11, reference);
-                                stmt.setInt(12, -1);
-                                stmt.executeUpdate();
-
-                                result = stmt.getGeneratedKeys();
-                                result.next();
-                                id_ref = result.getInt(1);
-                                result.close();
-                                stmt.close();
-
-                                stmt = sqlManager.getSqlStatement(conn, "INSERT.DOCUMENT.TO.REFERENCE");
-                                stmt.setInt(1, id);
-                                stmt.setInt(2, id_collection);
-                                stmt.setInt(3, id_ref);
-                                stmt.executeUpdate();
-                                stmt.close();
-                            }
-                        }
-                    }
-                }
-            }
-
-        } catch (SQLException | NumberFormatException ex) {
-            System.out.println("Documento: " + id);
-            System.out.println("Referencia: " + id_ref);
-            System.out.println("[REF DUPLICADA] " + reference);
-//            throw new RuntimeException("Error loading data from database", e);
-        } finally {
-            SqlUtil.close(conn);
-        }
-    }
-
-    public void createIndexForBibliographicCoupling() {
-        Connection conn;
-        PreparedStatement stmt = null;
-        try {
-        	conn = connManager.getConnection();
             stmt = sqlManager.getSqlStatement(conn, "CREATE.INDEX.BC");
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException("Error loading data from database", e);
         } finally {
-            SqlUtil.fullyClose(stmt);
+            SqlUtil.close(stmt);
         }
     }
 
-    public void dropIndexForBibliographicCoupling() {
+    protected void dropIndexForBibliographicCoupling(Connection conn) {
         PreparedStatement stmt = null;
-        Connection conn;
         try {
-        	conn = connManager.getConnection();
             stmt = sqlManager.getSqlStatement(conn, "DROP.INDEX.BC");
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException("Error loading data from database", e);
         } finally {
-            SqlUtil.fullyClose(stmt);
+            SqlUtil.close(stmt);
         }
     }
 
@@ -659,6 +362,303 @@ public abstract class DatabaseImporter extends SwingWorker<Void, Void> {
         }
 
         return content.toString();
+    }
+
+    
+    protected void saveToDataBase(Connection conn, int id, int type, String title, String research_address, String authors, String abs, String keywords, String authors_keywords, String references, int year, int times_cited, String doi, String begin_page, String end_page, String pdf_file, String journal, String journal_abbrev, String volume, int classId) {
+        PreparedStatement stmt = null;
+        try {
+            //inserting the content
+            stmt = sqlManager.getSqlStatement(conn, "INSERT.CONTENT");
+            stmt.setInt(1, id);
+            stmt.setInt(2, id_collection);
+            stmt.setInt(3, type);
+            stmt.setString(4, title.substring(0, 1) + title.substring(1).toLowerCase(Locale.ENGLISH));
+            stmt.setString(5, research_address);
+            stmt.setString(6, abs);
+            stmt.setString(7, keywords);
+            stmt.setString(8, authors_keywords);
+            stmt.setInt(9, year);
+            stmt.setInt(10, times_cited);
+            stmt.setString(11, doi);
+            stmt.setString(12, begin_page);
+            stmt.setString(13, end_page);
+            stmt.setString(14, pdf_file);
+            stmt.setString(15, journal);
+            stmt.setString(16, journal_abbrev);
+            stmt.setString(17, volume);
+            stmt.setInt(18, classId);
+            stmt.executeUpdate();
+
+            if (authors != null) {
+                saveAuthors(conn, id, authors);
+            }
+
+            saveReferences(conn, id, references);
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
+        } finally {
+        	SqlUtil.close(stmt);
+        }
+    }
+
+    private void saveAuthors(Connection conn, int id, String authors) {
+        PreparedStatement stmt = null;
+        PreparedStatement stmt2 = null;
+        PreparedStatement stmt3 = null;
+        ResultSet result = null;
+        ResultSet result2 = null;
+        StringTokenizer authorsTokenizer = new StringTokenizer(authors, "|");
+        String author;
+        int author_order = 0, index_author;
+
+        try {
+            while (authorsTokenizer.hasMoreTokens()) {
+                author = authorsTokenizer.nextToken().trim().toUpperCase();
+                stmt = sqlManager.getSqlStatement(conn, "SELECT.SAME.AUTHOR");
+                stmt.setString(1, author);
+                result = stmt.executeQuery();
+                author_order++;
+                if (result.next()) {
+                    index_author = result.getInt(1);
+                    stmt2 = sqlManager.getSqlStatement(conn, "INSERT.DOCUMENT.TO.AUTHOR");
+                    stmt2.setInt(1, id);
+                    stmt2.setInt(2, id_collection);
+                    stmt2.setInt(3, index_author);
+                    stmt2.setInt(4, author_order);
+                    stmt2.executeUpdate();
+                	stmt2.close();
+                } else {
+                    stmt2 = sqlManager.getSqlStatement(conn, "INSERT.AUTHOR");
+                    stmt2.setString(1, author);
+                    stmt2.setInt(2, id_collection);
+                    stmt2.executeUpdate();
+                    result2 = stmt2.getGeneratedKeys();
+                    result2.next();
+                    index_author = result2.getInt(1);
+                	result2.close();
+                	stmt2.close();
+
+                    stmt3 = sqlManager.getSqlStatement(conn, "INSERT.DOCUMENT.TO.AUTHOR");
+                    stmt3.setInt(1, id);
+                    stmt3.setInt(2, id_collection);
+                    stmt3.setInt(3, index_author);
+                    stmt3.setInt(4, author_order);
+                    stmt3.executeUpdate();
+                	stmt3.close();
+                }
+                result.close();
+                stmt.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error loading data from database", e);
+        } finally {
+        	SqlUtil.close(result);
+        	SqlUtil.close(result2);
+        	SqlUtil.close(stmt);
+        	SqlUtil.close(stmt2);
+        	SqlUtil.close(stmt3);
+        }
+    }
+
+    private void saveReferences(Connection conn, int id, String references) {
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        int id_author, id_ref = 0;
+        String reference = null, aux;
+        Matcher referenceMatcher;
+        try {
+            if ((references != null) && (references.contains("|"))) {
+                StringTokenizer referencesTokenizer = new StringTokenizer(references, "|");
+                String authorReference, doiReference, journalReference, volumeReference, pagesReference, typeReference, chapterReference, artnReference;
+
+                int yearReference;
+                while (referencesTokenizer.hasMoreTokens()) {
+                    reference = referencesTokenizer.nextToken().trim();
+                    referenceMatcher = referencePattern.matcher(reference);
+                    if (referenceMatcher.matches()) {
+                        id_ref = -1;
+                        yearReference = -1;
+                        journalReference = volumeReference = doiReference = pagesReference = chapterReference = artnReference = null;
+                        typeReference = "CONF";
+
+                        //splitting the reference
+                        aux = referenceMatcher.group(1);
+                        if (aux != null && !aux.isEmpty()) {
+                            authorReference = aux.trim().replace(". ", "").replace(".", "").toUpperCase();
+                            //trying to find out if the author of this reference is already on the authors table
+                            stmt = sqlManager.getSqlStatement(conn, "SELECT.SAME.AUTHOR");
+                            stmt.setString(1, authorReference);
+                            result = stmt.executeQuery();
+                            if (result.next()) {
+                                id_author = result.getInt(1);
+                                result.close();
+                                stmt.close();
+                            } else {
+                            	result.close();
+                            	stmt.close();
+                                stmt = sqlManager.getSqlStatement(conn, "INSERT.AUTHOR");
+                                stmt.setString(1, authorReference);
+                                stmt.setInt(2, id_collection);
+                                stmt.executeUpdate();
+                                result = stmt.getGeneratedKeys();
+                                result.next();
+                                id_author = result.getInt(1);
+                                result.close();
+                                stmt.close();
+                            }
+                        } else {
+                            id_author = -1;
+                        }
+
+                        aux = referenceMatcher.group(10);
+                        if (aux != null && !aux.isEmpty()) {
+                            chapterReference = aux;
+                        }
+
+                        aux = referenceMatcher.group(6).trim();
+                        if (aux != null && !aux.isEmpty()) {
+                            journalReference = aux;
+                        }
+
+                        aux = referenceMatcher.group(3);
+                        if (aux != null && !aux.isEmpty()) {
+                            yearReference = Integer.valueOf(aux);
+                        }
+
+                        aux = referenceMatcher.group(8);
+                        if (aux != null && !aux.isEmpty()) {
+                            volumeReference = aux;
+                        }
+
+                        aux = referenceMatcher.group(12);
+                        if (aux != null && !aux.isEmpty()) {
+                            if (aux.startsWith("p") || aux.startsWith("P")) {
+                                pagesReference = aux.substring(1);
+                            } else {
+                                pagesReference = aux;
+                            }
+                        }
+
+                        aux = referenceMatcher.group(17);
+                        if (aux != null && !aux.isEmpty()) {
+                            doiReference = aux;
+                        }
+
+                        aux = referenceMatcher.group(15);
+                        if (aux != null && !aux.isEmpty()) {
+                            artnReference = aux;
+                        }
+
+                        //descobrindo se esta referencia já apareceu antes na colecao
+                        if (doiReference != null) {
+                            stmt = sqlManager.getSqlStatement(conn, "SELECT.CITATION.WITH.DOI");
+                            stmt.setString(1, doiReference);
+                            stmt.setInt(2, id_collection);
+                            result = stmt.executeQuery();
+                            if (result.next()) {
+                                id_ref = result.getInt(1);
+                            }
+                            result.close();
+                            stmt.close();
+                        }
+
+                        if (id_ref == -1) {
+                            StringBuilder sqlStatement = new StringBuilder("SELECT id_citation FROM Citations Where");
+                            sqlStatement.append(" type LIKE '").append(typeReference).append("'");
+                            sqlStatement.append(" and id_author=").append(id_author);
+                            sqlStatement.append(" and year=").append(yearReference);
+                            if (volumeReference == null) {
+                                sqlStatement.append(" and volume is null");
+                            } else {
+                                sqlStatement.append(" and volume='").append(volumeReference).append("'");
+                            }
+                            if (pagesReference == null) {
+                                sqlStatement.append(" and pages is null");
+                            } else {
+                                sqlStatement.append(" and pages='").append(pagesReference).append("'");
+                            }
+                            if (journalReference == null) {
+                                sqlStatement.append(" and journal is null");
+                            } else {
+                                sqlStatement.append(" and journal='").append(journalReference).append("'");
+                            }
+
+                            if (chapterReference == null) {
+                                sqlStatement.append(" and chapter is null");
+                            } else {
+                                sqlStatement.append(" and chapter='").append(chapterReference).append("'");
+                            }
+
+                            if (artnReference == null) {
+                                sqlStatement.append(" and artn is null");
+                            } else {
+                                sqlStatement.append(" and artn='").append(artnReference).append("'");
+                            }
+
+                            sqlStatement.append(" and id_collection=").append(this.id_collection);
+
+                            stmt = sqlManager.createSqlStatement(conn, sqlStatement.toString());
+                            result = stmt.executeQuery();
+
+                            if (result.next()) {
+                                id_ref = result.getInt(1);
+                                result.close();
+                                stmt.close();
+                                stmt = sqlManager.getSqlStatement(conn, "INSERT.DOCUMENT.TO.REFERENCE");
+                                stmt.setInt(1, id);
+                                stmt.setInt(2, id_collection);
+                                stmt.setInt(3, id_ref);
+                                stmt.executeUpdate();
+                                result.close();
+                                stmt.close();
+                            } else {
+                                //inserindo referencia na tabela de citacoes
+                                result.close();
+                                stmt.close();
+                                stmt = sqlManager.getSqlStatement(conn, "INSERT.REFERENCE");
+                                stmt.setInt(1, id_collection);
+                                stmt.setInt(2, id_author);
+                                stmt.setString(3, typeReference);
+                                stmt.setInt(4, yearReference);
+                                stmt.setString(5, journalReference);
+                                stmt.setString(6, volumeReference);
+                                stmt.setString(7, chapterReference);
+                                stmt.setString(8, doiReference);
+                                stmt.setString(9, pagesReference);
+                                stmt.setString(10, artnReference);
+                                stmt.setString(11, reference);
+                                stmt.setInt(12, -1);
+                                stmt.executeUpdate();
+
+                                result = stmt.getGeneratedKeys();
+                                result.next();
+                                id_ref = result.getInt(1);
+                                result.close();
+                                stmt.close();
+
+                                stmt = sqlManager.getSqlStatement(conn, "INSERT.DOCUMENT.TO.REFERENCE");
+                                stmt.setInt(1, id);
+                                stmt.setInt(2, id_collection);
+                                stmt.setInt(3, id_ref);
+                                stmt.executeUpdate();
+                                stmt.close();
+                            }
+                        }
+                    }
+                }
+            }
+
+        } catch (SQLException | NumberFormatException ex) {
+            System.out.println("Documento: " + id);
+            System.out.println("Referencia: " + id_ref);
+            System.out.println("[REF DUPLICADA] " + reference);
+//            throw new RuntimeException("Error loading data from database", e);
+        } finally {
+            SqlUtil.close(result);
+            SqlUtil.close(stmt);
+        }
     }
 
     private String addNextWord(String[] ngram, String word) {

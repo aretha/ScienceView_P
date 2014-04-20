@@ -22,14 +22,14 @@ import topicevolutionvis.utils.filefilter.DmatFileFilter;
  *
  * @author Aretha
  */
-public class ProjectionDistanceChoice extends WizardPanel {
+public class ProjectionDistanceChoiceWizard extends WizardPanel {
 
     private ProjectionData pdata;
 
     /**
      * Creates new form ProjectionDistanceChoice
      */
-    public ProjectionDistanceChoice(ProjectionData pdata) {
+    public ProjectionDistanceChoiceWizard(ProjectionData pdata) {
         this.pdata = pdata;
         initComponents();
 
@@ -169,7 +169,7 @@ public class ProjectionDistanceChoice extends WizardPanel {
         NCDSettings.getInstance((ProjectionWizardView) getTopLevelAncestor()).display(pdata);
     }//GEN-LAST:event_distanceSettingsButtonActionPerformed
 
-    public ProjectionDistanceChoice reset() {
+    public ProjectionDistanceChoiceWizard reset() {
         return this;
     }
 
@@ -193,4 +193,46 @@ public class ProjectionDistanceChoice extends WizardPanel {
     private javax.swing.JComboBox projectionComboBox;
     private javax.swing.JCheckBox saveDistanceMatrixCheckBox;
     // End of variables declaration//GEN-END:variables
+
+	@Override
+	public boolean isNextStepTerminal() {
+		return false;
+	}
+
+	@Override
+	public boolean canGoToNextStep() {
+		return true;
+	}
+
+	@Override
+	public boolean canGoToPreviousStep() {
+		return true;
+	}
+
+	@Override
+	public boolean canCancel() {
+		return true;
+	}
+
+	@Override
+	public void cancel() {
+	}
+
+	@Override
+	public boolean hasPreviousStep() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canResetConfiguration() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void resetConfiguration() {
+		// TODO Auto-generated method stub
+		
+	}
 }

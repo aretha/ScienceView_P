@@ -26,8 +26,7 @@ public class SqlManager
      * SQL statements.
      */
     private Properties properties;
-	
-
+    
     /**
      * Creates a new instance of SqlManager (singleton pattern)
      */

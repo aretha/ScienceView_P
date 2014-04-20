@@ -28,6 +28,12 @@ public class ConnectionManager
      */
     private JdbcConnectionPool connPool;
     
+    private int connectionsRequested;
+    
+    private int connectionsFailed;
+	
+
+    
     /**
      * File that hosts the configuration required to connect to the database.
      */
@@ -71,6 +77,7 @@ public class ConnectionManager
             	throw new IllegalArgumentException("Cannot create pool of database connections");
             }
             connPool.setMaxConnections(30);
+            connPool.setLoginTimeout(0);
             System.out.println("Max database connections: " + connPool.getMaxConnections());
         } catch (Exception e) {
             throw new IllegalArgumentException("Cannot load configuration for database connection", e);
@@ -130,19 +137,24 @@ public class ConnectionManager
      */
     public Connection getConnection() {
     	Connection conn = null;
-    	try {
-    		while (conn == null) {
-    			conn = connPool.getConnection();
-    			if (conn == null) {
-    				System.out.println("Currently active database connections: " + connPool.getActiveConnections());
-    				Thread.sleep(1000);
-    			}
-    		}
-    	} catch (SQLException e) {
-    		return null;
-    	} catch (InterruptedException e) {
-    		Thread.currentThread().interrupt();
-    	}
+		try {
+			while (conn == null) {
+				connectionsRequested++;
+				try {
+	    			conn = connPool.getConnection();
+	    			if (conn == null) {
+	    	        	connectionsFailed++;
+	    				Thread.sleep(1000);
+	    			}
+				} catch (SQLException e) {
+					connectionsFailed++;
+					Thread.sleep(1000);
+				}
+			}
+		} catch (InterruptedException e) {
+			connectionsFailed++;
+			Thread.currentThread().interrupt();
+		}
 		return conn;
     }
 

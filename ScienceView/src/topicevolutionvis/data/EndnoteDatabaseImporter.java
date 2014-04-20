@@ -14,12 +14,11 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import topicevolutionvis.database.ConnectionManager;
-import topicevolutionvis.database.DatabaseCorpus;
 import topicevolutionvis.database.SqlManager;
 import topicevolutionvis.database.SqlUtil;
 import topicevolutionvis.preprocessing.Ngram;
 import topicevolutionvis.util.PExConstants;
-import topicevolutionvis.wizard.DataSourceChoice;
+import topicevolutionvis.wizard.DataSourceChoiceWizard;
 
 /**
  *
@@ -29,7 +28,7 @@ public class EndnoteDatabaseImporter extends DatabaseImporter {
 
     Pattern endnotePattern = Pattern.compile("%[A-Z0-9]\\s.*|.*:.*|Review|%».*|%∂.*|%©.*|%@.*|%+.*");
 
-    public EndnoteDatabaseImporter(String filename, String collection, int nrGrams, DataSourceChoice view, boolean removeStopwordsByTagging) {
+    public EndnoteDatabaseImporter(String filename, String collection, int nrGrams, DataSourceChoiceWizard view, boolean removeStopwordsByTagging) {
         super(filename, collection, nrGrams, view, removeStopwordsByTagging);
     }
 
@@ -46,7 +45,7 @@ public class EndnoteDatabaseImporter extends DatabaseImporter {
                 this.cancel(true);
                 this.msg = "A collection intitled \"" + collection + "\" already exists. Please choose another name.";
             }
-            this.dropIndexForBibliographicCoupling();
+            dropIndexForBibliographicCoupling(conn);
             //creating the collection
 
             conn = connManager.getConnection();
@@ -60,10 +59,12 @@ public class EndnoteDatabaseImporter extends DatabaseImporter {
             rs = stmt.getGeneratedKeys();
             rs.next();
             this.id_collection = rs.getInt(1);
+            rs.close();
+            stmt.close();
 
             readEndnoteFile();
-            this.matchReferencesToPapers();
-            this.createIndexForBibliographicCoupling();
+            matchReferencesToPapers(conn);
+            createIndexForBibliographicCoupling(conn);
         } catch (SQLException ex) {
             Logger.getLogger(ISICorpusDatabaseImporter.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -192,7 +193,7 @@ public class EndnoteDatabaseImporter extends DatabaseImporter {
                     index++;
                     System.out.println(index);
                     e.setId(index);
-                    this.saveToDataBase(e.getId(), e.getType(), e.getTitle(), e.getResearchAddress(), e.getAuthors(), e.getAbstract(), e.getKeywords(), null, e.getReferences(), e.getYear(), e.getTimesCited(), e.getDoi(), e.getBeginPage(), e.getEndPage(), "", e.getJournal(), e.getJournalAbbrev(), e.getVolume(), e.getTrueLblWork());
+                    saveToDataBase(conn, e.getId(), e.getType(), e.getTitle(), e.getResearchAddress(), e.getAuthors(), e.getAbstract(), e.getKeywords(), null, e.getReferences(), e.getYear(), e.getTimesCited(), e.getDoi(), e.getBeginPage(), e.getEndPage(), "", e.getJournal(), e.getJournalAbbrev(), e.getVolume(), e.getTrueLblWork());
 
                     //creating the ngrams stream
                     fngrams = this.getNgramsFromFileRemovingStopwordsByTagging(e.getContent().toString());

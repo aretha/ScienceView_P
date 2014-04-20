@@ -49,7 +49,7 @@ package topicevolutionvis.projection;
 import topicevolutionvis.graph.TemporalGraph;
 import topicevolutionvis.matrix.SparseMatrix;
 import topicevolutionvis.projection.distance.DistanceMatrix;
-import topicevolutionvis.wizard.ProjectionView;
+import topicevolutionvis.wizard.ProjectionViewWizard;
 
 /**
  *
@@ -57,11 +57,11 @@ import topicevolutionvis.wizard.ProjectionView;
  */
 public abstract class Projection {
 
-    public abstract double[][] project(SparseMatrix matrix, ProjectionData pdata, ProjectionView view);
+    public abstract double[][] project(SparseMatrix matrix, ProjectionData pdata, ProjectionViewWizard view);
 
-    public abstract double[][] project(DistanceMatrix dmat, ProjectionData pdata, ProjectionView view);
+    public abstract double[][] project(DistanceMatrix dmat, ProjectionData pdata, ProjectionViewWizard view);
 
-    public abstract ProjectionView getProjectionView(ProjectionData pdata);
+    public abstract ProjectionViewWizard getProjectionView(ProjectionData pdata);
 
     public void postProcessing(TemporalGraph graph) {
     }

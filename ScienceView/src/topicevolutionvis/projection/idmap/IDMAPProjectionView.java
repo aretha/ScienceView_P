@@ -49,13 +49,13 @@ package topicevolutionvis.projection.idmap;
 
 import topicevolutionvis.projection.ProjectionData;
 import topicevolutionvis.projection.ProjectorType;
-import topicevolutionvis.wizard.ProjectionView;
+import topicevolutionvis.wizard.ProjectionViewWizard;
 
 /**
  *
  * @author  Fernando Vieira Paulovich
  */
-public class IDMAPProjectionView extends ProjectionView {
+public class IDMAPProjectionView extends ProjectionViewWizard {
 
     /**
      * Creates new form IDMAPProjectionView
@@ -212,4 +212,51 @@ public class IDMAPProjectionView extends ProjectionView {
     private javax.swing.JPanel statusPanel;
     private javax.swing.JProgressBar statusProgressBar;
     // End of variables declaration//GEN-END:variables
+	@Override
+	public boolean isNextStepTerminal() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canGoToNextStep() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canGoToPreviousStep() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canCancel() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void cancel() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean canResetConfiguration() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void resetConfiguration() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean hasPreviousStep() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

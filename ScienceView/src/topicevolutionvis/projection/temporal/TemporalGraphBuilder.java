@@ -5,16 +5,20 @@
 package topicevolutionvis.projection.temporal;
 
 import com.vividsolutions.jts.geom.*;
+
 import gnu.trove.iterator.TIntIterator;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.map.hash.TIntObjectHashMap;
+
 import java.io.IOException;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.apache.commons.math3.analysis.interpolation.LinearInterpolator;
+
 import topicevolutionvis.database.DatabaseCorpus;
 import topicevolutionvis.datamining.network.BibliographicCouplingConnectivity;
 import topicevolutionvis.datamining.network.CoAuthorshipConnectivy;
@@ -41,15 +45,15 @@ import topicevolutionvis.util.KNN;
 import topicevolutionvis.util.PExConstants;
 import topicevolutionvis.util.Pair;
 import topicevolutionvis.util.Utils;
-import topicevolutionvis.wizard.ProjectionView;
+import topicevolutionvis.wizard.ProjectionViewWizard;
 
 /**
  *
  * @author Aretha
  */
-public class TemporalGraphBuilder {
+public class TemporalGraphBuilder extends ProjectionViewWizard {
 
-    private ProjectionView view;
+    private ProjectionViewWizard view;
     private TemporalProjection tproj;
     private Dissimilarity diss = null;
     private IOException exception;
@@ -73,7 +77,8 @@ public class TemporalGraphBuilder {
      * @param corpus
      * @param graph
      */
-    public TemporalGraphBuilder(ProjectionView view, TemporalProjection tproj, DatabaseCorpus corpus) {
+    public TemporalGraphBuilder(ProjectionData pdata, ProjectionViewWizard view, TemporalProjection tproj, DatabaseCorpus corpus) {
+    	super(pdata);
         this.view = view;
         this.tproj = tproj;
         this.exception = null;
@@ -959,4 +964,50 @@ public class TemporalGraphBuilder {
             view.setStatus(status, value);
         }
     }
+
+	@Override
+	public void setStatus(String status, int value) {
+	}
+
+	@Override
+	public void refreshData() {
+	}
+
+	@Override
+	public boolean canCancel() {
+		return true;
+	}
+
+	@Override
+	public void cancel() {
+	}
+
+	@Override
+	public boolean isNextStepTerminal() {
+		return true;
+	}
+
+	@Override
+	public boolean canGoToNextStep() {
+		return true;
+	}
+
+	@Override
+	public boolean hasPreviousStep() {
+		return true;
+	}
+
+	@Override
+	public boolean canGoToPreviousStep() {
+		return true;
+	}
+
+	@Override
+	public boolean canResetConfiguration() {
+		return true;
+	}
+
+	@Override
+	public void resetConfiguration() {
+	}
 }

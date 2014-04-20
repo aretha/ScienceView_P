@@ -54,7 +54,7 @@ import topicevolutionvis.projection.*;
 import topicevolutionvis.projection.distance.Dissimilarity;
 import topicevolutionvis.projection.distance.DissimilarityFactory;
 import topicevolutionvis.projection.distance.DistanceMatrix;
-import topicevolutionvis.wizard.ProjectionView;
+import topicevolutionvis.wizard.ProjectionViewWizard;
 
 /**
  *
@@ -63,7 +63,7 @@ import topicevolutionvis.wizard.ProjectionView;
 public class IDMAPProjection extends Projection {
 
     @Override
-    public double[][] project(SparseMatrix matrix, ProjectionData pdata, ProjectionView view) {
+    public double[][] project(SparseMatrix matrix, ProjectionData pdata, ProjectionViewWizard view) {
         try {
             Dissimilarity diss = DissimilarityFactory.getInstance(pdata.getDissimilarityType());
             DistanceMatrix dmat_aux = new DistanceMatrix(matrix, diss);
@@ -80,7 +80,7 @@ public class IDMAPProjection extends Projection {
     
 
     @Override
-    public double[][] project(DistanceMatrix dmat, ProjectionData pdata, ProjectionView view) {
+    public double[][] project(DistanceMatrix dmat, ProjectionData pdata, ProjectionViewWizard view) {
         this.dmat = dmat;
 
         if (view != null) {
@@ -112,7 +112,7 @@ public class IDMAPProjection extends Projection {
     }
 
     @Override
-    public ProjectionView getProjectionView(ProjectionData pdata) {
+    public ProjectionViewWizard getProjectionView(ProjectionData pdata) {
         return new IDMAPProjectionView(pdata);
     }
 }

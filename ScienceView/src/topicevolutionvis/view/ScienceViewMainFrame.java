@@ -1158,10 +1158,8 @@ public class ScienceViewMainFrame extends javax.swing.JFrame implements TreeSele
 
     private void wizardmenu(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wizardmenu
         TemporalProjection tproj = new TemporalProjection();
-        int result = ProjectionWizardView.getInstance().display(tproj);
-        if (result == ProjectionWizardView.PROJECTION_GENERATED) {
-            this.addTemporalProjectionViewer(tproj);
-        }
+        ProjectionWizardView wizard = new ProjectionWizardView(tproj);
+        addTemporalProjectionViewer(tproj);
     }//GEN-LAST:event_wizardmenu
 
     private void desktopComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_desktopComponentAdded

@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import topicevolutionvis.database.CollectionManager;
 import topicevolutionvis.database.ConnectionManager;
 import topicevolutionvis.database.SqlManager;
-import topicevolutionvis.wizard.DataSourceChoice;
+import topicevolutionvis.wizard.DataSourceChoiceWizard;
 
 /**
  *
@@ -18,7 +18,7 @@ import topicevolutionvis.wizard.DataSourceChoice;
  */
 public class DumpDatabaseImporter extends DatabaseImporter {
 
-    public DumpDatabaseImporter(String filename, DataSourceChoice view, boolean removeStopwordsByTagging) {
+    public DumpDatabaseImporter(String filename, DataSourceChoiceWizard view, boolean removeStopwordsByTagging) {
         super(filename, null, -1, view, removeStopwordsByTagging);
     }
 

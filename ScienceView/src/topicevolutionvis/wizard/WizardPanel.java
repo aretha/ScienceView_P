@@ -47,12 +47,29 @@ address = {Washington, DC, USA},
 
 package topicevolutionvis.wizard;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author Fernando Vieira Paulovich
  */
-public abstract class WizardPanel extends javax.swing.JPanel {
-  
+public abstract class WizardPanel extends JPanel
+{
     public abstract void refreshData();
+    
+    public abstract boolean canCancel();
+    
+    public abstract void cancel();
 
+    public abstract boolean canResetConfiguration();
+    
+    public abstract void resetConfiguration();
+    
+    public abstract boolean isNextStepTerminal();
+    
+    public abstract boolean canGoToNextStep();
+    
+    public abstract boolean hasPreviousStep();
+
+    public abstract boolean canGoToPreviousStep();
 }

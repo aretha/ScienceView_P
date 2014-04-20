@@ -25,7 +25,7 @@ import topicevolutionvis.projection.idmap.IDMAPProjection;
 import topicevolutionvis.util.ANN;
 import topicevolutionvis.util.KNN;
 import topicevolutionvis.util.Pair;
-import topicevolutionvis.wizard.ProjectionView;
+import topicevolutionvis.wizard.ProjectionViewWizard;
 
 /**
  *
@@ -47,7 +47,7 @@ public class LSPProjection2D extends Projection {
     }
 
     @Override
-    public double[][] project(SparseMatrix matrix, ProjectionData pdata, ProjectionView view) {
+    public double[][] project(SparseMatrix matrix, ProjectionData pdata, ProjectionViewWizard view) {
         this.matrix = matrix;
 
         double projection[][] = null;
@@ -492,12 +492,12 @@ public class LSPProjection2D extends Projection {
 //        Logger.getLogger(this.getClass().getName()).log(Level.INFO, "Solving the system using Colt time: {0}s", (finish - start) / 1000.0f);
 //    }
     @Override
-    public double[][] project(DistanceMatrix dmat, ProjectionData pdata, ProjectionView view) {
+    public double[][] project(DistanceMatrix dmat, ProjectionData pdata, ProjectionViewWizard view) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public ProjectionView getProjectionView(ProjectionData pdata) {
+    public ProjectionViewWizard getProjectionView(ProjectionData pdata) {
         return new LSPProjectionParametersView(pdata);
     }
 }

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package topicevolutionvis.data;
 
 import java.io.*;
@@ -13,17 +9,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import topicevolutionvis.database.ConnectionManager;
-import topicevolutionvis.database.DatabaseCorpus;
 import topicevolutionvis.database.SqlManager;
+import topicevolutionvis.database.SqlUtil;
 import topicevolutionvis.preprocessing.Ngram;
 import topicevolutionvis.util.PExConstants;
-import topicevolutionvis.wizard.DataSourceChoice;
+import topicevolutionvis.wizard.DataSourceChoiceWizard;
 
 /**
  *
@@ -31,15 +25,22 @@ import topicevolutionvis.wizard.DataSourceChoice;
  */
 public class ISICorpusDatabaseImporter extends DatabaseImporter
 {
+    private Pattern authorP = Pattern.compile("[a-zA-Z\\-\\s]{2,}, [A-Z][a-z]+");
+    
+    private Pattern authorPattern2 = Pattern.compile("[a-zA-Z\\-\\s]{2,}, [A-Z]+");
+    
+    private Pattern authorPattern3 = Pattern.compile("[a-zA-Z\\-\\s]{2,}, [[A-Z\\.][\\s]?]+");
+
+	
 	// TODO: Move this to JabRef
 	public static final String FILE_EXTENSION = ".isi";
 
-    public ISICorpusDatabaseImporter(String filename, String collection, int nrGrams, DataSourceChoice view, boolean removeStopwordsByTagging) {
+    public ISICorpusDatabaseImporter(String filename, String collection, int nrGrams, DataSourceChoiceWizard view, boolean removeStopwordsByTagging) {
         super(filename, collection, nrGrams, view, removeStopwordsByTagging);
     }
 
     @Override
-    protected Void doInBackground() throws Exception
+    protected Void doInBackground()
     {
         // Check if the collection name already exist
         if (! collectionManager.isUnique(collection)) {
@@ -48,58 +49,47 @@ public class ISICorpusDatabaseImporter extends DatabaseImporter
         }
 
         // Create the collection
-        dropIndexForBibliographicCoupling();
         ConnectionManager connManager = ConnectionManager.getInstance();
         Connection conn = null;
+        try {
+        	conn = connManager.getConnection();
+
+            dropIndexForBibliographicCoupling(conn);
+            createISICollection(conn);
+            readISIFile(conn);
+            matchReferencesToPapers(conn);
+            createIndexForBibliographicCoupling(conn);
+        } catch (Exception e) {
+        	throw new RuntimeException("Could not save collection to database", e);
+        } finally {
+        	SqlUtil.close(conn);
+        }
+        return null;
+    }
+
+    private void createISICollection(Connection conn) {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-        	conn = connManager.getConnection();
-            stmt = SqlManager.getInstance().getSqlStatement(conn, "INSERT.COLLECTION");
-
+        	stmt = SqlManager.getInstance().getSqlStatement(conn, "INSERT.COLLECTION");
             stmt.setString(1, collection);
             stmt.setString(2, filename);
             stmt.setInt(3, nrGrams);
             stmt.setString(4, "isi");
             stmt.executeUpdate();
-
             rs = stmt.getGeneratedKeys();
             rs.next();
-            
             id_collection = rs.getInt(1);
-            readISIFile();
-            matchReferencesToPapers();
-            createIndexForBibliographicCoupling();
-        } catch (SQLException ex) {
-            Logger.getLogger(ISICorpusDatabaseImporter.class.getName()).log(Level.SEVERE, null, ex);
-            throw new IOException(ex.getMessage());
+        } catch (SQLException e) {
+        	throw new RuntimeException("Could not create and initialize collection into database", e);
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ex) {
-                }
-            }
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException ex) {
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                }
-            }
-
+        	SqlUtil.close(rs);
+        	SqlUtil.close(stmt);
         }
-        return null;
+    	
     }
-
-    private void readISIFile() {
-        ConnectionManager connManager = ConnectionManager.getInstance();
-        Connection conn = null;
+    
+    private void readISIFile(Connection conn) {
         PreparedStatement stmt = null;
 
         String line = "";
@@ -116,8 +106,6 @@ public class ISICorpusDatabaseImporter extends DatabaseImporter
             year = 0;
             times_cited = 0;
             index++;
-        	conn = connManager.getConnection();
-
             
             while ((line = in.readLine()) != null) {
           
@@ -188,7 +176,7 @@ public class ISICorpusDatabaseImporter extends DatabaseImporter
                 } else if (tag.compareTo("EP") == 0) {
                     end_page = line.substring(3);
                 } else if (tag.compareTo("ER") == 0) {
-                    saveToDataBase(index, type, title, research_address, authors, abs, keywords, author_keywords, references, year, times_cited, doi, begin_page, end_page, "", journal, journal_abbrev, volume, 0);
+                    saveToDataBase(conn, index, type, title, research_address, authors, abs, keywords, author_keywords, references, year, times_cited, doi, begin_page, end_page, "", journal, journal_abbrev, volume, 0);
                     fngrams = getNgramsFromFile(content.toString());
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     ObjectOutputStream oos = new ObjectOutputStream(baos);
@@ -234,22 +222,10 @@ public class ISICorpusDatabaseImporter extends DatabaseImporter
             stmt.setInt(2, id_collection);
             stmt.executeUpdate();
             stmt.close();
-        } catch (Exception ex) {
-            System.out.println(line);
-            Logger.getLogger(ISICorpusDatabaseImporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+        	throw new RuntimeException("Could not save collection to database", e);
         } finally {
-	        if (stmt != null) {
-	            try {
-	                stmt.close();
-	            } catch (SQLException ex) {
-	            }
-	        }
-	        if (conn != null) {
-	            try {
-	                conn.close();
-	            } catch (SQLException ex) {
-	            }
-	        }
+        	SqlUtil.close(stmt);
     	}
     }
 
@@ -296,18 +272,13 @@ public class ISICorpusDatabaseImporter extends DatabaseImporter
             }
 
             return value.toString();
-        } catch (IOException ex) {
-            System.out.println(line);
-            Logger.getLogger(ISICorpusDatabaseImporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException e) {
+        	throw new RuntimeException("Could not save references n to database", e);
         }
-        return null;
     }
 
-    public String processAuthors(BufferedReader in, String line) {
+    private String processAuthors(BufferedReader in, String line) {
         int index;
-        Pattern authorP = Pattern.compile("[a-zA-Z\\-\\s]{2,}, [A-Z][a-z]+");
-        Pattern authorPattern2 = Pattern.compile("[a-zA-Z\\-\\s]{2,}, [A-Z]+");
-        Pattern authorPattern3 = Pattern.compile("[a-zA-Z\\-\\s]{2,}, [[A-Z\\.][\\s]?]+");
         line = line.substring(3).trim().replace(",", "");
         StringBuilder value = new StringBuilder(line);
         String author;
@@ -333,8 +304,8 @@ public class ISICorpusDatabaseImporter extends DatabaseImporter
                     in.mark(1000);
                 }
             }
-        } catch (IOException ex) {
-            Logger.getLogger(DatabaseImporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException e) {
+        	throw new RuntimeException("Could not save split authors", e);
         }
         return value.toString();
     }
@@ -356,9 +327,8 @@ public class ISICorpusDatabaseImporter extends DatabaseImporter
                 }
             }
             return value.toString();
-        } catch (IOException ex) {
-            Logger.getLogger(ISICorpusDatabaseImporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException e) {
+        	throw new RuntimeException("Could not split lines", e);
         }
-        return null;
     }
 }

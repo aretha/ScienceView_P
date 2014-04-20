@@ -56,18 +56,18 @@ import topicevolutionvis.projection.ProjectionData;
  *
  * @author Fernando Vieira Paulovich
  */
-public abstract class ProjectionView extends WizardPanel {
+public abstract class ProjectionViewWizard extends WizardPanel {
 
+    protected ProjectionData pdata;
+    
     /** Creates a new instance of ProjectionView */
-    public ProjectionView(ProjectionData pdata) {
+    public ProjectionViewWizard(ProjectionData pdata) {
         this.pdata = pdata;
     }
 
-    public abstract void setStatus(String status, int value);
-
     public void finished(IOException ex) {
         if (ex != null) {
-            Logger.getLogger(ProjectionView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProjectionViewWizard.class.getName()).log(Level.SEVERE, null, ex);
 
             JOptionPane.showMessageDialog(this.getTopLevelAncestor(),
                     ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -78,5 +78,6 @@ public abstract class ProjectionView extends WizardPanel {
 
     public void reset() {
     }
-    protected ProjectionData pdata;
+
+    public abstract void setStatus(String status, int value);
 }

@@ -24,10 +24,10 @@ import topicevolutionvis.utils.filefilter.ZipFileFilter;
 public class SaveToPExFromatDialog extends javax.swing.JDialog {
 
     ProjectionData pdata;
-    Preprocessing preprocessing;
+    PreprocessingWizard preprocessing;
 
     /** Creates new form SaveToPExFromatDialog */
-    public SaveToPExFromatDialog(ProjectionData pdata, Preprocessing preprocessing) {
+    public SaveToPExFromatDialog(ProjectionData pdata, PreprocessingWizard preprocessing) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.pdata = pdata;
