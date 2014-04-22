@@ -76,9 +76,8 @@ public class ConnectionManager
             if (connPool == null) {
             	throw new IllegalArgumentException("Cannot create pool of database connections");
             }
-            connPool.setMaxConnections(30);
-            connPool.setLoginTimeout(0);
-            System.out.println("Max database connections: " + connPool.getMaxConnections());
+            connPool.setMaxConnections(60);
+            connPool.setLoginTimeout(1);
         } catch (Exception e) {
             throw new IllegalArgumentException("Cannot load configuration for database connection", e);
         } finally {

@@ -111,7 +111,7 @@ public abstract class DatabaseImporter extends SwingWorker<Void, Void> {
     }
 
     public int getNumberOfReferences() {
-        Connection conn;
+        Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet result = null;
         try {
@@ -127,7 +127,10 @@ public abstract class DatabaseImporter extends SwingWorker<Void, Void> {
         } catch (SQLException e) {
             throw new RuntimeException("Error loading data from database", e);
         } finally {
-        	SqlUtil.fullyClose(result);
+        	SqlUtil.close(result);
+        	SqlUtil.close(stmt);
+        	SqlUtil.close(conn);
+        	
         }
     }
 

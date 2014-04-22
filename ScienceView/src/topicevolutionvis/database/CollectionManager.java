@@ -34,7 +34,9 @@ public class CollectionManager {
         } catch (SQLException e) {
             throw new RuntimeException("Error loading data from database", e);
         } finally {
-            SqlUtil.fullyClose(rs);
+            SqlUtil.close(rs);
+            SqlUtil.close(stmt);
+            SqlUtil.close(conn);
         }
     }
 	
@@ -58,7 +60,9 @@ public class CollectionManager {
         } catch (SQLException e) {
             throw new RuntimeException("Error reading collection", e);
         } finally {
-            SqlUtil.fullyClose(rs);
+            SqlUtil.close(rs);
+            SqlUtil.close(stmt);
+            SqlUtil.close(conn);
 
         }
 
@@ -80,7 +84,8 @@ public class CollectionManager {
         } catch (SQLException e) {
         	throw new RuntimeException("Error removing collection", e);
         } finally {
-            SqlUtil.fullyClose(stmt);
+            SqlUtil.close(stmt);
+            SqlUtil.close(conn);
 
         }
 

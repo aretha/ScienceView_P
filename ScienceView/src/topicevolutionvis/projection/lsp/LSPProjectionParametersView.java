@@ -333,7 +333,7 @@ public class LSPProjectionParametersView extends ProjectionViewWizard {
 	@Override
 	public boolean canGoToNextStep() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -369,6 +369,6 @@ public class LSPProjectionParametersView extends ProjectionViewWizard {
 	@Override
 	public boolean hasPreviousStep() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 }

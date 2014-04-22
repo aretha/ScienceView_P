@@ -71,6 +71,7 @@ public class ProjectionWizardController {
     private static final int DIMEN_RED_STATE = 6;
     private static final int PROJ_DIST_STATE = 7;
     private static final int PROJECT_STATE = 8;
+    private static final int FINAL_STATE = 10;
     
     //Views of each state
     private DataSourceChoiceWizard sourceView;
@@ -176,10 +177,16 @@ public class ProjectionWizardController {
                     return projDistView;
                 }
                 if (direction == ProjectionWizardController.NEXT_STATE) {
+                    currentState = ProjectionWizardController.FINAL_STATE;
                     builder = new TemporalGraphBuilder(tproj.getProjectionData(), projView, tproj, tproj.getProjectionData().getDatabaseCorpus());
                     builder.start(tproj.getProjectionData());
+                    return null;
                 }
                 throw new UnsupportedOperationException("Cannot go from state " + currentState + " in the direction " + direction);
+
+            case ProjectionWizardController.FINAL_STATE:
+            		return null;
+
         }
         
         throw new UnsupportedOperationException("Cannot go from state " + currentState + " in the direction " + direction);

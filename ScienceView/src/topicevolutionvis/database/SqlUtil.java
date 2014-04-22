@@ -25,17 +25,6 @@ public final class SqlUtil
 		}
 	}
 
-	public static void fullyClose(ResultSet rs) {
-		if (rs != null) {
-			SqlUtil.close(rs);
-			try {
-				SqlUtil.fullyClose(rs.getStatement());
-			} catch (SQLException e) {
-			}
-		}
-	}
-
-	
 	public static void close(Statement stmt) {
 		if (stmt != null) {
 			try {
@@ -43,15 +32,4 @@ public final class SqlUtil
 			} catch (SQLException e) {}
 		}
 	}
-
-	public static void fullyClose(Statement stmt) {
-		if (stmt != null) {
-			SqlUtil.close(stmt);
-			try {
-				SqlUtil.close(stmt.getConnection());
-			} catch (SQLException e) {
-			}
-		}
-	}
-	
 }

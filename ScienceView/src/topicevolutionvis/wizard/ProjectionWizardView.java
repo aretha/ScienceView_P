@@ -85,8 +85,7 @@ public class ProjectionWizardView extends JDialog
 
     private JButton previousButton;
 
-    private JButton nextButton;
-    
+    private JButton nextButton; 
     
     public ProjectionWizardView(TemporalProjection project) {
         super(ScienceViewMainFrame.getInstance());
@@ -103,18 +102,8 @@ public class ProjectionWizardView extends JDialog
      */
     private void initComponents()
     {
-        setPreferredSize(new Dimension(640, 480));
     	initButtonPanel();
     	initProcessPanel();
-        pack();
-    }
-    
-    private void initButtonPanel() {
-        buttonPanel = new JPanel();
-        cancelButton = new JButton();
-        resetButton = new JButton();
-        previousButton = new JButton();
-        nextButton = new JButton();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Projection wizard");
@@ -124,6 +113,20 @@ public class ProjectionWizardView extends JDialog
                 cancelWizard();
             }
         });
+
+        setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(640, 480));
+        getContentPane().add(wizardPanel, BorderLayout.NORTH);
+        getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+        pack();
+    }
+    
+    private void initButtonPanel() {
+        buttonPanel = new JPanel();
+        cancelButton = new JButton();
+        resetButton = new JButton();
+        previousButton = new JButton();
+        nextButton = new JButton();
 
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
@@ -159,15 +162,11 @@ public class ProjectionWizardView extends JDialog
             }
         });
         buttonPanel.add(nextButton);
-
-        getContentPane().add(buttonPanel, BorderLayout.SOUTH);
     }
     
     private void initProcessPanel() 
     {
         wizardPanel = new JPanel();
-        wizardPanel.setLayout(new BorderLayout());
-        getContentPane().add(wizardPanel, BorderLayout.CENTER);
     }
 
     public void cancelWizard() {
@@ -191,8 +190,10 @@ public class ProjectionWizardView extends JDialog
     private void goToNextStep() {
     	if (innerWizardPanel.canGoToNextStep()) {
     		innerWizardPanel.refreshData();
-    		definePanel(ProjectionWizardController.NEXT_STATE);
-        }
+        	if (! innerWizardPanel.isNextStepTerminal()) {
+        		definePanel(ProjectionWizardController.NEXT_STATE);
+        	}
+    	}
     }
 
     private void goToPreviousStep() {
@@ -202,35 +203,32 @@ public class ProjectionWizardView extends JDialog
     }
 
     public void definePanel(int direction) {
-        // Getting the new panel
         WizardPanel newPanel = wizardController.getNextPanel(direction);
         
-        if (newPanel == null) {
-        	throw new UnsupportedOperationException("Invalid state for wizard panel (currently at " + innerWizardPanel.toString() + ", direction = " + direction + ")");
+        if (newPanel != null) {
+	        // Change the next/finish button label
+	        if (! newPanel.isNextStepTerminal()) {
+	            nextButton.setText("Next >>");
+	        } else {
+	            nextButton.setText("Finish");
+	        }
+	
+	        // Activate/Deactivate the previous button
+	        if (newPanel.hasPreviousStep()) {
+	            previousButton.setEnabled(true);
+	        } else {
+	            previousButton.setEnabled(false);
+	        }
+	
+	        // Remove the previous panel
+	        wizardPanel.removeAll();
+	       
+	        //Add this panel to the frame
+	        innerWizardPanel = newPanel;
+	        wizardPanel.add(innerWizardPanel);
+	        setLocationRelativeTo(getParent());
+	        innerWizardPanel.repaint();
+	        validate();
         }
-
-        // Change the next/finish button label
-        if (newPanel.isNextStepTerminal()) {
-            nextButton.setText("Next >>");
-        } else {
-            nextButton.setText("Finish");
-        }
-
-        // Activate/Deactivate the previous button
-        if (newPanel.hasPreviousStep()) {
-            previousButton.setEnabled(true);
-        } else {
-            previousButton.setEnabled(false);
-        }
-
-        // Remove the previous panel
-        wizardPanel.removeAll();
-       
-        //Add this panel to the frame
-        innerWizardPanel = newPanel;
-        wizardPanel.add(innerWizardPanel);
-        setLocationRelativeTo(getParent());
-        innerWizardPanel.repaint();
-        validate();
     }
 }

@@ -68,7 +68,9 @@ public class EndnoteDatabaseImporter extends DatabaseImporter {
         } catch (SQLException ex) {
             Logger.getLogger(ISICorpusDatabaseImporter.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-        	SqlUtil.fullyClose(rs);
+        	SqlUtil.close(rs);
+        	SqlUtil.close(stmt);
+        	SqlUtil.close(conn);
         }
         return null;
     }
