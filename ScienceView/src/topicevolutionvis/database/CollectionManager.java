@@ -15,7 +15,7 @@ public class CollectionManager {
 
     public boolean isUnique(String collection)
     {
-    	ConnectionManager connManager = ConnectionManager.getInstance();
+    	ConnectionManager connManager = H2ConnectionManager.getInstance();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -43,7 +43,7 @@ public class CollectionManager {
     public ArrayList<String> getCollections()
     {
     	ArrayList<String> collections = new ArrayList<String>();
-        ConnectionManager connManager = ConnectionManager.getInstance();
+        ConnectionManager connManager = H2ConnectionManager.getInstance();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -71,7 +71,7 @@ public class CollectionManager {
 
     public boolean removeCollection(String name)
     {
-        ConnectionManager connManager = ConnectionManager.getInstance();
+        ConnectionManager connManager = H2ConnectionManager.getInstance();
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;

@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import topicevolutionvis.database.CollectionManager;
 import topicevolutionvis.database.ConnectionManager;
+import topicevolutionvis.database.H2ConnectionManager;
 import topicevolutionvis.database.SqlManager;
 import topicevolutionvis.wizard.DataSourceChoiceWizard;
 
@@ -32,7 +33,7 @@ public class DumpDatabaseImporter extends DatabaseImporter {
         String collectionName;
         int begin, end;
         
-        ConnectionManager connManager = ConnectionManager.getInstance();
+        ConnectionManager connManager = H2ConnectionManager.getInstance();
         Connection conn = connManager.getConnection();
         
         while (((line = in.readLine().trim()) != null)) {

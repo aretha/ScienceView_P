@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import topicevolutionvis.database.ConnectionManager;
+import topicevolutionvis.database.H2ConnectionManager;
 import topicevolutionvis.database.SqlManager;
 import topicevolutionvis.database.SqlUtil;
 import topicevolutionvis.preprocessing.Ngram;
@@ -35,7 +36,7 @@ public class EndnoteDatabaseImporter extends DatabaseImporter {
     @Override
     protected Void doInBackground() throws Exception
     {
-    	ConnectionManager connManager = ConnectionManager.getInstance();
+    	ConnectionManager connManager = H2ConnectionManager.getInstance();
     	Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -76,7 +77,7 @@ public class EndnoteDatabaseImporter extends DatabaseImporter {
     }
 
     private void readEndnoteFile() {
-    	ConnectionManager connManager = ConnectionManager.getInstance();
+    	ConnectionManager connManager = H2ConnectionManager.getInstance();
     	Connection conn = null;
 
         BufferedReader in = null;

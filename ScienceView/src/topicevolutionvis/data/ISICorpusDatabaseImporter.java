@@ -13,6 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import topicevolutionvis.database.ConnectionManager;
+import topicevolutionvis.database.H2ConnectionManager;
 import topicevolutionvis.database.SqlManager;
 import topicevolutionvis.database.SqlUtil;
 import topicevolutionvis.preprocessing.Ngram;
@@ -49,7 +50,7 @@ public class ISICorpusDatabaseImporter extends DatabaseImporter
         }
 
         // Create the collection
-        ConnectionManager connManager = ConnectionManager.getInstance();
+        ConnectionManager connManager = H2ConnectionManager.getInstance();
         Connection conn = null;
         try {
         	conn = connManager.getConnection();

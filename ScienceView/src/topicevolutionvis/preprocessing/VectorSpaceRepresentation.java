@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+
 import topicevolutionvis.database.DatabaseCorpus;
 import topicevolutionvis.matrix.SparseMatrix;
 import topicevolutionvis.matrix.SparseVector;
@@ -57,6 +58,7 @@ public class VectorSpaceRepresentation extends Representation {
             if ((include_references) && references != null && !references.isEmpty()) {
                 int index = 0;
                 for (Reference ref : references) {
+                	// TODO: large databases get stuck in here
                     if (corpus.doesThisDocumentCitesThisReference(ids[i], ref.indexDatabase)) {
                         row[ngramssize + index] = 1.0f;
                     }
@@ -65,8 +67,7 @@ public class VectorSpaceRepresentation extends Representation {
             }
 
             SparseVector sv = new SparseVector(row, ids[i], 0);
-            sv.setTitle(this.corpus.getTitle(ids[i]));
-
+            sv.setTitle(corpus.getTitle(ids[i]));
             matrix.addRow(sv);
         }
         ArrayList<String> attr = new ArrayList<>();
@@ -79,6 +80,8 @@ public class VectorSpaceRepresentation extends Representation {
             }
         }
         matrix.setAttributes(attr);
+
+
         return matrix;
     }
 }

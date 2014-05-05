@@ -229,6 +229,16 @@
 			<artifactId>commons-io</artifactId>
 			<version>5.0.0-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.jolbox</groupId>
+			<artifactId>bonecp</artifactId>
+			<version>0.8.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>ironiacorp</groupId>
+			<artifactId>commons-errorhandler</artifactId>
+			<version>5.0.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>

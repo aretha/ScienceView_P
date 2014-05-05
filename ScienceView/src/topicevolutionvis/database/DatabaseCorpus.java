@@ -57,20 +57,24 @@ public class DatabaseCorpus {
 
     public DatabaseCorpus(String name) {
         this.name = name;
-        connManager = ConnectionManager.getInstance();
+        connManager = H2ConnectionManager.getInstance();
         sqlManager = SqlManager.getInstance();
         initDatabaseCorpus();
     }
 
     private void initDatabaseCorpus() {
     	Connection conn = connManager.getConnection();
-        retrieveCollectionId(conn);
-        retrieveNrDocuments(conn);
-        retrieveDocumentsIds(conn);
-        retrievetAscendingDates(conn);
-        matchCoreCitations(conn);
-        generateCoreCitationsHistogram(conn);
-        getNumberOfUniqueReferences_Query(conn);
+    	try {
+	        retrieveCollectionId(conn);
+	        retrieveNrDocuments(conn);
+	        retrieveDocumentsIds(conn);
+	        retrievetAscendingDates(conn);
+	        matchCoreCitations(conn);
+	        generateCoreCitationsHistogram(conn);
+	        getNumberOfUniqueReferences_Query(conn);
+    	} finally {
+    		SqlUtil.close(conn);
+    	}
     }
 
     public String getCollectionName() {
@@ -147,9 +151,9 @@ public class DatabaseCorpus {
                 PreparedStatement stmt = null;
                 ResultSet rs = null;
                 try {
-                    StringBuilder sqlStatement = new StringBuilder("Select year, count(id_citation) FROM citations WHERE id_citation in(");
+                    StringBuilder sqlStatement = new StringBuilder("Select year, count(id_citation) FROM citations WHERE id_citation in (");
                     sqlStatement.append(ids.toString().substring(1, ids.toString().length() - 1));
-                    sqlStatement.append(") and id_collection=").append(this.id_collection).append("group by year order by year");
+                    sqlStatement.append(") and id_collection=").append(this.id_collection).append(" group by year order by year");
                 	stmt = sqlManager.createSqlStatement(conn, sqlStatement.toString());
                     rs = stmt.executeQuery();
                     while (rs.next()) {
@@ -741,14 +745,15 @@ public class DatabaseCorpus {
                 ObjectInputStream ois = new ObjectInputStream(is);
                 ngrams = (ArrayList<Ngram>) ois.readObject();
             }
+            return ngrams;
 
         } catch (IOException | SQLException | ClassNotFoundException e) {
             throw new RuntimeException("Error loading data from database", e);
         } finally {
             SqlUtil.close(rs);
             SqlUtil.close(stmt);
+        	SqlUtil.close(conn);
         }
-        return ngrams;
     }
 
     public boolean doesThisDocumentCitesThisReference(int id_doc, int index_citation) {
@@ -775,7 +780,7 @@ public class DatabaseCorpus {
             SqlUtil.close(conn);
         }
     }
-
+  
     public ArrayList<Reference> getCorpusReferences(int lower, int upper) {
         ArrayList<Reference> references = new ArrayList<>();
         Connection conn = null;

@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -27,6 +29,8 @@ public class SqlManager
      */
     private Properties properties;
     
+    private Map<String, Integer> stats;
+    
     /**
      * Creates a new instance of SqlManager (singleton pattern)
      */
@@ -45,10 +49,11 @@ public class SqlManager
         		try {
         			is.close();
         		} catch (IOException e) {
-        			
         		}
         	}
 		}
+    	
+    	stats = new HashMap<String, Integer>();
     }
 
     /**
@@ -81,6 +86,14 @@ public class SqlManager
     public PreparedStatement createSqlStatement(Connection conn, String query, int resultSetType, int resultSetConcurrency)
     {
     	try {
+    		synchronized (stats) {
+	    		if (! stats.containsKey(query)) {
+	    			stats.put(query, 1);
+	    		} else {
+	    			stats.put(query, stats.get(query) + 1);
+	    		}
+	    		// System.out.println(query);
+			}
        	    if (resultSetType != -1 && resultSetConcurrency != -1) {
                 return conn.prepareStatement(query, resultSetType, resultSetConcurrency);
             } else {

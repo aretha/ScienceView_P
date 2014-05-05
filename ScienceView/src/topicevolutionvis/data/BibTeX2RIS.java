@@ -353,16 +353,28 @@ public class BibTeX2RIS
 			authors[i] = convertAuthor(authors[i], ", ");
 		}
 		printField("AU", authors);
-			
-		if (entry.getField("lang") != null && ! entry.getField("lang").equals("en")) {
-			printField("TI", entry.getField("title-en"));
-			printField("AB", entry.getField("abstract-en"));
-			printField("KW", entry.getField("keywords-en"));
+
+		String lang = entry.getField("lang");
+		String title;
+		String abs;
+		String keywords;
+		if (entry.getField("lang") != null) {
+			title = entry.getField("title-" + lang);
+			abs = entry.getField("abstract-" + lang);
+			keywords = entry.getField("keywords-" + lang);
+			if (title == null || abs == null || keywords == null) {
+				title = entry.getField("title");
+				abs = entry.getField("abstract");
+				keywords = entry.getField("keywords");
+			}
 		} else {
-			printField("TI", entry.getField("title"));
-			printField("AB", entry.getField("abstract"));
-			printField("KW", entry.getField("keywords"));
+			title = entry.getField("title");
+			abs = entry.getField("abstract");
+			keywords = entry.getField("keywords");
 		}
+		printField("TI", title);
+		printField("AB", abs);
+		printField("KW", keywords);
 				
 		int[] pages = pages(entry.getField("pages"));
 		printField("BP", Integer.toString(pages[0]));

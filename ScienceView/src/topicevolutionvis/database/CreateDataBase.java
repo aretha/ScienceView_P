@@ -19,7 +19,7 @@ public class CreateDataBase
 	private SqlManager sqlManager;
 	
 	public void create() throws Exception {
-		connManager = ConnectionManager.getInstance();
+		connManager = H2ConnectionManager.getInstance();
 		sqlManager = SqlManager.getInstance();
 		removeTables();
 		createTables();
