@@ -260,6 +260,10 @@ public class BibTeX2RIS
 			int pages = 0;
 
 			entry = database.getEntryByKey(entryKey.trim());
+			if (entry == null) {
+				System.out.println("Could not find the following reference: " + entryKey);
+				continue;
+			}
 
 			authors = entry.getField("author").split(" and ");
 			crossrefKey = entry.getField("crossref");
@@ -333,10 +337,15 @@ public class BibTeX2RIS
 		String[] subfields;
 		int[] pages = new int[2];
 		
-		field = field.replace("--", "-");
-		subfields = field.split("-");
-		pages[0] = Integer.valueOf(subfields[0]);
-		pages[1] = Integer.valueOf(subfields[1]);
+		try {
+			field = field.replace("--", "-");
+			subfields = field.split("-");
+			pages[0] = Integer.valueOf(subfields[0]);
+			pages[1] = Integer.valueOf(subfields[1]);
+		} catch (NullPointerException e) {
+			pages[0] = 0;
+			pages[1] = 0;
+		}
 
 		return pages;
 	
