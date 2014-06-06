@@ -129,6 +129,9 @@ public class BibTeX2RIS
 				if (crossref == null) {
 					throw new RuntimeException("Missing cross-reference: " + crossrefKey);
 				}
+			} else {
+				// We do not have crossref, so try to download data from current bibtex entry
+				crossref = entry;
 			}
 	
 			if (entry.getType() == BibtexEntryType.INPROCEEDINGS){
@@ -331,20 +334,27 @@ public class BibTeX2RIS
 	}
 
 	private int[] pages(String field) {
-		/**
-		 * tem que declarar o tamanho do vetor!!! Com Integer[] pages; --> não funciona.  
-		 */
 		String[] subfields;
 		int[] pages = new int[2];
 		
 		try {
 			field = field.replace("--", "-");
 			subfields = field.split("-");
-			pages[0] = Integer.valueOf(subfields[0]);
-			pages[1] = Integer.valueOf(subfields[1]);
+			if (subfields[0].contains(":")) {
+				pages[0] = Integer.valueOf(subfields[0].split(":")[1]);
+			} else {
+				pages[0] = Integer.valueOf(subfields[0]);
+			}
+			if (subfields[1].contains(":")) {
+				pages[1] = Integer.valueOf(subfields[1].split(":")[1]);
+			} else {
+				pages[1] = Integer.valueOf(subfields[1]);
+			}
 		} catch (NullPointerException e) {
 			pages[0] = 0;
 			pages[1] = 0;
+		} catch (Exception e) {
+			System.out.println("Bad pages format: " + field);
 		}
 
 		return pages;
