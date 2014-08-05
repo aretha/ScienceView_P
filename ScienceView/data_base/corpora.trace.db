@@ -24286,3 +24286,37 @@ INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, ch
 12-05 13:45:27 jdbc[2]: exception
 org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100) SELECTIVITY 36": "'Random Fluctuations and Pattern Growth: Experiments and Models.  Proceedings of the NATO Advanced Study Institute' (113)"; SQL statement:
 INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+08-01 11:46:29 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100)": "'Proceedings. KDD-2000. Sixth ACM SIGKDD International Conference  on Knowledge Discovery and Data Mining' (104)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+08-01 11:46:29 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100)": "'PROCEEDING OF THE NINETEENTH NATIONAL CONFERENCE ON ARTIFICIAL INTELLIGENCE AND THE SIXTEENTH CONFERENCE ON INNOVATIVE APPLICAT... (158)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+08-01 11:46:29 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100)": "'Proceedings of the Tenth Annual International ACMSIGIR  Conference on Research and Development in Information Retrieval' (119)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+08-01 11:46:35 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100)": "'Proceedings. 1991 IEEE Computer Society Symposium on Research in  Security and Privacy (Cat. No.91CH2986-8)' (107)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+08-01 11:46:40 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100)": "'On Growth and Form - Fractal and Non-Fractal Patterns in  Physics. Proceedings of the NATO Advanced Study Institute' (115)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+08-01 11:46:41 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100) SELECTIVITY 42": "'On Growth and Form - Fractal and Non-Fractal Patterns in  Physics. Proceedings of the NATO Advanced Study Institute' (115)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+08-01 11:46:41 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100) SELECTIVITY 42": "'On Growth and Form - Fractal and Non-Fractal Patterns in  Physics. Proceedings of the NATO Advanced Study Institute' (115)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+08-01 13:26:53 database: close
+org.h2.message.DbException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.store.PageStore.getPage(PageStore.java:753)
+	at org.h2.store.PageStore.compact(PageStore.java:700)
+	at org.h2.store.PageStore.compact(PageStore.java:528)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1199)
+	at org.h2.engine.Database.close(Database.java:1149)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:80)
+Caused by: org.h2.jdbc.JdbcSQLException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	... 8 more

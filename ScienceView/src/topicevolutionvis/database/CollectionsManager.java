@@ -15,70 +15,49 @@ import java.util.logging.Logger;
  */
 public class CollectionsManager {
 
-    public static ArrayList<String> getCollections() throws IOException {
-        ArrayList<String> collections = new ArrayList<>();
-
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
+    public static int getNextCollectionId() {
+        int aux = -1;
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("SELECT.COLLECTIONS", -1, -1);
-                rs = stmt.executeQuery();
+            try (PreparedStatement stmt = SqlManager.getInstance().getSqlStatement("SELECT.MAX.IDCOLLECTION", -1, -1)) {
+                ResultSet rs = stmt.executeQuery();
+                rs.next();
+                aux = rs.getInt(1) + 1;
+            }
 
+        } catch (IOException | SQLException ex) {
+            Logger.getLogger(CollectionsManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return aux;
+    }
+
+    public static ArrayList<String> getCollections() {
+
+        ArrayList<String> collections = new ArrayList<>();
+        try {
+            try (PreparedStatement stmt = SqlManager.getInstance().getSqlStatement("SELECT.COLLECTIONS", -1, -1); ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     String name = rs.getString("name");
                     collections.add(name);
                 }
-        } catch (SQLException ex) {
-            Logger.getLogger(CollectionsManager.class.getName()).log(Level.SEVERE, null, ex);
-            throw new IOException(ex.getMessage());
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(CollectionsManager.class.getName()).log(Level.SEVERE, null, ex);
-                throw new IOException(ex.getMessage());
             }
+            Collections.sort(collections);
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger(CollectionsManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        Collections.sort(collections);
-
         return collections;
     }
 
     public static boolean removeCollection(String name) throws IOException {
-        PreparedStatement stmt = null;
         int rows = 0;
-
         try {
-            stmt = SqlManager.getInstance().getSqlStatement("REMOVE.COLLECTION", -1, -1);
-            stmt.setString(1, name);
-            rows = stmt.executeUpdate();
-
+            try (PreparedStatement stmt = SqlManager.getInstance().getSqlStatement("REMOVE.COLLECTION", -1, -1)) {
+                stmt.setString(1, name);
+                rows = stmt.executeUpdate();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(CollectionsManager.class.getName()).log(Level.SEVERE, null, ex);
             throw new IOException(ex.getMessage());
-        } finally {
-            if (stmt != null) {
-                try {
-                    stmt.close();
-
-                } catch (SQLException ex) {
-                    Logger.getLogger(CollectionsManager.class.getName()).log(Level.SEVERE, null, ex);
-                    throw new IOException(ex.getMessage());
-                }
-            }
         }
-
-        //compress the data base everytime a collection is removed
-//        ConnectionManager.compress();
-
         return (rows > 0);
     }
 }

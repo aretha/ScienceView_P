@@ -7,6 +7,8 @@ package topicevolutionvis.projection.temporal;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,12 +16,12 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.swing.SwingWorker;
 import javax.xml.parsers.DocumentBuilderFactory;
-import org.h2.tools.RunScript;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import topicevolutionvis.database.DatabaseCorpus;
+import topicevolutionvis.database.CollectionsManager;
+import topicevolutionvis.database.ConnectionManager;
 import topicevolutionvis.dimensionreduction.DimensionalityReductionType;
 import topicevolutionvis.graph.*;
 import topicevolutionvis.projection.ProjectionData;
@@ -57,7 +59,7 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
             sdots = tproj.addVertexScalar(PExConstants.DOTS);
 
             this.unzip();
-            this.parseProjectionXML();
+            this.loadProjection();
             this.loadDatabase();
 
             this.createIntermediateGraphs();
@@ -73,47 +75,56 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
     private void unzip() throws Exception {
         final int BUFFER = 2048;
         int count;
-        BufferedOutputStream dest;
-        FileOutputStream fos;
-        FileInputStream fis = new FileInputStream(this.filename);
-        ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
-        ZipEntry entry;
+        ZipInputStream zis = new ZipInputStream(new BufferedInputStream(new FileInputStream(this.filename)));
 
-        db_file = File.createTempFile("dabase", ".db");
-        if ((entry = zis.getNextEntry()) != null) {
+        db_file = File.createTempFile("dabase", ".sql");
+        if (zis.getNextEntry() != null) {
             byte data[] = new byte[BUFFER];
             // write the files to the disk
-            fos = new FileOutputStream(db_file);
-            dest = new BufferedOutputStream(fos, BUFFER);
-            while ((count = zis.read(data, 0, BUFFER)) != -1) {
-                dest.write(data, 0, count);
+            FileOutputStream fos = new FileOutputStream(db_file);
+            try (BufferedOutputStream dest = new BufferedOutputStream(fos, BUFFER)) {
+                while ((count = zis.read(data, 0, BUFFER)) != -1) {
+                    dest.write(data, 0, count);
+                }
+                dest.flush();
             }
-            dest.flush();
-            dest.close();
         }
 
         xml_file = File.createTempFile("projection", ".xml");
-        if ((entry = zis.getNextEntry()) != null) {
+        if (zis.getNextEntry() != null) {
             byte data[] = new byte[BUFFER];
             // write the files to the disk
-            fos = new FileOutputStream(xml_file);
-            dest = new BufferedOutputStream(fos, BUFFER);
-            while ((count = zis.read(data, 0, BUFFER)) != -1) {
-                dest.write(data, 0, count);
+            FileOutputStream fos = new FileOutputStream(xml_file);
+            try (BufferedOutputStream dest = new BufferedOutputStream(fos, BUFFER)) {
+                while ((count = zis.read(data, 0, BUFFER)) != -1) {
+                    dest.write(data, 0, count);
+                }
+                dest.flush();
             }
-            dest.flush();
-            dest.close();
         }
     }
 
     private void loadDatabase() throws Exception {
-        Properties props = new Properties();
-        props.load(new FileInputStream("./config/database.properties"));
-        RunScript.execute(props.getProperty("jdbc.url"), props.getProperty("jdbc.username"), props.getProperty("jdbc.password"), this.db_file.getAbsolutePath(), null, true);
-        pdata.setDatabaseCorpus(new DatabaseCorpus(pdata.getCollectionName()));
+        String line;
+        int id_collection = CollectionsManager.getNextCollectionId();
+        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(db_file), "UTF8"));
+        Connection conn = ConnectionManager.getInstance().getConnection();
+        while (((line = in.readLine()) != null)) {
+            if (line.trim().compareToIgnoreCase("") != 0) {
+                line = line.replace("???", Integer.toString(id_collection));
+                try (PreparedStatement stmt = conn.prepareStatement(line)) {
+                    stmt.executeUpdate();
+                }
+            }
+        }
+
+//        Properties props = new Properties();
+//        props.load(new FileInputStream("./config/database.properties"));
+//        RunScript.execute(props.getProperty("jdbc.url"), props.getProperty("jdbc.username"), props.getProperty("jdbc.password"), this.db_file.getAbsolutePath(), null, true);
+//        pdata.setDatabaseCorpus(new DatabaseCorpus(pdata.getCollectionName()));
     }
 
-    private void parseProjectionXML() throws Exception {
+    private void loadProjection() throws Exception {
         Document dom = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml_file.getAbsolutePath());
 
         //get the root element

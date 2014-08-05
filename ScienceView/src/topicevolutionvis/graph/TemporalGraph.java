@@ -36,10 +36,10 @@ import topicevolutionvis.view.TemporalProjectionViewer;
  */
 public class TemporalGraph implements Cloneable {
 
-    private int year;
+    private final int year;
     private int intermediate_index = 0;
     private double min_x = Double.MAX_VALUE, max_x = Double.MIN_VALUE, min_y = Double.MAX_VALUE, max_y = Double.MIN_VALUE;
-    private TemporalProjection projection;
+    private final TemporalProjection projection;
     private ArrayList<Topic> topics = new ArrayList<>();
     private ArrayList<Topic> fake_topics = new ArrayList<>();
     protected ArrayList<String> titles = new ArrayList<>();
@@ -283,41 +283,6 @@ public class TemporalGraph implements Cloneable {
         return null;
     }
 
-    public void drawFakeTopic(Image image, Graphics2D g2, TemporalProjectionViewer.ViewPanel viewer, boolean highquality) {
-        if (image != null) {
-            g2 = (Graphics2D) image.getGraphics();
-        }
-
-        if (highquality) {
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        }
-
-        //Draw line segments
-        g2.setColor(Color.YELLOW);
-        g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_IN, 1.0f));
-        g2.setStroke(new BasicStroke(2.0f));
-        for (LineSegment line_segment : this.lines_segments) {
-            g2.drawLine((int) line_segment.p0.x, (int) line_segment.p0.y, (int) line_segment.p1.x, (int) line_segment.p1.y);
-        }
-
-        g2.setColor(Color.BLACK);
-        g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_IN, 1.0f));
-        g2.setStroke(new BasicStroke(2.0f));
-        for (Topic t : this.topics) {
-            for (Coordinate c : t.getFakeVertexList()) {
-                g2.drawOval((int) c.x - 6, (int) c.y - 6, 12, 12);
-            }
-        }
-
-        float[] dash = {10.0f, 10.0f};
-        g2.setColor(Color.YELLOW);
-        g2.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10.0f, dash, 0.0f));
-        g2.setComposite(java.awt.AlphaComposite.getInstance(java.awt.AlphaComposite.SRC_IN, 1.0f));
-        for (Topic t : this.fake_topics) {
-
-            g2.draw(t.polygon);
-        }
-    }
 
     /**
      * Draw the graph on a graphical device.

@@ -44,25 +44,21 @@ public class DataSourceChoice extends WizardPanel implements ActionListener {
     }
 
     private void updateCollections(String collection) {
-        try {
-            String index = null;
-            this.corpusComboBox.removeAllItems();
-            ArrayList<String> collections = CollectionsManager.getCollections();
-            this.corpusComboBox.addItem("Select...");
-            for (String col : collections) {
-                this.corpusComboBox.addItem(col);
-                if (collection.equalsIgnoreCase(col)) {
-                    index = col;
-                }
+        String index = null;
+        this.corpusComboBox.removeAllItems();
+        ArrayList<String> collections = CollectionsManager.getCollections();
+        this.corpusComboBox.addItem("Select...");
+        for (String col : collections) {
+            this.corpusComboBox.addItem(col);
+            if (collection.equalsIgnoreCase(col)) {
+                index = col;
             }
-            if (collection.equalsIgnoreCase("")) {
-                corpusComboBox.setSelectedIndex(0);
-            }
-            if (index != null) {
-                corpusComboBox.setSelectedItem(index);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(DataSourceChoice.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (collection.equalsIgnoreCase("")) {
+            corpusComboBox.setSelectedIndex(0);
+        }
+        if (index != null) {
+            corpusComboBox.setSelectedItem(index);
         }
     }
 

@@ -467,14 +467,12 @@ public abstract class Topic {
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder(50);
-        int index = 0;
         for (ArrayList<TopicTag> t : this.terms) {
             s = s.append("(").append(t.get(0).term);
             for (int i = 1; i < t.size(); i++) {
                 s = s.append(", ").append(t.get(i).term);
             }
             s = s.append(") ");
-            index++;
         }
         return s.toString();
     }
