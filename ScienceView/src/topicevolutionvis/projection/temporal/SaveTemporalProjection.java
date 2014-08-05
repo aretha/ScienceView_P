@@ -278,13 +278,13 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
             attr = doc.createAttribute("value");
             attr.setValue(tdata.getTopicType().toString());
             element.setAttributeNode(attr);
-            projectiondata.appendChild(element);
+            topicdata_elem.appendChild(element);
 
             element = doc.createElement("topic-visualization-type");
             attr = doc.createAttribute("value");
             attr.setValue(tdata.getTypeOfTopicVisualization().toString());
             element.setAttributeNode(attr);
-            projectiondata.appendChild(element);
+            topicdata_elem.appendChild(element);
 
             if (tdata.getTopicType() == TopicData.TopicType.COVARIANCE) {
                 topicdata_param = doc.createElement("topic-data-parameters");
@@ -294,13 +294,13 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
                 attr = doc.createAttribute("value");
                 attr.setValue(Float.toString(tdata.getCovariancePercentageTerms()));
                 element.setAttributeNode(attr);
-                projectiondata.appendChild(element);
+                topicdata_param.appendChild(element);
 
                 element = doc.createElement("covariance-min-topics");
                 attr = doc.createAttribute("value");
                 attr.setValue(Float.toString(tdata.getCovariancePercentageTopics()));
                 element.setAttributeNode(attr);
-                projectiondata.appendChild(element);
+                topicdata_param.appendChild(element);
 
             } else if (tdata.getTopicType() == TopicData.TopicType.PCA) {
                 topicdata_param = doc.createElement("topic-data-parameters");
@@ -310,41 +310,41 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
                 attr = doc.createAttribute("value");
                 attr.setValue(Float.toString(tdata.getPcaMinInformationTerms()));
                 element.setAttributeNode(attr);
-                projectiondata.appendChild(element);
+                topicdata_param.appendChild(element);
 
                 element = doc.createElement("pca-min-topics");
                 attr = doc.createAttribute("value");
                 attr.setValue(Float.toString(tdata.getPcaInformationTopics()));
                 element.setAttributeNode(attr);
-                projectiondata.appendChild(element);
+                topicdata_param.appendChild(element);
 
             } else if (tdata.getTopicType() == TopicData.TopicType.LDA) {
                 topicdata_param = doc.createElement("topic-data-parameters");
-                topicdata_elem.appendChild(topicdata_param);
+                topicdata_param.appendChild(topicdata_param);
 
                 element = doc.createElement("lda-number-topics");
                 attr = doc.createAttribute("value");
                 attr.setValue(Integer.toString(tdata.getLdaNumberOfTopics()));
                 element.setAttributeNode(attr);
-                projectiondata.appendChild(element);
+                topicdata_param.appendChild(element);
 
                 element = doc.createElement("lda-number-iterations");
                 attr = doc.createAttribute("value");
                 attr.setValue(Integer.toString(tdata.getLdaNumberOfIterations()));
                 element.setAttributeNode(attr);
-                projectiondata.appendChild(element);
+                topicdata_param.appendChild(element);
 
                 element = doc.createElement("lda-alpha");
                 attr = doc.createAttribute("value");
                 attr.setValue(Double.toString(tdata.getLdaAlpha()));
                 element.setAttributeNode(attr);
-                projectiondata.appendChild(element);
+                topicdata_param.appendChild(element);
 
                 element = doc.createElement("lda-beta");
                 attr = doc.createAttribute("value");
                 attr.setValue(Double.toString(tdata.getLdaBeta()));
                 element.setAttributeNode(attr);
-                projectiondata.appendChild(element);
+                topicdata_param.appendChild(element);
 
             }
 //
