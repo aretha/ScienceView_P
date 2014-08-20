@@ -9,12 +9,10 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipInputStream;
-import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -23,8 +21,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import topicevolutionvis.database.CollectionsManager;
 import topicevolutionvis.database.ConnectionManager;
-import topicevolutionvis.database.DatabaseCorpus;
-import topicevolutionvis.database.SqlManager;
 import topicevolutionvis.dimensionreduction.DimensionalityReductionType;
 import topicevolutionvis.graph.*;
 import topicevolutionvis.projection.ProjectionData;
@@ -108,7 +104,6 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
     }
 
     private void loadDatabase() throws Exception {
-
         String line;
         int id_collection = CollectionsManager.getNextCollectionId();
         BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(db_file), "UTF8"));
@@ -121,7 +116,6 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
                 }
             }
         }
-        pdata.setDatabaseCorpus(new DatabaseCorpus(pdata.getCollectionName()));
 
 //        Properties props = new Properties();
 //        props.load(new FileInputStream("./config/database.properties"));
@@ -135,29 +129,6 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
         //get the root element
         Element docEle = dom.getDocumentElement();
         this.pdata.setCollectionName(getAttrOfElement(docEle, "collection-name", "value"));
-
-        //checando se a coleção já existe
-        try (PreparedStatement stmt = SqlManager.getInstance().getSqlStatement("SELECT.COLLECTION.BY.NAME", -1, -1)) {
-            stmt.setString(1, pdata.getCollectionName());
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    int id_aux = rs.getInt(1);
-                    String message = "A dataset with the name \"" + pdata.getCollectionName() + "\" already exists in the database. \n"
-                            + "Do you want to replace the existing dataset?";
-                    int answer = JOptionPane.showOptionDialog(view, message, "Open Dataset Warning",
-                            JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
-                    if (answer == JOptionPane.NO_OPTION) {
-                        return;
-                    } else {
-                        try (PreparedStatement stmt2 = SqlManager.getInstance().getSqlStatement("SELECT.COLLECTION.BY.NAME", -1, -1)) {
-                            stmt2.setString(1, Integer.toString(id_aux));
-                            stmt2.executeUpdate();
-                        }
-                    }
-                }
-            }
-        }
-
         this.pdata.setDissimilarityType(DissimilarityType.retrieve(getAttrOfElement(docEle, "distance-type", "value")));
         this.pdata.setDimensionReductionType(DimensionalityReductionType.retrieve(getAttrOfElement(docEle, "dimensionality-reduction", "value")));
         this.pdata.setNumberGrams(Integer.parseInt(getAttrOfElement(docEle, "number-grams", "value")));
