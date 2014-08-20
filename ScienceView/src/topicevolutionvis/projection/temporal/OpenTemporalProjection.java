@@ -23,8 +23,14 @@ import org.w3c.dom.NodeList;
 import topicevolutionvis.database.CollectionsManager;
 import topicevolutionvis.database.ConnectionManager;
 import topicevolutionvis.dimensionreduction.DimensionalityReductionType;
+import topicevolutionvis.matrix.normalization.NormalizationType;
 import topicevolutionvis.graph.*;
+import topicevolutionvis.projection.lsp.ControlPointsType;
+import topicevolutionvis.preprocessing.RepresentationType;
+import topicevolutionvis.preprocessing.transformation.MatrixTransformationType;
+import topicevolutionvis.preprocessing.steemer.StemmerType;
 import topicevolutionvis.projection.ProjectionData;
+import topicevolutionvis.projection.ProjectionType;
 import topicevolutionvis.projection.distance.DissimilarityType;
 import topicevolutionvis.util.PExConstants;
 import topicevolutionvis.view.ScienceViewMainFrame;
@@ -60,9 +66,9 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
 
             this.unzip();
             this.loadProjection();
-            this.loadDatabase();
+            //this.loadDatabase();
 
-            this.createIntermediateGraphs();
+            //this.createIntermediateGraphs();
 
             ScienceViewMainFrame.getInstance().addTemporalProjectionViewer(tproj);
 
@@ -129,15 +135,33 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
 
         //get the root element
         Element docEle = dom.getDocumentElement();
+        
+        /* Projection Data parameters */
         this.pdata.setCollectionName(getAttrOfElement(docEle, "collection-name", "value"));
-        this.pdata.setDissimilarityType(DissimilarityType.retrieve(getAttrOfElement(docEle, "distance-type", "value")));
-        this.pdata.setDimensionReductionType(DimensionalityReductionType.retrieve(getAttrOfElement(docEle, "dimensionality-reduction", "value")));
+        this.pdata.setNumberOfDocuments(Integer.parseInt(getAttrOfElement(docEle, "number-documents", "value")));
+        this.pdata.setRepresentationType(RepresentationType.retrieve(getAttrOfElement(docEle, "representation-type", "value")));
+        this.pdata.setDissimilarityType(DissimilarityType.retrieve(getAttrOfElement(docEle, "dissimilarity-type", "value")));
+        this.pdata.setMatrixTransformationType(MatrixTransformationType.retrieve(getAttrOfElement(docEle, "matrix-transformation-type", "value")));
+        this.pdata.setDimensionReductionType(DimensionalityReductionType.retrieve(getAttrOfElement(docEle, "dimensionality-reduction-type", "value")));
+        this.pdata.setNormalization(NormalizationType.retrieve(getAttrOfElement(docEle, "normalization-type", "value")));
+        this.pdata.setStemmer(StemmerType.retrieve(getAttrOfElement(docEle, "stemmer-type", "value")));
         this.pdata.setNumberGrams(Integer.parseInt(getAttrOfElement(docEle, "number-grams", "value")));
         this.pdata.setSourceFile(getAttrOfElement(docEle, "source-file", "value"));
         this.pdata.setLunhLowerCut(Integer.parseInt(getAttrOfElement(docEle, "luhn-lower-cut", "value")));
         this.pdata.setLunhUpperCut(Integer.parseInt(getAttrOfElement(docEle, "luhn-upper-cut", "value")));
-
-        this.parseProjections(docEle);
+        this.pdata.setReferencesLowerCut(Integer.parseInt(getAttrOfElement(docEle, "references-lower-cut", "value")));
+        this.pdata.setReferencesUpperCut(Integer.parseInt(getAttrOfElement(docEle, "references-upper-cut", "value")));
+        this.pdata.setFractionDelta(Float.parseFloat(getAttrOfElement(docEle, "lsp-fraction-delta", "value")));
+        this.pdata.setNumberIterations(Integer.parseInt(getAttrOfElement(docEle, "lsp-number-iterations", "value")));
+        this.pdata.setNumberControlPoints(Integer.parseInt(getAttrOfElement(docEle, "lsp-number-control-points", "value")));
+        this.pdata.setNumberNeighborsConnection(Integer.parseInt(getAttrOfElement(docEle, "lsp-number-neighbors-connections", "value")));
+        this.pdata.setControlPointsChoice(ControlPointsType.retrieve(getAttrOfElement(docEle, "lsp-control-points-choice", "value")));
+        this.pdata.setProjectionType(ProjectionType.retrieve(getAttrOfElement(docEle, "projection-technique", "value")));
+        
+        /* Topic Data parameters */
+        
+        
+        //this.parseProjections(docEle);
     }
 
     private void parseProjections(Element parent) {
