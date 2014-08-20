@@ -49,21 +49,21 @@ import topicevolutionvis.wizard.ProjectionView;
  */
 public class TemporalGraphBuilder {
 
-    private ProjectionView view;
-    private TemporalProjection tproj;
+    private final ProjectionView view;
+    private final TemporalProjection tproj;
     private Dissimilarity diss = null;
     private IOException exception;
-    private TreeMap<Integer, TemporalGraph> graphs = new TreeMap<>();
-    private TIntObjectHashMap<TIntArrayList> fixedDocuments = new TIntObjectHashMap<>();
-    private TIntObjectHashMap<TIntArrayList> newDocuments = new TIntObjectHashMap<>();
-    private TIntObjectHashMap<TIntArrayList> updatedDocuments = new TIntObjectHashMap<>();
-    private TIntObjectHashMap<TIntArrayList> usedCPDocuments = new TIntObjectHashMap<>();
+    private final TreeMap<Integer, TemporalGraph> graphs = new TreeMap<>();
+    private final TIntObjectHashMap<TIntArrayList> fixedDocuments = new TIntObjectHashMap<>();
+    private final TIntObjectHashMap<TIntArrayList> newDocuments = new TIntObjectHashMap<>();
+    private final TIntObjectHashMap<TIntArrayList> updatedDocuments = new TIntObjectHashMap<>();
+    private final TIntObjectHashMap<TIntArrayList> usedCPDocuments = new TIntObjectHashMap<>();
     private DatabaseCorpus corpus = null;
-    private boolean reduced_number_of_control_points = false;
+    private final boolean reduced_number_of_control_points = false;
     private int min_cp = 10; //número minimo de pontos de controle para cada projeção
     double area_fullprojection = 0;
 //  private SimilarityConnectivy similarityCon;
-    private Scalar sdots, syear, scorecitations, stimescited, sscheme, sclass;
+    private final Scalar sdots, syear, scorecitations, stimescited, sscheme, sclass;
 
     /**
      * Creates a new instance of TemporalGraphBuilder
@@ -71,7 +71,6 @@ public class TemporalGraphBuilder {
      * @param view
      * @param tproj
      * @param corpus
-     * @param graph
      */
     public TemporalGraphBuilder(ProjectionView view, TemporalProjection tproj, DatabaseCorpus corpus) {
         this.view = view;
@@ -446,7 +445,7 @@ public class TemporalGraphBuilder {
             v.setScalar(sdots, 0.0f);
             v.setPublishedYear(corpus.getYear(v.getId()));
             v.setScalar(sclass, corpus.getClass(v.getId()));
-            v.setScalar(syear, Utils.indexOf(tproj.getYears(), v.getPublishedYear().intValue()) * increment);
+            v.setScalar(syear, Utils.indexOf(tproj.getYears(), v.getPublishedYear()) * increment);
             v.setScalar(scorecitations, corpus.getNumberOfCitationsAtYear(v.getId(), year));
             v.setScalar(stimescited, corpus.getGlobalCitationCount(v.getId()));
             v.setTemporalProjection(tproj);
@@ -475,21 +474,19 @@ public class TemporalGraphBuilder {
         double maxY = projection[0][1];
         double minY = projection[0][1];
 
-        //Encontra o maior e menor valores para X e Y
-        for (int i = 0; i < projection.length; i++) {
-            if (maxX < projection[i][0]) {
-                maxX = projection[i][0];
+        for (double[] projection1 : projection) {
+            if (maxX < projection1[0]) {
+                maxX = projection1[0];
             } else {
-                if (minX > projection[i][0]) {
-                    minX = projection[i][0];
+                if (minX > projection1[0]) {
+                    minX = projection1[0];
                 }
             }
-
-            if (maxY < projection[i][1]) {
-                maxY = projection[i][1];
+            if (maxY < projection1[1]) {
+                maxY = projection1[1];
             } else {
-                if (minY > projection[i][1]) {
-                    minY = projection[i][1];
+                if (minY > projection1[1]) {
+                    minY = projection1[1];
                 }
             }
         }

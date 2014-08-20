@@ -22,7 +22,8 @@ import topicevolutionvis.wizard.ProjectionView;
  */
 public class TemporalLSPProjectionParametersView extends ProjectionView {
 
-    /** Creates new form TemporalProjectionParametersView */
+    /** Creates new form TemporalProjectionParametersView
+     * @param pdata */
     public TemporalLSPProjectionParametersView(ProjectionData pdata) {
         super(pdata);
         initComponents();

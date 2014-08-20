@@ -59,7 +59,7 @@ public class ContentChangeTransition extends InternalTransition {
         return 0;
 
     }
-    private int subtype;
+    private final int subtype;
     private THashMap<Topic, TIntArrayList> added_documents = null;
     private THashMap<Topic, TIntArrayList> removed_documents = null;
 }

@@ -98,10 +98,7 @@ public abstract class Topic {
     }
 
     public boolean isAnimation() {
-        if (this.terms.isEmpty()) {
-            return true;
-        }
-        return false;
+        return this.terms.isEmpty();
     }
 
     @Override
@@ -109,16 +106,13 @@ public abstract class Topic {
 
     @Override
     public boolean equals(Object aThat) {
-        if (aThat instanceof Topic && (this.id == ((Topic) aThat).getId())) {
-            return true;
-        }
-        return false;
+        return aThat instanceof Topic && (this.id == ((Topic) aThat).getId());
     }
 
     /**
      * Creates a new instance of Topic
      *
-     * @param vertex
+     * @param aux
      */
     public void cloneInfo(Topic aux) {
         aux.id = id;
@@ -237,9 +231,9 @@ public abstract class Topic {
                     StringBuilder msg = new StringBuilder("");
                     AttributedString ats;
                     ArrayList<TopicTag> aux = new ArrayList<>();
-                    for (int n = 0; n < terms.size(); n++) {
-                        for (int i = 0; i < terms.get(n).size(); i++) {
-                            aux.add(terms.get(n).get(i));
+                    for (ArrayList<TopicTag> term : terms) {
+                        for (int i = 0; i < term.size(); i++) {
+                            aux.add(term.get(i));
                         }
                     }
 

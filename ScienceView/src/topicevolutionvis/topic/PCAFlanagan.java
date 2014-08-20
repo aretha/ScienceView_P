@@ -54,14 +54,14 @@ public class PCAFlanagan extends Scores {
     private Matrix dataMinusMeansTranspose = null;                      // data with row means subtracted as row per item as a Matrix
     private Matrix covarianceMatrix = null;                             // variance-covariance Matrix
     private Matrix correlationMatrix = null;                            // correlation Matrix
-    private Matrix partialCorrelationMatrix = null;                     // partial correlation Matrix
-    private double kmo = 0.0;                                           // overall Kaiser-Meyer-Olkin (KMO) statistic
-    private double[] itemKMOs = null;                                   // individual item KMOs
-    private double chiSquareBartlett = 0.0;                             // Bartlett test of sphericity chi square
-    private int dfBartlett = 0;                                         // Bartlett test of sphericity degrees of freedom
-    private double probBartlett = 0.0;                                  // Bartlett test of sphericity chi square probability
-    private double sign10Bartlett = 0.0;                                // Bartlett test of sphericity chi square value at 10% significance level
-    private double sign05Bartlett = 0.0;                                // Bartlett test of sphericity chi square value at 5% significance level
+    private final Matrix partialCorrelationMatrix = null;                     // partial correlation Matrix
+    private final double kmo = 0.0;                                           // overall Kaiser-Meyer-Olkin (KMO) statistic
+    private final double[] itemKMOs = null;                                   // individual item KMOs
+    private final double chiSquareBartlett = 0.0;                             // Bartlett test of sphericity chi square
+    private final int dfBartlett = 0;                                         // Bartlett test of sphericity degrees of freedom
+    private final double probBartlett = 0.0;                                  // Bartlett test of sphericity chi square probability
+    private final double sign10Bartlett = 0.0;                                // Bartlett test of sphericity chi square value at 10% significance level
+    private final double sign05Bartlett = 0.0;                                // Bartlett test of sphericity chi square value at 5% significance level
     private double[] eigenValues = null;                                // eigenvalues
     private double[] orderedEigenValues = null;                         // eigenvalues sorted into a descending order
     private int[] eigenValueIndices = null;                             // indices of the eigenvalues before sorting into a descending order
@@ -87,7 +87,7 @@ public class PCAFlanagan extends Scores {
     private double[][] orderedEigenVectorsAsRows = null;                // eigenvectors, as rows, arranged to match a descending order of eigenvalues
     private double[][] loadingFactorsAsColumns = null;                  // loading factors as column per eigenvalue
     private double[][] loadingFactorsAsRows = null;                     // loading factors as row per eigenvalue
-    private double[][] rotatedLoadingFactorsAsColumns = null;           // scaled rotated loading factors as column per eigenvalue
+    private final double[][] rotatedLoadingFactorsAsColumns = null;           // scaled rotated loading factors as column per eigenvalue
     private double[][] rotatedLoadingFactorsAsRows = null;              // scaled rotated loading factors as row per eigenvalue
     private double[][] usRotatedLoadingFactorsAsColumns = null;         // unscaled rotated loading factors as column per eigenvalue
     private double[][] usRotatedLoadingFactorsAsRows = null;            // unscaled rotated loading factors as row per eigenvalue
@@ -1297,8 +1297,8 @@ public class PCAFlanagan extends Scores {
 
         // Open output file
         this.outputFilename = filename;
-        String outputFilenameWithoutExtension = null;
-        String extension = null;
+        String outputFilenameWithoutExtension;
+        String extension;
         int pos = filename.indexOf('.');
         if (pos == -1) {
             outputFilenameWithoutExtension = filename;
@@ -1388,7 +1388,7 @@ public class PCAFlanagan extends Scores {
     // Output analysis to a text (.txt) file
     private void analysisText() {
 
-        FileOutput fout = null;
+        FileOutput fout;
         if (this.fileNumberingSet) {
             fout = new FileOutput(this.outputFilename, 'n');
         } else {
@@ -1808,7 +1808,7 @@ public class PCAFlanagan extends Scores {
     // Output to an Excel readable file
     private void analysisExcel() {
 
-        FileOutput fout = null;
+        FileOutput fout;
         if (this.fileNumberingSet) {
             fout = new FileOutput(this.outputFilename, 'n');
         } else {

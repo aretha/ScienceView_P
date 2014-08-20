@@ -29,25 +29,20 @@ public class ConnectionManager {
     private final String temp = "./data_base/temp.sql";
 
     public ConnectionManager() throws IOException {
-        FileInputStream in = null;
         try {
             Properties props = new Properties();
-            in = new FileInputStream(this.properties);
-            props.load(in);
+            try (FileInputStream in = new FileInputStream(this.properties)) {
+                props.load(in);
+                String url = props.getProperty("jdbc.url");
+                String username = props.getProperty("jdbc.username");
+                String password = props.getProperty("jdbc.password");
 
-            String url = props.getProperty("jdbc.url");
-            String username = props.getProperty("jdbc.username");
-            String password = props.getProperty("jdbc.password");
+                this.conn = this.createConnection(url, username, password);
+            }
 
-            this.conn = this.createConnection(url, username, password);
-
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
             throw new IOException(ex.getMessage());
-        } finally {
-            if (in != null) {
-                in.close();
-            }
         }
     }
 

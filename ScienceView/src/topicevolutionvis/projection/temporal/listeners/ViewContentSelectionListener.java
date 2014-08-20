@@ -5,9 +5,7 @@
 package topicevolutionvis.projection.temporal.listeners;
 
 import gnu.trove.list.array.TIntArrayList;
-import java.util.ArrayList;
 import topicevolutionvis.graph.TemporalGraph;
-import topicevolutionvis.graph.Vertex;
 import topicevolutionvis.view.MultipleDocumentViewer;
 import topicevolutionvis.view.TemporalProjectionViewer;
 
@@ -19,6 +17,7 @@ public class ViewContentSelectionListener extends VertexSelectionListener {
 
     /**
      * Creates a new instance of ViewContentSelectionListener
+     * @param panel
      */
     public ViewContentSelectionListener(TemporalProjectionViewer panel) {
         super(panel);

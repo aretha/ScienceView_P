@@ -126,17 +126,16 @@ public abstract class Projector {
         //fazer Y proporcional a X
         double endY = (maxY - minY) / (maxX - minX);
 
-        //for each position in the ArrayList ... normalize!
-        for (int _ins = 0; _ins < projection.length; _ins++) {
+        for (double[] projection1 : projection) {
             if (maxX - minX > 0.0) {
-                projection[_ins][0] = (projection[_ins][0] - minX) / (maxX - minX);
+                projection1[0] = (projection1[0] - minX) / (maxX - minX);
             } else {
-                projection[_ins][0] = 0;
+                projection1[0] = 0;
             }
             if (maxY - minY > 0.0) {
-                projection[_ins][1] = (projection[_ins][1] - minY) / ((maxY - minY) * endY);
+                projection1[1] = (projection1[1] - minY) / ((maxY - minY) * endY);
             } else {
-                projection[_ins][1] = 0;
+                projection1[1] = 0;
             }
         }
     }

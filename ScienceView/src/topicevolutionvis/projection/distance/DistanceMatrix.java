@@ -215,15 +215,13 @@ public class DistanceMatrix implements Cloneable {
                 out.write("0\r\n");
             }
 
-            for (int i = 0; i < this.distmatrix.length; i++) {
-                for (int j = 0; j < this.distmatrix[i].length; j++) {
-                    out.write(Double.toString(this.distmatrix[i][j]));
-
-                    if (j < this.distmatrix[i].length - 1) {
+            for (double[] distmatrix1 : this.distmatrix) {
+                for (int j = 0; j < distmatrix1.length; j++) {
+                    out.write(Double.toString(distmatrix1[j]));
+                    if (j < distmatrix1.length - 1) {
                         out.write(";");
                     }
                 }
-
                 out.write("\r\n");
             }
 

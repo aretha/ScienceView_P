@@ -23,5 +23,5 @@ public class InternalTransition {
         return this.type;
     }
     
-    private int type;
+    private final int type;
 }

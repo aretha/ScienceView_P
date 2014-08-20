@@ -4,17 +4,12 @@
  */
 package topicevolutionvis.graph;
 
-import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.LineSegment;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.map.hash.TIntObjectHashMap;
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.RenderingHints;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,7 +23,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import topicevolutionvis.projection.temporal.TemporalProjection;
 import topicevolutionvis.topic.Topic;
-import topicevolutionvis.view.TemporalProjectionViewer;
 
 /**
  *
@@ -55,11 +49,8 @@ public class TemporalGraph implements Cloneable {
 
     @Override
     public boolean equals(Object aThat) {
-        if (aThat instanceof TemporalGraph && (this.year == ((TemporalGraph) aThat).getYear())
-                && (this.intermediate_index == ((TemporalGraph) aThat).getYear())) {
-            return true;
-        }
-        return false;
+        return aThat instanceof TemporalGraph && (this.year == ((TemporalGraph) aThat).getYear())
+                && (this.intermediate_index == ((TemporalGraph) aThat).getYear());
     }
 
     @Override
@@ -288,7 +279,10 @@ public class TemporalGraph implements Cloneable {
      * Draw the graph on a graphical device.
      *
      * @param connectivity The connectivity to be drawn
-     * @param g2 The graphical device
+     * @param image
+     * @param highquality
+     * @param low_value_edge
+     * @param high_value_edges
      */
     public void draw(Connectivity connectivity, Image image, boolean highquality, float low_value_edge, float high_value_edges, TIntArrayList selected_ids) {
 //        boolean globalsel = false;
@@ -361,8 +355,7 @@ public class TemporalGraph implements Cloneable {
             vertexToVisit.add(vertex);
 
             for (int i = 0; i < depth; i++) {
-                for (int j = 0; j < vertexToVisit.size(); j++) {
-                    Vertex v = vertexToVisit.get(j);
+                for (Vertex v : vertexToVisit) {
                     for (Edge e : edges) {
                         Vertex v_target = this.getVertexById(e.getTarget()), v_source = this.getVertexById(e.getSource());
                         if (e.getSource() == v.getId() && !neighborsVertex.contains(v_target)) {

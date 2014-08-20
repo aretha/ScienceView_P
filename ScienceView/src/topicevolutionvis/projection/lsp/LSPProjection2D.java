@@ -217,30 +217,29 @@ public class LSPProjection2D extends Projection {
             double max = Double.NEGATIVE_INFINITY;
             double min = Double.POSITIVE_INFINITY;
 
-            for (int j = 0; j < neighbors[i].length; j++) {
-                if (max < neighbors[i][j].value) {
-                    max = neighbors[i][j].value;
+            for (Pair item : neighbors[i]) {
+                if (max < item.value) {
+                    max = item.value;
                 }
-
-                if (min > neighbors[i][j].value) {
-                    min = neighbors[i][j].value;
+                if (min > item.value) {
+                    min = item.value;
                 }
             }
 
             double sum = 0;
-            for (int j = 0; j < neighbors[i].length; j++) {
+            for (Pair item : neighbors[i]) {
                 if (max > min) {
-                    double dist = (((neighbors[i][j].value - min) / (max - min)) * (0.9)) + 0.1;
+                    double dist = (((item.value - min) / (max - min)) * (0.9)) + 0.1;
                     sum += (1 / dist);
                 }
             }
 
-            for (int j = 0; j < neighbors[i].length; j++) {
+            for (Pair item : neighbors[i]) {
                 if (max > min) {
-                    double dist = (((neighbors[i][j].value - min) / (max - min)) * (0.9)) + 0.1;
-                    A.setQuick(i, neighbors[i][j].index, (-((1 / dist) / sum)));
+                    double dist = (((item.value - min) / (max - min)) * (0.9)) + 0.1;
+                    A.setQuick(i, item.index, -((1 / dist) / sum));
                 } else {
-                    A.setQuick(i, neighbors[i][j].index, (-(1.0 / neighbors[i].length)));
+                    A.setQuick(i, item.index, -(1.0 / neighbors[i].length));
                 }
             }
         }
@@ -293,30 +292,29 @@ public class LSPProjection2D extends Projection {
                 max = Double.NEGATIVE_INFINITY;
                 min = Double.POSITIVE_INFINITY;
 
-                for (int j = 0; j < neighbors[i].length; j++) {
-                    if (max < neighbors[i][j].value) {
-                        max = neighbors[i][j].value;
+                for (Pair item : neighbors[i]) {
+                    if (max < item.value) {
+                        max = item.value;
                     }
-
-                    if (min > neighbors[i][j].value) {
-                        min = neighbors[i][j].value;
+                    if (min > item.value) {
+                        min = item.value;
                     }
                 }
 
                 sum = 0;
-                for (int j = 0; j < neighbors[i].length; j++) {
+                for (Pair item : neighbors[i]) {
                     if (max > min) {
-                        dist = (((neighbors[i][j].value - min) / (max - min)) * (0.9)) + 0.1;
+                        dist = (((item.value - min) / (max - min)) * (0.9)) + 0.1;
                         sum += (1 / dist);
                     }
                 }
 
-                for (int j = 0; j < neighbors[i].length; j++) {
+                for (Pair item : neighbors[i]) {
                     if (max > min) {
-                        dist = (((neighbors[i][j].value - min) / (max - min)) * (0.9)) + 0.1;
-                        solver.addToA(i, neighbors[i][j].index, (-((1.0 / dist) / sum)));
+                        dist = (((item.value - min) / (max - min)) * (0.9)) + 0.1;
+                        solver.addToA(i, item.index, -((1.0 / dist) / sum));
                     } else {
-                        solver.addToA(i, neighbors[i][j].index, (-(1.0 / neighbors[i].length)));
+                        solver.addToA(i, item.index, -(1.0 / neighbors[i].length));
                     }
                 }
             }
