@@ -115,7 +115,8 @@ public class Char {
     /** Defines just one function from an int to a String */
     public interface Char2StringFn {
 
-        /** Function from a char to a String */
+        /** Function from a char to a String
+         * @param c */
         String apply(char c);
     }
     /** Called by normalize(int) in case the character cannot be normalized.
@@ -123,6 +124,7 @@ public class Char {
      * Feel free to create a new Char2StringFn and assign it to defaultNormalizer. */
     public static Char2StringFn defaultNormalizer = new Char2StringFn() {
 
+        @Override
         public String apply(char c) {
             return (UNKNOWN);
         }
@@ -721,7 +723,10 @@ public class Char {
 
     /** Eats a String of the form "%xx" from a string, where
      * xx is a hexadecimal code. If xx is a UTF8 code start, 
-     * tries to complete the UTF8-code and decodes it.*/
+     * tries to complete the UTF8-code and decodes it
+     * @param a.
+     * @param n
+     * @return */
     public static char eatPercentage(String a, int[] n) {
         // Length 0
         if (!a.startsWith("%") || a.length() < 3) {
@@ -747,7 +752,7 @@ public class Char {
         for (int i = 1; i < len; i++) {
             try {
                 dec += (char) Integer.parseInt(a.substring(1 + i * 3, 3 + i * 3), 16);
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 return (c);
             }
         }
@@ -761,7 +766,10 @@ public class Char {
         return (utf8);
     }
 
-    /** Eats an HTML ampersand code from a String*/
+    /** Eats an HTML ampersand code from a Strin
+     * @param a
+     * @param n
+     * @return */
     public static char eatAmpersand(String a, int[] n) {
         n[0] = 0;
         if (!a.startsWith("&")) {
@@ -786,7 +794,7 @@ public class Char {
         if (a.startsWith("#x")) {
             try {
                 return ((char) Integer.parseInt(a.substring(2), 16));
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 n[0] = -1;
                 return ((char) 0);
             }
@@ -834,7 +842,10 @@ public class Char {
     }
 
     /** Eats a UTF8 code from a String. There is also a built-in way in Java that converts
-     * UTF8 to characters and back, but it does not work with all characters. */
+     * UTF8 to characters and back, but it does not work with all characters.
+     * @param a
+     * @param n
+     * @return  */
     public static char eatUtf8(String a, int[] n) {
         if (a.length() == 0) {
             n[0] = 0;
@@ -1060,7 +1071,7 @@ public class Char {
         }
         try {
             return ((char) Integer.parseInt(a.substring(1, n[0]), 8));
-        } catch (Exception ex) {
+        } catch (NumberFormatException ex) {
               Logger.getLogger(Char.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
         n[0] = -1;

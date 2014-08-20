@@ -17,7 +17,7 @@ public class Arrow extends Edge {
     /**
      * Constructor of the edge
      *
-     * @param length The edge's lenght
+     * @param weight
      * @param source The first vertex
      * @param target The second vertex
      */
@@ -39,9 +39,13 @@ public class Arrow extends Edge {
     /**
      * Drawn a edge on a graphical device
      *
+     * @param image
      * @param g2 The graphical device
      * @param globalsel Indicates if there is at least one selected vertex on
      * the graph this vertex belongs to
+     * @param highquality
+     * @param connectityName
+     * @param graph
      */
     @Override
     public void draw(Image image, Graphics2D g2, boolean globalsel, boolean highquality, String connectityName, TemporalGraph graph) {

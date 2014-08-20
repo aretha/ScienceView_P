@@ -240,7 +240,7 @@ public abstract class Representation {
                 }
             }
             return ngrams_aux;
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             Logger.getLogger(VectorSpaceRepresentation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;

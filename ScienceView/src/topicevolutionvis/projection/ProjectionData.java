@@ -353,10 +353,7 @@ public class ProjectionData implements Cloneable {
     }
 
     public boolean hasLDAOutput() {
-        if (this.ldaOutput != null) {
-            return true;
-        }
-        return false;
+        return this.ldaOutput != null;
     }
 
     public float getFractionDelta() {

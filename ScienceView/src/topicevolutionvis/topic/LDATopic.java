@@ -71,8 +71,8 @@ public class LDATopic extends Topic implements Cloneable {
         }
 
         double sum = sumProbabilites(topics_candidates);
-        for (int i = 0; i < topics_candidates.size(); i++) {
-            topics_candidates.get(i).setValue(topics_candidates.get(i).value / sum);
+        for (TopicCandidate topics_candidate : topics_candidates) {
+            topics_candidate.setValue(topics_candidate.value / sum);
         }
 
         Collections.sort(topics_candidates, new Comparator<TopicCandidate>() {
@@ -109,8 +109,8 @@ public class LDATopic extends Topic implements Cloneable {
     private double sumProbabilites(ArrayList<TopicCandidate> topics_candidates) {
         double sum = 0;
 
-        for (int i = 0; i < topics_candidates.size(); i++) {
-            sum += topics_candidates.get(i).value;
+        for (TopicCandidate topics_candidate : topics_candidates) {
+            sum += topics_candidate.value;
         }
         return sum;
     }

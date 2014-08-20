@@ -41,10 +41,10 @@ import topicevolutionvis.view.SaveProjectionDialog;
  */
 public class SaveTemporalProjection extends SwingWorker<Void, Void> {
 
-    private String filename;
+    private final String filename;
     private File db_file, xml_file;
-    private SaveProjectionDialog view;
-    private TemporalProjection tproj;
+    private final SaveProjectionDialog view;
+    private final TemporalProjection tproj;
 
     public SaveTemporalProjection(String filename, SaveProjectionDialog view, TemporalProjection tproj) {
         this.filename = filename;

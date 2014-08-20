@@ -79,17 +79,17 @@ public class MeshGenerator {
             if (tovisit.size() > 0) {
                 next = tovisit.iterator().next();
                 visited.add(next);
-                tovisit.remove(Integer.valueOf(next));
-                notvisited.remove(Integer.valueOf(next));
+                tovisit.remove(next);
+                notvisited.remove(next);
 
-                for (int i = 0; i < neighbors[next].length; i++) {
-                    if (!visited.contains(neighbors[next][i].index)) {
-                        tovisit.add(neighbors[next][i].index);
+                for (Pair item : neighbors[next]) {
+                    if (!visited.contains(item.index)) {
+                        tovisit.add(item.index);
                     }
                 }
             } else {
                 next = notvisited.iterator().next();
-                notvisited.remove(Integer.valueOf(next));
+                notvisited.remove(next);
                 tovisit.add(next);
 
                 Iterator<Integer> visited_it = visited.iterator();
@@ -148,17 +148,17 @@ public class MeshGenerator {
             if (tovisit.size() > 0) {
                 next = tovisit.first();
                 visited.add(next);
-                tovisit.remove(Integer.valueOf(next));
-                notvisited.remove(Integer.valueOf(next));
+                tovisit.remove(next);
+                notvisited.remove(next);
 
-                for (int i = 0; i < neighbors[next].length; i++) {
-                    if (!visited.contains(neighbors[next][i].index)) {
-                        tovisit.add(neighbors[next][i].index);
+                for (Pair item : neighbors[next]) {
+                    if (!visited.contains(item.index)) {
+                        tovisit.add(item.index);
                     }
                 }
             } else {
                 next = notvisited.first();
-                notvisited.remove(Integer.valueOf(next));
+                notvisited.remove(next);
                 tovisit.add(next);
 
                 Iterator<Integer> visited_it = visited.iterator();

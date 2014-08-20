@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.swing.SwingWorker;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,12 +35,12 @@ import topicevolutionvis.view.tools.OpenProjectionDialog;
  */
 public class OpenTemporalProjection extends SwingWorker<Void, Void> {
 
-    private String filename;
+    private final String filename;
     private File xml_file, db_file;
-    private OpenProjectionDialog view;
+    private final OpenProjectionDialog view;
     private TemporalProjection tproj;
     private ProjectionData pdata;
-    private TreeMap<Integer, TemporalGraph> graphs = new TreeMap<>();
+    private final TreeMap<Integer, TemporalGraph> graphs = new TreeMap<>();
     private Scalar sdots;
 
     public OpenTemporalProjection(String filename, OpenProjectionDialog view) {

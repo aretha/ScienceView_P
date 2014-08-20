@@ -51,30 +51,24 @@ public class SystemPropertiesManager {
 //
 //        }
 //    }
-    /** Creates a new instance of SystemPropertiesManager */
+    /**
+     * Creates a new instance of SystemPropertiesManager
+     */
     private SystemPropertiesManager() {
-        FileInputStream in = null;
         try {
             //lê o arquivo de propriedades
             File f = new File(this.filename);
             if (f.exists()) {
                 this.properties = new Properties();
 
-                in = new FileInputStream(this.filename);
-                this.properties.load(in);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(SystemPropertiesManager.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (in != null) {
-                    in.close();
+                try (FileInputStream in = new FileInputStream(this.filename)) {
+                    this.properties.load(in);
                 }
-            } catch (IOException e) {
-                Logger.getLogger(SystemPropertiesManager.class.getName()).log(Level.SEVERE, null, e);
             }
-        }
 
+        } catch (IOException ex) {
+            Logger.getLogger(SystemPropertiesManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -102,21 +96,13 @@ public class SystemPropertiesManager {
             this.properties = new Properties();
         }
         this.properties.setProperty(id, value);
-        FileOutputStream out = null;
         try {
-            out = new FileOutputStream(this.filename);
-            this.properties.store(out, "Recording the system's properties");
-            out.flush();
-        } catch (Exception ex) {
-            Logger.getLogger(SystemPropertiesManager.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (out != null) {
-                try {
-                    out.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(SystemPropertiesManager.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            try (FileOutputStream out = new FileOutputStream(this.filename)) {
+                this.properties.store(out, "Recording the system's properties");
+                out.flush();
             }
+        } catch (IOException ex) {
+            Logger.getLogger(SystemPropertiesManager.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

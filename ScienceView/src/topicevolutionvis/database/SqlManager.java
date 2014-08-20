@@ -53,8 +53,8 @@ public class SqlManager {
             }
         } catch (SQLException ex) {
             Logger.getLogger(SqlManager.class.getName()).log(Level.SEVERE, null, ex);
-            throw new IOException(ex.getMessage());
         }
+        return null;
     }
 
     public String getNome(Connection con, int id) {

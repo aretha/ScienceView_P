@@ -14,7 +14,8 @@ import topicevolutionvis.view.TemporalProjectionViewer;
  */
 public abstract class VertexSelectionListener {
 
-    /** Creates a new instance of VertexSelectionListener */
+    /** Creates a new instance of VertexSelectionListener
+     * @param panel */
     public VertexSelectionListener(TemporalProjectionViewer panel) {
         this.panel = panel;
     }

@@ -32,20 +32,18 @@ class EqualizeColumns extends Normalization {
             double min = Double.POSITIVE_INFINITY;
             double max = Double.NEGATIVE_INFINITY;
 
-            for (int i = 0; i < points.length; i++) {
-                if (points[i][j] > max) {
-                    max = points[i][j];
+            for (double[] point : points) {
+                if (point[j] > max) {
+                    max = point[j];
                 }
-
-                if (points[i][j] < min) {
-                    min = points[i][j];
+                if (point[j] < min) {
+                    min = point[j];
                 }
             }
 
-            //creating the histogram
-            for (int i = 0; i < points.length; i++) {
+            for (double[] point : points) {
                 if (max > min) {
-                    int index = (int) (((points[i][j] - min) / (max - min)) * (EqualizeColumns.nrbins - 1));
+                    int index = (int) (((point[j] - min) / (max - min)) * (EqualizeColumns.nrbins - 1));
                     hist[index] = hist[index] + 1;
                 } else {
                     hist[0] = hist[0] + 1;
@@ -58,13 +56,12 @@ class EqualizeColumns extends Normalization {
                 hist[i] = hist[i - 1] + hist[i] / points.length;
             }
 
-            //transformnig the values based on the new histogram
-            for (int i = 0; i < points.length; i++) {
+            for (double[] point : points) {
                 if (max > min) {
-                    int index = (int) (((points[i][j] - min) / (max - min)) * (EqualizeColumns.nrbins - 1));
-                    points[i][j] = (hist[index] * (max - min)) + min;
+                    int index = (int) (((point[j] - min) / (max - min)) * (EqualizeColumns.nrbins - 1));
+                    point[j] = (hist[index] * (max - min)) + min;
                 } else {
-                    points[i][j] = 0.0f;
+                    point[j] = 0.0f;
                 }
             }
         }

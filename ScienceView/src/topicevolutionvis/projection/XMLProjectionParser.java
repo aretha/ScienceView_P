@@ -6,7 +6,6 @@ package topicevolutionvis.projection;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -16,7 +15,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import topicevolutionvis.graph.TemporalGraph;
 import topicevolutionvis.projection.temporal.TemporalProjection;
 
 /**
@@ -28,8 +26,6 @@ public class XMLProjectionParser {
     public TemporalProjection parse(String filename) {
         try {
             Element proj_node;
-            int year;
-            ArrayList<TemporalGraph> graphs= new ArrayList<>();
             TemporalProjection projection = new TemporalProjection();
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();

@@ -21,7 +21,8 @@ public class PCATopicSettings extends javax.swing.JDialog {
     private static PCATopicSettings instance;
     private TemporalProjection tprojection;
 
-    /** Creates new form PCATopicSettings */
+    /** Creates new form PCATopicSettings
+     * @param parent */
     public PCATopicSettings(javax.swing.JDialog parent) {
         super(parent);
         initComponents();

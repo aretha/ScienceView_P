@@ -374,7 +374,6 @@ public class MONIC extends SwingWorker<Void, Void> {
             }
         } catch (ExecutionException e) {
             // Exception occurred, deal with it
-            System.out.println("Exception: " + e.getCause());
             Logger.getLogger(MONIC.class.getName()).log(Level.SEVERE, null, e);
         } catch (InterruptedException e) {
             Logger.getLogger(MONIC.class.getName()).log(Level.SEVERE, null, e);

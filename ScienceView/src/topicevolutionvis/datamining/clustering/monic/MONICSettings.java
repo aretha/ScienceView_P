@@ -24,8 +24,8 @@ import topicevolutionvis.view.TemporalProjectionViewer;
 public class MONICSettings extends javax.swing.JDialog {
     private static final long serialVersionUID = 1L;
 
-    private TemporalProjectionViewer viewer;
-    private ProjectionData pdata;
+    private final TemporalProjectionViewer viewer;
+    private final ProjectionData pdata;
 
     /**
      * Creates new form MovingClustersDialog

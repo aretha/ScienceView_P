@@ -31,7 +31,7 @@ public class TemporalProjection implements Cloneable {
     private ArrayList<Scalar> vertexScalars = new ArrayList<>();
     private TreeMap<Integer, ArrayList<TemporalGraph>> graphs = new TreeMap<>();
     private TIntObjectHashMap<String> titles = new TIntObjectHashMap<>();
-    private TIntObjectHashMap<ArrayList<Connectivity>> connectivities = new TIntObjectHashMap<>();
+    private final TIntObjectHashMap<ArrayList<Connectivity>> connectivities = new TIntObjectHashMap<>();
     private static final int N = 60;      //número de grafos intermediários que devem ser criados para cada ano
     private double minX = Double.POSITIVE_INFINITY;
     private double maxX = Double.NEGATIVE_INFINITY;

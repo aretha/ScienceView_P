@@ -24,9 +24,8 @@ public class CovarianceTopic extends Topic {
      * Creates a new instance of CovarianceTopic
      *
      * @param graph
+     * @param tprojection
      * @param vertex
-     * @param corpus
-     * @param tdata
      */
     public CovarianceTopic(TIntArrayList vertex, TemporalProjection tprojection, TemporalGraph graph) {
         super(vertex, tprojection, graph);
@@ -81,10 +80,10 @@ public class CovarianceTopic extends Topic {
         double[] mean = new double[points[0].length];
         Arrays.fill(mean, 0.0f);
 
-        for (int i = 0; i < points.length; i++) {
+        for (double[] point : points) {
             //calculating
-            for (int j = 0; j < points[i].length; j++) {
-                mean[j] += points[i][j];
+            for (int j = 0; j < point.length; j++) {
+                mean[j] += point[j];
             }
         }
 
@@ -92,10 +91,9 @@ public class CovarianceTopic extends Topic {
             mean[i] /= points.length;
         }
 
-        //extracting the mean
-        for (int i = 0; i < points.length; i++) {
-            for (int j = 0; j < points[i].length; j++) {
-                points[i][j] -= mean[j];
+        for (double[] point : points) {
+            for (int j = 0; j < point.length; j++) {
+                point[j] -= mean[j];
             }
         }
 
@@ -112,13 +110,11 @@ public class CovarianceTopic extends Topic {
                 }
             }
 
-            //returning the mean
-            for (int i = 0; i < points.length; i++) {
-                for (int j = 0; j < points[i].length; j++) {
-                    points[i][j] += mean[j];
+            for (double[] point : points) {
+                for (int j = 0; j < point.length; j++) {
+                    point[j] += mean[j];
                 }
             }
-
 //            this.colorVertex(points, vertex, indexes);
         }
     }
@@ -197,8 +193,8 @@ public class CovarianceTopic extends Topic {
     //calculate the covariance between columns a and b
     private double covariance(double[][] points, int a, int b) {
         double covariance = 0.0f;
-        for (int i = 0; i < points.length; i++) {
-            covariance += points[i][a] * points[i][b];
+        for (double[] point : points) {
+            covariance += point[a] * point[b];
         }
 
         covariance /= points.length;

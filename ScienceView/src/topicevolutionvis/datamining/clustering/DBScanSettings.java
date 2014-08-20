@@ -23,7 +23,8 @@ public class DBScanSettings extends javax.swing.JDialog {
 
     private TemporalProjectionViewer viewer;
 
-    /** Creates new form DBScanSettings */
+    /** Creates new form DBScanSettings
+     * @param viewer */
     public DBScanSettings(TemporalProjectionViewer viewer) {
         super(ScienceViewMainFrame.getInstance());
         initComponents();

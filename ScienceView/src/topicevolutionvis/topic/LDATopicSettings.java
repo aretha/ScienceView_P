@@ -17,6 +17,7 @@ public class LDATopicSettings extends javax.swing.JDialog {
 
     /**
      * Creates new form LDATopicSettings
+     * @param parent
      */
     public LDATopicSettings(javax.swing.JDialog parent) {
         super(parent);

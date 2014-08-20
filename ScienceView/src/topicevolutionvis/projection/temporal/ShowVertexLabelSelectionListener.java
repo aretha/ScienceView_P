@@ -5,9 +5,7 @@
 package topicevolutionvis.projection.temporal;
 
 import gnu.trove.list.array.TIntArrayList;
-import java.util.ArrayList;
 import topicevolutionvis.graph.TemporalGraph;
-import topicevolutionvis.graph.Vertex;
 import topicevolutionvis.projection.temporal.listeners.VertexSelectionListener;
 import topicevolutionvis.view.TemporalProjectionViewer;
 

@@ -123,8 +123,8 @@ public class ProjectionType implements Serializable {
     }
     public static final long serialVersionUID = 1L;
     private static ArrayList<ProjectionType> types;
-    private String name;
-    private boolean distanceBased;
-    private boolean generateDistanceMatrix;
-    private boolean attributesNeeded;
+    private final String name;
+    private final boolean distanceBased;
+    private final boolean generateDistanceMatrix;
+    private final boolean attributesNeeded;
 }

@@ -26,8 +26,6 @@ public class BKmeans extends Clustering {
 
     @Override
     public ArrayList<TIntArrayList> execute(Dissimilarity diss, SparseMatrix matrix) throws IOException {
-
-//            long start = System.currentTimeMillis();
         this.diss = diss;
         this.clusters = new ArrayList<>();
         this.centroids = new ArrayList<>();
@@ -54,7 +52,7 @@ public class BKmeans extends Clustering {
 
         //removing possible empty clusters
         for (int i = this.clusters.size() - 1; i >= 0; i--) {
-            if (this.clusters.get(i).size() <= 0) {
+            if (this.clusters.get(i).isEmpty()) {
                 this.clusters.remove(i);
             }
         }
@@ -100,9 +98,9 @@ public class BKmeans extends Clustering {
     protected TIntArrayList getClusterToSplit(ArrayList<TIntArrayList> clusters) {
         TIntArrayList gCluster = clusters.get(0);
 
-        for (int i = 0; i < clusters.size(); i++) {
-            if (clusters.get(i).size() > gCluster.size()) {
-                gCluster = clusters.get(i);
+        for (TIntArrayList cluster : clusters) {
+            if (cluster.size() > gCluster.size()) {
+                gCluster = cluster;
             }
         }
 
