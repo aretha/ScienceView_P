@@ -32,6 +32,9 @@ import topicevolutionvis.preprocessing.steemer.StemmerType;
 import topicevolutionvis.projection.ProjectionData;
 import topicevolutionvis.projection.ProjectionType;
 import topicevolutionvis.projection.distance.DissimilarityType;
+import topicevolutionvis.topic.TopicData;
+import topicevolutionvis.topic.TopicData.TopicType;
+import topicevolutionvis.topic.TopicData.TopicVisualization;
 import topicevolutionvis.util.PExConstants;
 import topicevolutionvis.view.ScienceViewMainFrame;
 import topicevolutionvis.view.tools.OpenProjectionDialog;
@@ -47,6 +50,7 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
     private OpenProjectionDialog view;
     private TemporalProjection tproj;
     private ProjectionData pdata;
+    private TopicData tdata;
     private TreeMap<Integer, TemporalGraph> graphs = new TreeMap<>();
     private Scalar sdots;
 
@@ -61,6 +65,8 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
             view.setStatus(true);
             tproj = new TemporalProjection();
             pdata = new ProjectionData();
+            tdata = new TopicData();
+            tproj.setTopicData(tdata);
             tproj.setProjectionData(pdata);
             sdots = tproj.addVertexScalar(PExConstants.DOTS);
 
@@ -70,7 +76,7 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
 
             //this.createIntermediateGraphs();
 
-            ScienceViewMainFrame.getInstance().addTemporalProjectionViewer(tproj);
+            //ScienceViewMainFrame.getInstance().addTemporalProjectionViewer(tproj);
 
         } catch (Exception ex) {
             Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
@@ -156,14 +162,40 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
         this.pdata.setNumberControlPoints(Integer.parseInt(getAttrOfElement(docEle, "lsp-number-control-points", "value")));
         this.pdata.setNumberNeighborsConnection(Integer.parseInt(getAttrOfElement(docEle, "lsp-number-neighbors-connections", "value")));
         this.pdata.setControlPointsChoice(ControlPointsType.retrieve(getAttrOfElement(docEle, "lsp-control-points-choice", "value")));
+        
+        /* Monic parameters*/
+        if(getAttrOfElement(docEle, "dbscan-epsilon", "value") != null) {
+            this.pdata.setTopicEvolutionGenerated(true);
+            this.pdata.setEpsilon(Double.parseDouble(getAttrOfElement(docEle, "dbscan-epsilon", "value")));
+            this.pdata.setMinPoint(Integer.parseInt(getAttrOfElement(docEle, "dbscan-minpoints", "value")));
+            this.pdata.setTheta(Double.parseDouble(getAttrOfElement(docEle, "monic-theta", "value")));
+            this.pdata.setThetaSplit(Double.parseDouble(getAttrOfElement(docEle, "monic-theta-split", "value")));
+        }
+        
         this.pdata.setProjectionType(ProjectionType.retrieve(getAttrOfElement(docEle, "projection-technique", "value")));
         
         /* Topic Data parameters */
-        
+        this.tdata.setTopicType(TopicType.valueOf(getAttrOfElement(docEle, "topic-type", "value")));
+        this.tdata.setTypeOfTopicVisualization(TopicVisualization.valueOf(getAttrOfElement(docEle, "topic-visualization-type", "value")));
+        if (this.tdata.getTopicType() == TopicData.TopicType.PCA) {
+            this.tdata.setPcaMinInformationTerms(Float.parseFloat(getAttrOfElement(docEle, "pca-min-terms", "value")));
+            this.tdata.setPcaInformationTopics(Float.parseFloat(getAttrOfElement(docEle, "pca-min-topics", "value")));
+        }
+        else if (this.tdata.getTopicType() == TopicData.TopicType.COVARIANCE) {
+            this.tdata.setCovariancePercentageTerms(Float.parseFloat(getAttrOfElement(docEle, "covariance-min-terms", "value")));
+            this.tdata.setCovariancePercentageTopics(Float.parseFloat(getAttrOfElement(docEle, "covariance-min-topics", "value")));
+        }
+        else if (this.tdata.getTopicType() == TopicData.TopicType.LDA) {
+            this.tdata.setLdaNumberOfTopics(Integer.parseInt(getAttrOfElement(docEle, "lda-number-topics", "value")));
+            this.tdata.setLdaNumberOfIterations(Integer.parseInt(getAttrOfElement(docEle, "lda-number-iterations", "value")));
+            this.tdata.setLdaAlpha(Double.parseDouble(getAttrOfElement(docEle, "lda-alpha", "value")));
+            this.tdata.setLdaBeta(Double.parseDouble(getAttrOfElement(docEle, "lda-beta", "value")));
+        }
         
         //this.parseProjections(docEle);
     }
-
+    
+    /* TODO */
     private void parseProjections(Element parent) {
         Element el;
         Node node;
