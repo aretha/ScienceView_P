@@ -47,11 +47,28 @@ public class CollectionsManager {
         return collections;
     }
 
-    public static boolean removeCollection(String name) throws IOException {
+    public static int getCollectionId(String name) {
+        int aux = -1;
+        try {
+            try (PreparedStatement stmt = SqlManager.getInstance().getSqlStatement("SELECT.COLLECTION.BY.NAME", -1, -1)) {
+                stmt.setString(1, name);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        aux = rs.getInt(1);
+                    }
+                }
+            }
+        } catch (IOException | SQLException ex) {
+            Logger.getLogger(CollectionsManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return aux;
+    }
+
+    public static boolean removeCollection(int id) throws IOException {
         int rows = 0;
         try {
             try (PreparedStatement stmt = SqlManager.getInstance().getSqlStatement("REMOVE.COLLECTION", -1, -1)) {
-                stmt.setString(1, name);
+                stmt.setInt(1, id);
                 rows = stmt.executeUpdate();
             }
         } catch (SQLException ex) {

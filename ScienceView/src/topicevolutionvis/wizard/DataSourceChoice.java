@@ -278,7 +278,7 @@ public class DataSourceChoice extends WizardPanel implements ActionListener {
         if (this.corpusComboBox.getSelectedIndex() > 0) {
             try {
                 String collection = (String) this.corpusComboBox.getSelectedItem();
-                CollectionsManager.removeCollection(collection);
+                CollectionsManager.removeCollection(CollectionsManager.getCollectionId(collection));
                 this.corpusComboBox.removeItem(collection);
             } catch (IOException ex) {
                 Logger.getLogger(DataSourceChoice.class.getName()).log(Level.SEVERE, null, ex);

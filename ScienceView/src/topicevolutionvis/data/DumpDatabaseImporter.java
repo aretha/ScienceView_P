@@ -43,7 +43,7 @@ public class DumpDatabaseImporter extends DatabaseImporter {
                     if (answer == JOptionPane.NO_OPTION) {
                         break;
                     } else {
-                        CollectionsManager.removeCollection(collection);
+                        CollectionsManager.removeCollection(CollectionsManager.getCollectionId(collection));
                     }
                 }
             }

@@ -13,6 +13,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipInputStream;
+import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -129,6 +130,24 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
         //get the root element
         Element docEle = dom.getDocumentElement();
         this.pdata.setCollectionName(getAttrOfElement(docEle, "collection-name", "value"));
+
+        int aux = CollectionsManager.getCollectionId(pdata.getCollectionName());
+        System.out.println(pdata.getCollectionName());
+        System.out.println(aux);
+        if (aux != -1) { //uma coleção com este nome já existe na base de dados
+            String message = "The collection \"" + pdata.getCollectionName() + "\" already exists. \n"
+                    + "Do you want to replace it?";
+            int answer = JOptionPane.showOptionDialog(this.view, message, "Warning",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
+            if (answer == JOptionPane.NO_OPTION) {
+                this.pdata = null;
+                return;
+
+            } else {
+                CollectionsManager.removeCollection(aux);
+            }
+        }
+
         this.pdata.setDissimilarityType(DissimilarityType.retrieve(getAttrOfElement(docEle, "distance-type", "value")));
         this.pdata.setDimensionReductionType(DimensionalityReductionType.retrieve(getAttrOfElement(docEle, "dimensionality-reduction", "value")));
         this.pdata.setNumberGrams(Integer.parseInt(getAttrOfElement(docEle, "number-grams", "value")));

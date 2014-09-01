@@ -207,6 +207,7 @@ public class DatabaseCorpus {
                         return rs.getString(1);
                     }
                 }
+                stmt.close();
             }
         } catch (IOException | SQLException ex) {
             Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
@@ -1361,7 +1362,7 @@ public class DatabaseCorpus {
             }
         } catch (IOException | SQLException ex) {
             Logger.getLogger(DatabaseCorpus.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
         return classId;
     }
 }

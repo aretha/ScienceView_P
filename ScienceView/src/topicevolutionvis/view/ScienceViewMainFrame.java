@@ -38,7 +38,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import topicevolutionvis.database.ConnectionManager;
-import topicevolutionvis.datamining.clustering.DBScanSettings;
 import topicevolutionvis.datamining.clustering.monic.MONICSettings;
 import topicevolutionvis.graph.Edge;
 import topicevolutionvis.graph.Scalar;
@@ -132,8 +131,8 @@ public class ScienceViewMainFrame extends javax.swing.JFrame implements TreeSele
                 if (frame != null && frame instanceof TemporalProjectionViewer) {
                     TemporalProjectionViewer vv = (TemporalProjectionViewer) frame;
                     TemporalGraph graph = vv.getGraph();
-                    for (int i = 0; i < treePaths.length; i++) {
-                        node = (DefaultMutableTreeNode) treePaths[i].getLastPathComponent();
+                    for (TreePath treePath : treePaths) {
+                        node = (DefaultMutableTreeNode) treePath.getLastPathComponent();
                         if (node.getUserObject() instanceof DocumentInfo) {
                             v = graph.getVertexById(((DocumentInfo) node.getUserObject()).id);
                             if (v != null) {
@@ -159,8 +158,8 @@ public class ScienceViewMainFrame extends javax.swing.JFrame implements TreeSele
                 if (frame != null && frame instanceof TemporalProjectionViewer) {
                     TemporalProjectionViewer vv = (TemporalProjectionViewer) frame;
                     TemporalGraph graph = vv.getGraph();
-                    for (int i = 0; i < treePaths.length; i++) {
-                        node = (DefaultMutableTreeNode) treePaths[i].getLastPathComponent();
+                    for (TreePath treePath : treePaths) {
+                        node = (DefaultMutableTreeNode) treePath.getLastPathComponent();
                         if (node.getUserObject() instanceof DocumentInfo) {
                             v = graph.getVertexById(((DocumentInfo) node.getUserObject()).id);
                             if (v != null) {
@@ -353,9 +352,7 @@ public class ScienceViewMainFrame extends javax.swing.JFrame implements TreeSele
         dataminingMenu = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         stressMenuItem = new javax.swing.JMenuItem();
-        clusteringMenu = new javax.swing.JMenu();
-        dbscanMenuItem = new javax.swing.JMenuItem();
-        monicMenuItem = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         menuWindows = new javax.swing.JMenu();
         alignVerticallyMenuItem = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
@@ -905,25 +902,13 @@ public class ScienceViewMainFrame extends javax.swing.JFrame implements TreeSele
 
             dataminingMenu.add(jMenu2);
 
-            clusteringMenu.setText("Clustering");
-
-            dbscanMenuItem.setText("DBScan");
-            dbscanMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            jMenuItem1.setText("Topic Extraction and Tracking");
+            jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    dbscanMenuItemActionPerformed(evt);
+                    jMenuItem1ActionPerformed(evt);
                 }
             });
-            clusteringMenu.add(dbscanMenuItem);
-
-            monicMenuItem.setText("MONIC");
-            monicMenuItem.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    monicMenuItemActionPerformed(evt);
-                }
-            });
-            clusteringMenu.add(monicMenuItem);
-
-            dataminingMenu.add(clusteringMenu);
+            dataminingMenu.add(jMenuItem1);
 
             jMenuBar1.add(dataminingMenu);
 
@@ -1362,27 +1347,9 @@ public class ScienceViewMainFrame extends javax.swing.JFrame implements TreeSele
         Viewer.setType(VertexSelectionFactory.SelectionType.SHOW_VERTEX_LABEL);
     }//GEN-LAST:event_showVertexLabelToggleButtonActionPerformed
 
-    private void dbscanMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dbscanMenuItemActionPerformed
-        JInternalFrame frame = this.desktop.getSelectedFrame();
-        if (frame != null && frame instanceof TemporalProjectionViewer) {
-            TemporalProjectionViewer temporalViewer = (TemporalProjectionViewer) frame;
-            DBScanSettings dbscanSettings = new DBScanSettings(temporalViewer);
-            dbscanSettings.setVisible(true);
-        }
-    }//GEN-LAST:event_dbscanMenuItemActionPerformed
-
     private void openProjectionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openProjectionMenuItemActionPerformed
         (new OpenProjectionDialog()).setVisible(true);
     }//GEN-LAST:event_openProjectionMenuItemActionPerformed
-
-    private void monicMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monicMenuItemActionPerformed
-        JInternalFrame frame = this.desktop.getSelectedFrame();
-        if (frame != null && frame instanceof TemporalProjectionViewer) {
-            TemporalProjectionViewer temporalViewer = (TemporalProjectionViewer) frame;
-            MONICSettings monicSettings = new MONICSettings(temporalViewer);
-            monicSettings.setVisible(true);
-        }
-    }//GEN-LAST:event_monicMenuItemActionPerformed
 
     private void selectVertexToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectVertexToggleButtonActionPerformed
         Viewer.setType(VertexSelectionFactory.SelectionType.SELECT_GRAPH);
@@ -1424,6 +1391,15 @@ public class ScienceViewMainFrame extends javax.swing.JFrame implements TreeSele
             temporalViewer.updateImage();
         }
     }//GEN-LAST:event_removezoomButtonActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        JInternalFrame frame = this.desktop.getSelectedFrame();
+        if (frame != null && frame instanceof TemporalProjectionViewer) {
+            TemporalProjectionViewer temporalViewer = (TemporalProjectionViewer) frame;
+            MONICSettings monicSettings = new MONICSettings(temporalViewer);
+            monicSettings.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     public double setZoom(int increment) {
         this.zoomSpinner.setValue((Integer) this.zoomSpinner.getValue() + Integer.valueOf(increment) * 5);
@@ -1512,12 +1488,10 @@ public class ScienceViewMainFrame extends javax.swing.JFrame implements TreeSele
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton cleanLabelsButton;
     private javax.swing.JMenuItem cleanMenuItem;
-    private javax.swing.JMenu clusteringMenu;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JScrollPane contentScrollPane;
     private javax.swing.JTextArea contentTextArea;
     private javax.swing.JMenu dataminingMenu;
-    private javax.swing.JMenuItem dbscanMenuItem;
     private javax.swing.JDesktopPane desktop;
     private javax.swing.JPanel documentsPanel;
     private javax.swing.JScrollPane documentsScrollPane;
@@ -1544,6 +1518,7 @@ public class ScienceViewMainFrame extends javax.swing.JFrame implements TreeSele
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1565,7 +1540,6 @@ public class ScienceViewMainFrame extends javax.swing.JFrame implements TreeSele
     private javax.swing.JMenuItem memorycheckMenuItem;
     private javax.swing.JMenu menuWindows;
     private javax.swing.ButtonGroup menus_buttonGroup;
-    private javax.swing.JMenuItem monicMenuItem;
     private javax.swing.JScrollPane nearestNeighborScrollPanel;
     private javax.swing.JList nearestNeighborsList;
     private javax.swing.JPanel neighborsPanel;

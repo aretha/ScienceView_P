@@ -24320,3 +24320,69 @@ org.h2.message.DbException: File corrupted while reading record: "index not foun
 Caused by: org.h2.jdbc.JdbcSQLException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
 	... 8 more
+08-29 16:24:35 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "AlessandroVespignaniDataset"; SQL statement:
+DELETE FROM Collections WHERE name = ? [22018-169]
+09-01 14:49:40 database: close
+org.h2.message.DbException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-180]
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.store.PageStore.getPage(PageStore.java:768)
+	at org.h2.store.PageStore.compact(PageStore.java:710)
+	at org.h2.store.PageStore.compact(PageStore.java:538)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1313)
+	at org.h2.engine.Database.close(Database.java:1263)
+	at org.h2.engine.Database.removeSession(Database.java:1134)
+	at org.h2.engine.Session.close(Session.java:676)
+	at org.h2.jdbc.JdbcConnection.close(JdbcConnection.java:384)
+	at org.h2.server.web.WebSession.close(WebSession.java:264)
+	at org.h2.server.web.WebServer.stop(WebServer.java:417)
+	at org.h2.tools.Server.stop(Server.java:540)
+	at org.h2.tools.Console.shutdown(Console.java:326)
+	at org.h2.tools.Console.actionPerformed(Console.java:549)
+	at java.awt.MenuItem.processActionEvent(Unknown Source)
+	at java.awt.MenuItem.processEvent(Unknown Source)
+	at java.awt.MenuComponent.dispatchEventImpl(Unknown Source)
+	at java.awt.MenuComponent.dispatchEvent(Unknown Source)
+	at java.awt.EventQueue.dispatchEventImpl(Unknown Source)
+	at java.awt.EventQueue.access$400(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.awt.EventQueue$3.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(Unknown Source)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.awt.EventQueue$4.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$1.doIntersectionPrivilege(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+Caused by: org.h2.jdbc.JdbcSQLException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-180]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	... 37 more
+09-01 14:49:54 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100) SELECTIVITY 44": "'Proceedings. KDD-2000. Sixth ACM SIGKDD International Conference  on Knowledge Discovery and Data Mining' (104)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+09-01 14:49:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100) SELECTIVITY 44": "'PROCEEDING OF THE NINETEENTH NATIONAL CONFERENCE ON ARTIFICIAL INTELLIGENCE AND THE SIXTEENTH CONFERENCE ON INNOVATIVE APPLICAT... (158)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+09-01 14:49:55 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100) SELECTIVITY 44": "'Proceedings of the Tenth Annual International ACMSIGIR  Conference on Research and Development in Information Retrieval' (119)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+09-01 14:50:01 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100) SELECTIVITY 44": "'Proceedings. 1991 IEEE Computer Society Symposium on Research in  Security and Privacy (Cat. No.91CH2986-8)' (107)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+09-01 14:50:07 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100) SELECTIVITY 44": "'On Growth and Form - Fractal and Non-Fractal Patterns in  Physics. Proceedings of the NATO Advanced Study Institute' (115)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+09-01 14:50:10 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100) SELECTIVITY 42": "'On Growth and Form - Fractal and Non-Fractal Patterns in  Physics. Proceedings of the NATO Advanced Study Institute' (115)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+09-01 14:50:10 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100) SELECTIVITY 42": "'On Growth and Form - Fractal and Non-Fractal Patterns in  Physics. Proceedings of the NATO Advanced Study Institute' (115)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
