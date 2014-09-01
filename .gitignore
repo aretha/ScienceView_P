@@ -1,6 +1,8 @@
 *.class
 
 # Package Files #
-*.jar
 *.war
 *.ear
+/ScienceView/nbproject/private/
+/ScienceView/build/
+/ScienceView/dist/
