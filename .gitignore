@@ -3,7 +3,8 @@
 # Package Files #
 *.war
 *.ear
+*.db
 /ScienceView/nbproject/private/
 /ScienceView/build/
 /ScienceView/dist/
-*.db
+
