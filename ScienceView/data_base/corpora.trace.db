@@ -24320,6 +24320,7 @@ org.h2.message.DbException: File corrupted while reading record: "index not foun
 Caused by: org.h2.jdbc.JdbcSQLException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
 	... 8 more
+<<<<<<< HEAD
 08-29 16:24:35 jdbc[2]: exception
 org.h2.jdbc.JdbcSQLException: Data conversion error converting "AlessandroVespignaniDataset"; SQL statement:
 DELETE FROM Collections WHERE name = ? [22018-169]
@@ -24386,3 +24387,195 @@ INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, ch
 09-01 14:50:10 jdbc[2]: exception
 org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100) SELECTIVITY 42": "'On Growth and Form - Fractal and Non-Fractal Patterns in  Physics. Proceedings of the NATO Advanced Study Institute' (115)"; SQL statement:
 INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+=======
+08-06 19:14:56 database: close
+org.h2.message.DbException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.store.PageStore.getPage(PageStore.java:753)
+	at org.h2.store.PageStore.compact(PageStore.java:700)
+	at org.h2.store.PageStore.compact(PageStore.java:528)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1199)
+	at org.h2.engine.Database.close(Database.java:1149)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:80)
+Caused by: org.h2.jdbc.JdbcSQLException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	... 8 more
+08-06 19:20:47 database: close
+org.h2.message.DbException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.store.PageStore.getPage(PageStore.java:753)
+	at org.h2.store.PageStore.compact(PageStore.java:700)
+	at org.h2.store.PageStore.compact(PageStore.java:528)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1199)
+	at org.h2.engine.Database.close(Database.java:1149)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:80)
+Caused by: org.h2.jdbc.JdbcSQLException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	... 8 more
+08-15 13:33:40 database: close
+org.h2.message.DbException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.store.PageStore.getPage(PageStore.java:753)
+	at org.h2.store.PageStore.compact(PageStore.java:700)
+	at org.h2.store.PageStore.compact(PageStore.java:528)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1199)
+	at org.h2.engine.Database.close(Database.java:1149)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:80)
+Caused by: org.h2.jdbc.JdbcSQLException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	... 8 more
+08-15 13:36:44 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100) SELECTIVITY 44": "'Proceedings. KDD-2000. Sixth ACM SIGKDD International Conference  on Knowledge Discovery and Data Mining' (104)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+08-15 13:36:45 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100) SELECTIVITY 44": "'PROCEEDING OF THE NINETEENTH NATIONAL CONFERENCE ON ARTIFICIAL INTELLIGENCE AND THE SIXTEENTH CONFERENCE ON INNOVATIVE APPLICAT... (158)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+08-15 13:36:45 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100) SELECTIVITY 44": "'Proceedings of the Tenth Annual International ACMSIGIR  Conference on Research and Development in Information Retrieval' (119)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+08-15 13:37:06 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100) SELECTIVITY 44": "'Proceedings. 1991 IEEE Computer Society Symposium on Research in  Security and Privacy (Cat. No.91CH2986-8)' (107)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+08-15 13:37:28 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100) SELECTIVITY 44": "'On Growth and Form - Fractal and Non-Fractal Patterns in  Physics. Proceedings of the NATO Advanced Study Institute' (115)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+08-15 13:37:34 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100) SELECTIVITY 44": "'On Growth and Form - Fractal and Non-Fractal Patterns in  Physics. Proceedings of the NATO Advanced Study Institute' (115)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+08-15 13:37:35 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Value too long for column "JOURNAL VARCHAR(100) SELECTIVITY 44": "'On Growth and Form - Fractal and Non-Fractal Patterns in  Physics. Proceedings of the NATO Advanced Study Institute' (115)"; SQL statement:
+INSERT INTO Citations (id_collection, id_author, type, year, journal, volume, chapter, doi, pages, artn, full_reference, id_doc_core) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-169]
+08-15 13:42:36 database: close
+org.h2.message.DbException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.store.PageStore.getPage(PageStore.java:753)
+	at org.h2.store.PageStore.compact(PageStore.java:700)
+	at org.h2.store.PageStore.compact(PageStore.java:528)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1199)
+	at org.h2.engine.Database.close(Database.java:1149)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:80)
+Caused by: org.h2.jdbc.JdbcSQLException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	... 8 more
+08-15 14:17:21 database: close
+org.h2.message.DbException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.store.PageStore.getPage(PageStore.java:753)
+	at org.h2.store.PageStore.compact(PageStore.java:700)
+	at org.h2.store.PageStore.compact(PageStore.java:528)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1199)
+	at org.h2.engine.Database.close(Database.java:1149)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:80)
+Caused by: org.h2.jdbc.JdbcSQLException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	... 8 more
+08-15 14:23:01 database: close
+org.h2.message.DbException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.store.PageStore.getPage(PageStore.java:753)
+	at org.h2.store.PageStore.compact(PageStore.java:700)
+	at org.h2.store.PageStore.compact(PageStore.java:528)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1199)
+	at org.h2.engine.Database.close(Database.java:1149)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:80)
+Caused by: org.h2.jdbc.JdbcSQLException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	... 8 more
+08-15 14:24:19 database: close
+org.h2.message.DbException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.store.PageStore.getPage(PageStore.java:753)
+	at org.h2.store.PageStore.compact(PageStore.java:700)
+	at org.h2.store.PageStore.compact(PageStore.java:528)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1199)
+	at org.h2.engine.Database.close(Database.java:1149)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:80)
+Caused by: org.h2.jdbc.JdbcSQLException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	... 8 more
+08-15 14:26:56 database: close
+org.h2.message.DbException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.store.PageStore.getPage(PageStore.java:753)
+	at org.h2.store.PageStore.compact(PageStore.java:700)
+	at org.h2.store.PageStore.compact(PageStore.java:528)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1199)
+	at org.h2.engine.Database.close(Database.java:1149)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:80)
+Caused by: org.h2.jdbc.JdbcSQLException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	... 8 more
+08-15 14:28:06 database: close
+org.h2.message.DbException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.store.PageStore.getPage(PageStore.java:753)
+	at org.h2.store.PageStore.compact(PageStore.java:700)
+	at org.h2.store.PageStore.compact(PageStore.java:528)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1199)
+	at org.h2.engine.Database.close(Database.java:1149)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:80)
+Caused by: org.h2.jdbc.JdbcSQLException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	... 8 more
+08-15 14:28:48 database: close
+org.h2.message.DbException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.store.PageStore.getPage(PageStore.java:753)
+	at org.h2.store.PageStore.compact(PageStore.java:700)
+	at org.h2.store.PageStore.compact(PageStore.java:528)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1199)
+	at org.h2.engine.Database.close(Database.java:1149)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:80)
+Caused by: org.h2.jdbc.JdbcSQLException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	... 8 more
+08-15 14:34:48 database: close
+org.h2.message.DbException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.store.PageStore.getPage(PageStore.java:753)
+	at org.h2.store.PageStore.compact(PageStore.java:700)
+	at org.h2.store.PageStore.compact(PageStore.java:528)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1199)
+	at org.h2.engine.Database.close(Database.java:1149)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:80)
+Caused by: org.h2.jdbc.JdbcSQLException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	... 8 more
+08-15 14:42:46 database: close
+org.h2.message.DbException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.store.PageStore.getPage(PageStore.java:753)
+	at org.h2.store.PageStore.compact(PageStore.java:700)
+	at org.h2.store.PageStore.compact(PageStore.java:528)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1199)
+	at org.h2.engine.Database.close(Database.java:1149)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:80)
+Caused by: org.h2.jdbc.JdbcSQLException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	... 8 more
+08-15 15:00:47 database: close
+org.h2.message.DbException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.store.PageStore.getPage(PageStore.java:753)
+	at org.h2.store.PageStore.compact(PageStore.java:700)
+	at org.h2.store.PageStore.compact(PageStore.java:528)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1199)
+	at org.h2.engine.Database.close(Database.java:1149)
+	at org.h2.engine.DatabaseCloser.run(DatabaseCloser.java:80)
+Caused by: org.h2.jdbc.JdbcSQLException: File corrupted while reading record: "index not found 37". Possible solution: use the recovery tool [90030-169]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	... 8 more
+>>>>>>> 160732a514510fcb6947ec44d0a40ea5ce5fa6dd
