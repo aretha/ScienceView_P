@@ -27,10 +27,10 @@ class StandardizationColumns extends Normalization {
         double[] mean = new double[points[0].length];
         Arrays.fill(mean, 0.0f);
 
-        for (int i = 0; i < points.length; i++) {
+        for (double[] point : points) {
             //calculating
-            for (int j = 0; j < points[i].length; j++) {
-                mean[j] += points[i][j];
+            for (int j = 0; j < point.length; j++) {
+                mean[j] += point[j];
             }
         }
 
@@ -38,10 +38,9 @@ class StandardizationColumns extends Normalization {
             mean[i] /= points.length;
         }
 
-        //extracting the mean
-        for (int i = 0; i < points.length; i++) {
-            for (int j = 0; j < points[i].length; j++) {
-                points[i][j] -= mean[j];
+        for (double[] point : points) {
+            for (int j = 0; j < point.length; j++) {
+                point[j] -= mean[j];
             }
         }
 
@@ -49,9 +48,9 @@ class StandardizationColumns extends Normalization {
         double[] deviation = new double[points[0].length];
         Arrays.fill(deviation, 0.0f);
 
-        for (int i = 0; i < points.length; i++) {
-            for (int j = 0; j < points[i].length; j++) {
-                deviation[j] += (((double) (points[i][j])) * ((double) (points[i][j])));
+        for (double[] point : points) {
+            for (int j = 0; j < point.length; j++) {
+                deviation[j] += (((double) (point[j])) * ((double) (point[j])));
             }
         }
 
@@ -63,11 +62,10 @@ class StandardizationColumns extends Normalization {
             }
         }
 
-        //normalization
-        for (int i = 0; i < points.length; i++) {
-            for (int j = 0; j < points[i].length; j++) {
+        for (double[] point : points) {
+            for (int j = 0; j < point.length; j++) {
                 if (deviation[j] != 0.0f) {
-                    points[i][j] /= deviation[j];
+                    point[j] /= deviation[j];
                 }
             }
         }

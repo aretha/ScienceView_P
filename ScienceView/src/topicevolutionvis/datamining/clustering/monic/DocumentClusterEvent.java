@@ -21,7 +21,6 @@ public class DocumentClusterEvent {
     public static final int MERGED = 3;
     public static final int DISAPPEARS = 4;
     private int type, year;
-    private double overlap = 0d;
     private ArrayList<Topic> input, output;
     private ArrayList<InternalTransition> internal_transitions = new ArrayList<>();
 

@@ -24,14 +24,13 @@ import topicevolutionvis.projection.lsp.ControlPointsType;
  * @author Aretha
  */
 public class ProjectionData implements Cloneable {
-
     private String collectionName = null;
     private DatabaseCorpus corpus = null;
     private String sourceFile = null;
     //cuts for terms
     private int lunhLowerCut = 10;
     private int lunhUpperCut = -1;
-    //cuts for reerences
+    //cuts for references
     private int referencesLowerCut = -1;
     private int referencesUpperCut = -1;
     //pre-processing
@@ -56,11 +55,6 @@ public class ProjectionData implements Cloneable {
     private int yearStepForSavingToPExFormat = 0;
     private SparseMatrix matrix;
     private int numberOfDocuments = 0;
-    private int numberLines = 0;
-    private int knnNumberNeighbors = 1;
-    private boolean createDelaunay = true;
-    private boolean createBibliographicCoupling = true;
-    private String description = "";
     private String dmatFilename = "";
     private String docsTermsFilename = "";
     private String pexFilename = "";
@@ -359,10 +353,7 @@ public class ProjectionData implements Cloneable {
     }
 
     public boolean hasLDAOutput() {
-        if (this.ldaOutput != null) {
-            return true;
-        }
-        return false;
+        return this.ldaOutput != null;
     }
 
     public float getFractionDelta() {
@@ -429,34 +420,6 @@ public class ProjectionData implements Cloneable {
         return this.PEXFORMAT_saveReferences;
     }
 
-    public int getKnnNumberNeighbors() {
-        return knnNumberNeighbors;
-    }
-
-    public void setKnnNumberNeighbors(int knnNumberNeighbors) {
-        this.knnNumberNeighbors = knnNumberNeighbors;
-    }
-
-    public boolean isCreateDelaunay() {
-        return createDelaunay;
-    }
-
-    public boolean isCreateBibliographicCoupling() {
-        return this.createBibliographicCoupling;
-    }
-
-    public int getNumberLines() {
-        return numberLines;
-    }
-
-    public void setNumberLines(int numberLines) {
-        this.numberLines = numberLines;
-    }
-
-    public void setCreateDelaunay(boolean createDelaunay) {
-        this.createDelaunay = createDelaunay;
-    }
-
     public String getDocsTermsFilename() {
         return docsTermsFilename;
     }
@@ -503,14 +466,6 @@ public class ProjectionData implements Cloneable {
 
     public void setDistanceMatrixFilename(String dmatFilename) {
         this.dmatFilename = dmatFilename;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public DimensionalityReductionType getDimensionReductionType() {
@@ -605,14 +560,11 @@ public class ProjectionData implements Cloneable {
         ProjectionData newPdata = new ProjectionData();
         newPdata.comptype = this.comptype;
         newPdata.controlPointsChoice = this.controlPointsChoice;
-        newPdata.createDelaunay = this.createDelaunay;
-        newPdata.description = this.description;
         newPdata.dimenType = this.dimenType;
         newPdata.distanceType = this.distanceType;
         newPdata.dmatFilename = this.dmatFilename;
         newPdata.docsTermsFilename = this.docsTermsFilename;
         newPdata.fractionDelta = this.fractionDelta;
-        newPdata.knnNumberNeighbors = this.knnNumberNeighbors;
         newPdata.lunhLowerCut = this.lunhLowerCut;
         newPdata.lunhUpperCut = this.lunhUpperCut;
         newPdata.matrix = this.matrix;
@@ -622,7 +574,6 @@ public class ProjectionData implements Cloneable {
         newPdata.numberDimensions = this.numberDimensions;
         newPdata.numberGrams = this.numberGrams;
         newPdata.numberIterations = this.numberIterations;
-        newPdata.numberLines = this.numberLines;
         newPdata.numberNeighborsConnection = this.numberNeighborsConnection;
         newPdata.numberOfDocuments = this.numberOfDocuments;
         newPdata.projTech = this.projTech;

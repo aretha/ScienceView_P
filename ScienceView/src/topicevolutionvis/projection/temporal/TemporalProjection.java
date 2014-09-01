@@ -31,7 +31,7 @@ public class TemporalProjection implements Cloneable {
     private ArrayList<Scalar> vertexScalars = new ArrayList<>();
     private TreeMap<Integer, ArrayList<TemporalGraph>> graphs = new TreeMap<>();
     private TIntObjectHashMap<String> titles = new TIntObjectHashMap<>();
-    private TIntObjectHashMap<ArrayList<Connectivity>> connectivities = new TIntObjectHashMap<>();
+    private final TIntObjectHashMap<ArrayList<Connectivity>> connectivities = new TIntObjectHashMap<>();
     private static final int N = 60;      //número de grafos intermediários que devem ser criados para cada ano
     private double minX = Double.POSITIVE_INFINITY;
     private double maxX = Double.NEGATIVE_INFINITY;
@@ -40,10 +40,6 @@ public class TemporalProjection implements Cloneable {
     private TIntArrayList selected_docs;
     private ExternalTransitions transitions = null;
 
-    public TemporalProjection() {
-    	setProjectionData(new ProjectionData());
-    }
-    
     @Override
     public Object clone() {
         TemporalProjection proj = new TemporalProjection();
@@ -59,12 +55,7 @@ public class TemporalProjection implements Cloneable {
         return proj;
     }
 
-    private void setProjectionData(ProjectionData pdata) {
-		this.pdata = pdata;
-		this.titles = new TIntObjectHashMap<>(pdata.getNumberOfDocuments());
-	}
-
-	public void setSelectedDocs(TIntArrayList selected_docs) {
+    public void setSelectedDocs(TIntArrayList selected_docs) {
         this.selected_docs = selected_docs;
     }
 
@@ -78,6 +69,11 @@ public class TemporalProjection implements Cloneable {
 
     public void setVertexScalars(ArrayList<Scalar> vertexScalars) {
         this.vertexScalars = vertexScalars;
+    }
+
+    public void setProjectionData(ProjectionData pdata) {
+        this.pdata = pdata;
+        this.titles = new TIntObjectHashMap<>(pdata.getNumberOfDocuments());
     }
 
     public void setTitleDocument(int id_doc, String title) {

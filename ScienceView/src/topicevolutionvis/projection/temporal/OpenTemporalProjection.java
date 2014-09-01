@@ -6,26 +6,40 @@ package topicevolutionvis.projection.temporal;
 
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.hash.TIntObjectHashMap;
+
 import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+
+import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.xml.parsers.DocumentBuilderFactory;
-import org.h2.tools.RunScript;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import topicevolutionvis.database.DatabaseCorpus;
+
+import topicevolutionvis.database.CollectionManager;
+import topicevolutionvis.database.ConnectionManager;
 import topicevolutionvis.dimensionreduction.DimensionalityReductionType;
 import topicevolutionvis.graph.*;
+import topicevolutionvis.matrix.normalization.NormalizationType;
+import topicevolutionvis.preprocessing.RepresentationType;
+import topicevolutionvis.preprocessing.steemer.StemmerType;
+import topicevolutionvis.preprocessing.transformation.MatrixTransformationType;
 import topicevolutionvis.projection.ProjectionData;
+import topicevolutionvis.projection.ProjectionType;
 import topicevolutionvis.projection.distance.DissimilarityType;
+import topicevolutionvis.projection.lsp.ControlPointsType;
+import topicevolutionvis.topic.TopicData;
+import topicevolutionvis.topic.TopicData.TopicType;
+import topicevolutionvis.topic.TopicData.TopicVisualization;
 import topicevolutionvis.util.PExConstants;
-import topicevolutionvis.view.ScienceViewMainFrame;
 import topicevolutionvis.view.tools.OpenProjectionDialog;
 
 /**
@@ -39,6 +53,7 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
     private OpenProjectionDialog view;
     private TemporalProjection tproj;
     private ProjectionData pdata;
+    private TopicData tdata;
     private TreeMap<Integer, TemporalGraph> graphs = new TreeMap<>();
     private Scalar sdots;
 
@@ -52,15 +67,19 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
         try {
             view.setStatus(true);
             tproj = new TemporalProjection();
+            pdata = new ProjectionData();
+            tdata = new TopicData();
+            tproj.setTopicData(tdata);
+            tproj.setProjectionData(pdata);
             sdots = tproj.addVertexScalar(PExConstants.DOTS);
 
             this.unzip();
-            this.parseProjectionXML();
-            this.loadDatabase();
+            this.loadProjection();
+            //this.loadDatabase();
 
-            this.createIntermediateGraphs();
+            //this.createIntermediateGraphs();
 
-            ScienceViewMainFrame.getInstance().addTemporalProjectionViewer(tproj);
+            //ScienceViewMainFrame.getInstance().addTemporalProjectionViewer(tproj);
 
         } catch (Exception ex) {
             Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,62 +90,136 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
     private void unzip() throws Exception {
         final int BUFFER = 2048;
         int count;
-        BufferedOutputStream dest;
-        FileOutputStream fos;
-        FileInputStream fis = new FileInputStream(this.filename);
-        ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
-        ZipEntry entry;
+        ZipInputStream zis = new ZipInputStream(new BufferedInputStream(new FileInputStream(this.filename)));
 
-        db_file = File.createTempFile("dabase", ".db");
-        if ((entry = zis.getNextEntry()) != null) {
+        db_file = File.createTempFile("dabase", ".sql");
+        if (zis.getNextEntry() != null) {
             byte data[] = new byte[BUFFER];
             // write the files to the disk
-            fos = new FileOutputStream(db_file);
-            dest = new BufferedOutputStream(fos, BUFFER);
-            while ((count = zis.read(data, 0, BUFFER)) != -1) {
-                dest.write(data, 0, count);
+            FileOutputStream fos = new FileOutputStream(db_file);
+            try (BufferedOutputStream dest = new BufferedOutputStream(fos, BUFFER)) {
+                while ((count = zis.read(data, 0, BUFFER)) != -1) {
+                    dest.write(data, 0, count);
+                }
+                dest.flush();
             }
-            dest.flush();
-            dest.close();
         }
 
         xml_file = File.createTempFile("projection", ".xml");
-        if ((entry = zis.getNextEntry()) != null) {
+        if (zis.getNextEntry() != null) {
             byte data[] = new byte[BUFFER];
             // write the files to the disk
-            fos = new FileOutputStream(xml_file);
-            dest = new BufferedOutputStream(fos, BUFFER);
-            while ((count = zis.read(data, 0, BUFFER)) != -1) {
-                dest.write(data, 0, count);
+            FileOutputStream fos = new FileOutputStream(xml_file);
+            try (BufferedOutputStream dest = new BufferedOutputStream(fos, BUFFER)) {
+                while ((count = zis.read(data, 0, BUFFER)) != -1) {
+                    dest.write(data, 0, count);
+                }
+                dest.flush();
             }
-            dest.flush();
-            dest.close();
         }
     }
 
     private void loadDatabase() throws Exception {
-        Properties props = new Properties();
-        props.load(new FileInputStream("./resources/config/database.properties"));
-        RunScript.execute(props.getProperty("jdbc.url"), props.getProperty("jdbc.username"), props.getProperty("jdbc.password"), this.db_file.getAbsolutePath(), null, true);
-        pdata.setDatabaseCorpus(new DatabaseCorpus(pdata.getCollectionName()));
+        String line;
+		CollectionManager cm = new CollectionManager();
+        int id_collection = cm.getNextCollectionId();
+        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(db_file), "UTF8"));
+        Connection conn = ConnectionManager.getInstance().getConnection();
+        while ((line = in.readLine()) != null) {
+            if (line.trim().compareToIgnoreCase("") != 0) {
+                line = line.replace("???", Integer.toString(id_collection));
+                try (PreparedStatement stmt = conn.prepareStatement(line)) {
+                    stmt.executeUpdate();
+                }
+            }
+        }
+
+//        Properties props = new Properties();
+//        props.load(new FileInputStream("./config/database.properties"));
+//        RunScript.execute(props.getProperty("jdbc.url"), props.getProperty("jdbc.username"), props.getProperty("jdbc.password"), this.db_file.getAbsolutePath(), null, true);
+//        pdata.setDatabaseCorpus(new DatabaseCorpus(pdata.getCollectionName()));
     }
 
-    private void parseProjectionXML() throws Exception {
+    private void loadProjection() throws Exception {
         Document dom = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml_file.getAbsolutePath());
 
         //get the root element
         Element docEle = dom.getDocumentElement();
+        
+        /* Projection Data parameters */
         this.pdata.setCollectionName(getAttrOfElement(docEle, "collection-name", "value"));
-        this.pdata.setDissimilarityType(DissimilarityType.retrieve(getAttrOfElement(docEle, "distance-type", "value")));
-        this.pdata.setDimensionReductionType(DimensionalityReductionType.retrieve(getAttrOfElement(docEle, "dimensionality-reduction", "value")));
+        
+        
+		CollectionManager cm = new CollectionManager();
+        int aux = cm.getCollectionId(pdata.getCollectionName());
+        System.out.println(pdata.getCollectionName());
+        System.out.println(aux);
+        if (aux != -1) { //uma coleção com este nome já existe na base de dados
+            String message = "The collection \"" + pdata.getCollectionName() + "\" already exists. \n"
+                    + "Do you want to replace it?";
+            int answer = JOptionPane.showOptionDialog(this.view, message, "Warning",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
+            if (answer == JOptionPane.NO_OPTION) {
+                this.pdata = null;
+                return;
+
+            } else {
+            	cm.removeCollection(aux);
+            }
+        }
+        
+        this.pdata.setNumberOfDocuments(Integer.parseInt(getAttrOfElement(docEle, "number-documents", "value")));
+        this.pdata.setRepresentationType(RepresentationType.retrieve(getAttrOfElement(docEle, "representation-type", "value")));
+        this.pdata.setDissimilarityType(DissimilarityType.retrieve(getAttrOfElement(docEle, "dissimilarity-type", "value")));
+        this.pdata.setMatrixTransformationType(MatrixTransformationType.retrieve(getAttrOfElement(docEle, "matrix-transformation-type", "value")));
+        this.pdata.setDimensionReductionType(DimensionalityReductionType.retrieve(getAttrOfElement(docEle, "dimensionality-reduction-type", "value")));
+        this.pdata.setNormalization(NormalizationType.retrieve(getAttrOfElement(docEle, "normalization-type", "value")));
+        this.pdata.setStemmer(StemmerType.retrieve(getAttrOfElement(docEle, "stemmer-type", "value")));
         this.pdata.setNumberGrams(Integer.parseInt(getAttrOfElement(docEle, "number-grams", "value")));
         this.pdata.setSourceFile(getAttrOfElement(docEle, "source-file", "value"));
         this.pdata.setLunhLowerCut(Integer.parseInt(getAttrOfElement(docEle, "luhn-lower-cut", "value")));
         this.pdata.setLunhUpperCut(Integer.parseInt(getAttrOfElement(docEle, "luhn-upper-cut", "value")));
-
-        this.parseProjections(docEle);
+        this.pdata.setReferencesLowerCut(Integer.parseInt(getAttrOfElement(docEle, "references-lower-cut", "value")));
+        this.pdata.setReferencesUpperCut(Integer.parseInt(getAttrOfElement(docEle, "references-upper-cut", "value")));
+        this.pdata.setFractionDelta(Float.parseFloat(getAttrOfElement(docEle, "lsp-fraction-delta", "value")));
+        this.pdata.setNumberIterations(Integer.parseInt(getAttrOfElement(docEle, "lsp-number-iterations", "value")));
+        this.pdata.setNumberControlPoints(Integer.parseInt(getAttrOfElement(docEle, "lsp-number-control-points", "value")));
+        this.pdata.setNumberNeighborsConnection(Integer.parseInt(getAttrOfElement(docEle, "lsp-number-neighbors-connections", "value")));
+        this.pdata.setControlPointsChoice(ControlPointsType.retrieve(getAttrOfElement(docEle, "lsp-control-points-choice", "value")));
+        
+        /* Monic parameters*/
+        if(getAttrOfElement(docEle, "dbscan-epsilon", "value") != null) {
+            this.pdata.setTopicEvolutionGenerated(true);
+            this.pdata.setEpsilon(Double.parseDouble(getAttrOfElement(docEle, "dbscan-epsilon", "value")));
+            this.pdata.setMinPoint(Integer.parseInt(getAttrOfElement(docEle, "dbscan-minpoints", "value")));
+            this.pdata.setTheta(Double.parseDouble(getAttrOfElement(docEle, "monic-theta", "value")));
+            this.pdata.setThetaSplit(Double.parseDouble(getAttrOfElement(docEle, "monic-theta-split", "value")));
+        }
+        
+        this.pdata.setProjectionType(ProjectionType.retrieve(getAttrOfElement(docEle, "projection-technique", "value")));
+        
+        /* Topic Data parameters */
+        this.tdata.setTopicType(TopicType.valueOf(getAttrOfElement(docEle, "topic-type", "value")));
+        this.tdata.setTypeOfTopicVisualization(TopicVisualization.valueOf(getAttrOfElement(docEle, "topic-visualization-type", "value")));
+        if (this.tdata.getTopicType() == TopicData.TopicType.PCA) {
+            this.tdata.setPcaMinInformationTerms(Float.parseFloat(getAttrOfElement(docEle, "pca-min-terms", "value")));
+            this.tdata.setPcaInformationTopics(Float.parseFloat(getAttrOfElement(docEle, "pca-min-topics", "value")));
+        }
+        else if (this.tdata.getTopicType() == TopicData.TopicType.COVARIANCE) {
+            this.tdata.setCovariancePercentageTerms(Float.parseFloat(getAttrOfElement(docEle, "covariance-min-terms", "value")));
+            this.tdata.setCovariancePercentageTopics(Float.parseFloat(getAttrOfElement(docEle, "covariance-min-topics", "value")));
+        }
+        else if (this.tdata.getTopicType() == TopicData.TopicType.LDA) {
+            this.tdata.setLdaNumberOfTopics(Integer.parseInt(getAttrOfElement(docEle, "lda-number-topics", "value")));
+            this.tdata.setLdaNumberOfIterations(Integer.parseInt(getAttrOfElement(docEle, "lda-number-iterations", "value")));
+            this.tdata.setLdaAlpha(Double.parseDouble(getAttrOfElement(docEle, "lda-alpha", "value")));
+            this.tdata.setLdaBeta(Double.parseDouble(getAttrOfElement(docEle, "lda-beta", "value")));
+        }
+        
+        //this.parseProjections(docEle);
     }
-
+    
+    /* TODO */
     private void parseProjections(Element parent) {
         Element el;
         Node node;

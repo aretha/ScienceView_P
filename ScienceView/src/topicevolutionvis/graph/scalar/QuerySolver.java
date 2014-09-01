@@ -68,6 +68,7 @@ public class QuerySolver {
 
     /**
      * Creates a new instance of QuerySolver
+     * @param tproj
      */
     public QuerySolver(TemporalProjection tproj) {
         this.tproj = tproj;
@@ -75,10 +76,7 @@ public class QuerySolver {
 
     public boolean isoperand(String symb) {
         symb = symb.replaceAll(" ", "");
-        if (!symb.equals("and") && !symb.equals("or") && !symb.equals("(") && !symb.equals(")")) {
-            return true;
-        }
-        return false;
+        return !symb.equals("and") && !symb.equals("or") && !symb.equals("(") && !symb.equals(")");
     }
 
     public boolean prdc(String one, String two) {
@@ -206,18 +204,17 @@ public class QuerySolver {
 
         String[] symbs = postFix.split(splitSymbol);
 
-        for (int i = 0; i < symbs.length; i++) {
-            if (symbs[i].equals("")) {
+        for (String symb : symbs) {
+            if (symb.equals("")) {
                 continue;
             }
-            if (isoperand(symbs[i])) {
-                opndstk.push(value(symbs[i], vertex));
+            if (isoperand(symb)) {
+                opndstk.push(value(symb, vertex));
             } else {
                 opnd2 = opndstk.pop();
                 opnd1 = opndstk.pop();
-                value = oper(symbs[i], opnd1, opnd2, vertex.size());
+                value = oper(symb, opnd1, opnd2, vertex.size());
                 opndstk.push(value);
-
             }
         }
         return opndstk.pop();
@@ -274,7 +271,7 @@ public class QuerySolver {
 
         ArrayList<Ngram> ngrams = this.tproj.getDatabaseCorpus().getNgrams(filename);
         for (Ngram n : ngrams) {
-            if (n.ngram.indexOf(word.toLowerCase()) != -1) {
+            if (n.ngram.contains(word.toLowerCase())) {
                 frequency += n.frequency;
             }
         }

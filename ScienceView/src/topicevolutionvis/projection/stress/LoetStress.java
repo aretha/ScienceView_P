@@ -19,7 +19,7 @@ import topicevolutionvis.projection.distance.Dissimilarity;
  */
 public class LoetStress extends Stress {
 
-    private XYSeriesCollection stress_series = new XYSeriesCollection();
+    private final XYSeriesCollection stress_series = new XYSeriesCollection();
 
     @Override
     public XYSeriesCollection calculate(SparseMatrix matrix, Dissimilarity diss, TreeMap<Integer, TemporalGraph> graphs) {

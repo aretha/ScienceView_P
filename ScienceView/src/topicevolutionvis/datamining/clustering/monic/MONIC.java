@@ -1,3 +1,7 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package topicevolutionvis.datamining.clustering.monic;
 
 import gnu.trove.iterator.TIntObjectIterator;
@@ -374,7 +378,6 @@ public class MONIC extends SwingWorker<Void, Void> {
             }
         } catch (ExecutionException e) {
             // Exception occurred, deal with it
-            System.out.println("Exception: " + e.getCause());
             Logger.getLogger(MONIC.class.getName()).log(Level.SEVERE, null, e);
         } catch (InterruptedException e) {
             Logger.getLogger(MONIC.class.getName()).log(Level.SEVERE, null, e);
@@ -524,7 +527,6 @@ public class MONIC extends SwingWorker<Void, Void> {
             index++;
         }
         if (index > 0) {
-        	// TODO: Replace DBSCAN by ELKI: http://elki.dbs.ifi.lmu.de/
             try {
                 clusterer = new DBSCAN();
                 options = new String[8];

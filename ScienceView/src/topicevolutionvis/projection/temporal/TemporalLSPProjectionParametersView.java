@@ -22,7 +22,8 @@ import topicevolutionvis.wizard.ProjectionViewWizard;
  */
 public class TemporalLSPProjectionParametersView extends ProjectionViewWizard {
 
-    /** Creates new form TemporalProjectionParametersView */
+    /** Creates new form TemporalProjectionParametersView
+     * @param pdata */
     public TemporalLSPProjectionParametersView(ProjectionData pdata) {
         super(pdata);
         initComponents();
@@ -318,24 +319,6 @@ public class TemporalLSPProjectionParametersView extends ProjectionViewWizard {
     private javax.swing.JProgressBar statusProgressBar;
     // End of variables declaration//GEN-END:variables
 	@Override
-	public boolean isNextStepTerminal() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canGoToNextStep() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canGoToPreviousStep() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean canCancel() {
 		// TODO Auto-generated method stub
 		return false;
@@ -360,7 +343,25 @@ public class TemporalLSPProjectionParametersView extends ProjectionViewWizard {
 	}
 
 	@Override
+	public boolean isNextStepTerminal() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canGoToNextStep() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
 	public boolean hasPreviousStep() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canGoToPreviousStep() {
 		// TODO Auto-generated method stub
 		return false;
 	}

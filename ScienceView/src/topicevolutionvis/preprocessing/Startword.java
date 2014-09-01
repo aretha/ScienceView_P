@@ -76,7 +76,7 @@ public class Startword {
             //Test if the stowords file exist
             File f = new File(staFilename);
             if (!f.exists() || m.getProperty("STW.FILE").trim().length() < 1) {
-                staFilename = "resources/config/startwords.stw";
+                staFilename = "config/startwords.stw";
                 m.setProperty("STW.FILE", staFilename);
             }
 
@@ -96,7 +96,7 @@ public class Startword {
     public void addStartwords(List<String> newStartwords) {
         for (String newStartword : newStartwords) {
             if (!isStartWord(newStartword)) {
-                this.startwords.add(new WeightedWord(newStartword.toLowerCase(), new Double(1.0)));
+                this.startwords.add(new WeightedWord(newStartword.toLowerCase(), 1.0));
             }
         }
 
@@ -172,7 +172,7 @@ public class Startword {
                     this.startwords.add(new WeightedWord(word.toLowerCase(), weight));
 
                 } else {
-                    this.startwords.add(new WeightedWord(line.toLowerCase(), new Double(1.0)));
+                    this.startwords.add(new WeightedWord(line.toLowerCase(), 1.0));
                 }
             }
 

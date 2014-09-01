@@ -19,7 +19,9 @@ public class Connectivity implements java.io.Serializable {
     /**
      * Creates a new instance of Connectivity
      *
-     * @param name The connectivity's name
+     * @param type
+     * @param directed
+     * @param weighted
      */
     public Connectivity(ConnectivityType type, boolean directed, boolean weighted) {
         this.type = type;
@@ -88,19 +90,17 @@ public class Connectivity implements java.io.Serializable {
             ArrayList<Vertex> vertex = new ArrayList<>(vertexH.valueCollection());
 
             for (int i = 0; i < neighborhood.length; i++) {
-                for (int j = 0; j < neighborhood[i].length; j++) {
-                    if (neighborhood[i][j].value < min_weight) {
-                        min_weight = (float) neighborhood[i][j].value;
+                for (Pair item : neighborhood[i]) {
+                    if (item.value < min_weight) {
+                        min_weight = (float) item.value;
                     }
-                    if (neighborhood[i][j].value > max_weight) {
-                        max_weight = (float) neighborhood[i][j].value;
+                    if (item.value > max_weight) {
+                        max_weight = (float) item.value;
                     }
                     if (!directed) {
-                        edges.add(new Edge((float) neighborhood[i][j].value, vertex.get(i).getId(),
-                                vertexH.get(neighborhood[i][j].index).getId()));
+                        edges.add(new Edge((float) item.value, vertex.get(i).getId(), vertexH.get(item.index).getId()));
                     } else {
-                        edges.add(new Arrow((float) neighborhood[i][j].value, vertex.get(i).getId(),
-                                vertexH.get(neighborhood[i][j].index).getId()));
+                        edges.add(new Arrow((float) item.value, vertex.get(i).getId(), vertexH.get(item.index).getId()));
                     }
                 }
             }

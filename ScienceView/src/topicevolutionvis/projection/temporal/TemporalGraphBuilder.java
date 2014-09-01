@@ -5,20 +5,16 @@
 package topicevolutionvis.projection.temporal;
 
 import com.vividsolutions.jts.geom.*;
-
 import gnu.trove.iterator.TIntIterator;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.map.hash.TIntObjectHashMap;
-
 import java.io.IOException;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.apache.commons.math3.analysis.interpolation.LinearInterpolator;
-
 import topicevolutionvis.database.DatabaseCorpus;
 import topicevolutionvis.datamining.network.BibliographicCouplingConnectivity;
 import topicevolutionvis.datamining.network.CoAuthorshipConnectivy;
@@ -51,23 +47,23 @@ import topicevolutionvis.wizard.ProjectionViewWizard;
  *
  * @author Aretha
  */
-public class TemporalGraphBuilder extends ProjectionViewWizard {
+public class TemporalGraphBuilder {
 
-    private ProjectionViewWizard view;
-    private TemporalProjection tproj;
+    private final ProjectionViewWizard view;
+    private final TemporalProjection tproj;
     private Dissimilarity diss = null;
     private IOException exception;
-    private TreeMap<Integer, TemporalGraph> graphs = new TreeMap<>();
-    private TIntObjectHashMap<TIntArrayList> fixedDocuments = new TIntObjectHashMap<>();
-    private TIntObjectHashMap<TIntArrayList> newDocuments = new TIntObjectHashMap<>();
-    private TIntObjectHashMap<TIntArrayList> updatedDocuments = new TIntObjectHashMap<>();
-    private TIntObjectHashMap<TIntArrayList> usedCPDocuments = new TIntObjectHashMap<>();
+    private final TreeMap<Integer, TemporalGraph> graphs = new TreeMap<>();
+    private final TIntObjectHashMap<TIntArrayList> fixedDocuments = new TIntObjectHashMap<>();
+    private final TIntObjectHashMap<TIntArrayList> newDocuments = new TIntObjectHashMap<>();
+    private final TIntObjectHashMap<TIntArrayList> updatedDocuments = new TIntObjectHashMap<>();
+    private final TIntObjectHashMap<TIntArrayList> usedCPDocuments = new TIntObjectHashMap<>();
     private DatabaseCorpus corpus = null;
-    private boolean reduced_number_of_control_points = false;
+    private final boolean reduced_number_of_control_points = false;
     private int min_cp = 10; //número minimo de pontos de controle para cada projeção
     double area_fullprojection = 0;
 //  private SimilarityConnectivy similarityCon;
-    private Scalar sdots, syear, scorecitations, stimescited, sscheme, sclass;
+    private final Scalar sdots, syear, scorecitations, stimescited, sscheme, sclass;
 
     /**
      * Creates a new instance of TemporalGraphBuilder
@@ -75,10 +71,8 @@ public class TemporalGraphBuilder extends ProjectionViewWizard {
      * @param view
      * @param tproj
      * @param corpus
-     * @param graph
      */
-    public TemporalGraphBuilder(ProjectionData pdata, ProjectionViewWizard view, TemporalProjection tproj, DatabaseCorpus corpus) {
-    	super(pdata);
+    public TemporalGraphBuilder(ProjectionViewWizard view, TemporalProjection tproj, DatabaseCorpus corpus) {
         this.view = view;
         this.tproj = tproj;
         this.exception = null;
@@ -451,7 +445,7 @@ public class TemporalGraphBuilder extends ProjectionViewWizard {
             v.setScalar(sdots, 0.0f);
             v.setPublishedYear(corpus.getYear(v.getId()));
             v.setScalar(sclass, corpus.getClass(v.getId()));
-            v.setScalar(syear, Utils.indexOf(tproj.getYears(), v.getPublishedYear().intValue()) * increment);
+            v.setScalar(syear, Utils.indexOf(tproj.getYears(), v.getPublishedYear()) * increment);
             v.setScalar(scorecitations, corpus.getNumberOfCitationsAtYear(v.getId(), year));
             v.setScalar(stimescited, corpus.getGlobalCitationCount(v.getId()));
             v.setTemporalProjection(tproj);
@@ -480,21 +474,19 @@ public class TemporalGraphBuilder extends ProjectionViewWizard {
         double maxY = projection[0][1];
         double minY = projection[0][1];
 
-        //Encontra o maior e menor valores para X e Y
-        for (int i = 0; i < projection.length; i++) {
-            if (maxX < projection[i][0]) {
-                maxX = projection[i][0];
+        for (double[] projection1 : projection) {
+            if (maxX < projection1[0]) {
+                maxX = projection1[0];
             } else {
-                if (minX > projection[i][0]) {
-                    minX = projection[i][0];
+                if (minX > projection1[0]) {
+                    minX = projection1[0];
                 }
             }
-
-            if (maxY < projection[i][1]) {
-                maxY = projection[i][1];
+            if (maxY < projection1[1]) {
+                maxY = projection1[1];
             } else {
-                if (minY > projection[i][1]) {
-                    minY = projection[i][1];
+                if (minY > projection1[1]) {
+                    minY = projection1[1];
                 }
             }
         }
@@ -964,50 +956,4 @@ public class TemporalGraphBuilder extends ProjectionViewWizard {
             view.setStatus(status, value);
         }
     }
-
-	@Override
-	public void setStatus(String status, int value) {
-	}
-
-	@Override
-	public void refreshData() {
-	}
-
-	@Override
-	public boolean canCancel() {
-		return true;
-	}
-
-	@Override
-	public void cancel() {
-	}
-
-	@Override
-	public boolean isNextStepTerminal() {
-		return true;
-	}
-
-	@Override
-	public boolean canGoToNextStep() {
-		return true;
-	}
-
-	@Override
-	public boolean hasPreviousStep() {
-		return true;
-	}
-
-	@Override
-	public boolean canGoToPreviousStep() {
-		return true;
-	}
-
-	@Override
-	public boolean canResetConfiguration() {
-		return true;
-	}
-
-	@Override
-	public void resetConfiguration() {
-	}
 }

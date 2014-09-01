@@ -60,5 +60,5 @@ public class DimensionalityReductionType implements Serializable {
     }
     public static final long serialVersionUID = 1L;
     private static ArrayList<DimensionalityReductionType> types;
-    private String name;
+    private final String name;
 }

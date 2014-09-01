@@ -147,10 +147,10 @@ public class PCA extends DimensionalityReduction {
         double[] mean = new double[points[0].length];
         Arrays.fill(mean, 0.0f);
 
-        for (int i = 0; i < points.length; i++) {
+        for (double[] point : points) {
             //calculating
-            for (int j = 0; j < points[i].length; j++) {
-                mean[j] += points[i][j];
+            for (int j = 0; j < point.length; j++) {
+                mean[j] += point[j];
             }
         }
 
@@ -158,10 +158,9 @@ public class PCA extends DimensionalityReduction {
             mean[i] /= points.length;
         }
 
-        //extracting the mean
-        for (int i = 0; i < points.length; i++) {
-            for (int j = 0; j < points[i].length; j++) {
-                points[i][j] -= mean[j];
+        for (double[] point : points) {
+            for (int j = 0; j < point.length; j++) {
+                point[j] -= mean[j];
             }
         }
 
@@ -181,8 +180,8 @@ public class PCA extends DimensionalityReduction {
     //calculate the covariance between columns a and b
     private double covariance(double[][] points, int a, int b) {
         double covariance = 0.0d;
-        for (int i = 0; i < points.length; i++) {
-            covariance += points[i][a] * points[i][b];
+        for (double[] point : points) {
+            covariance += point[a] * point[b];
         }
         covariance /= (points.length - 1);
         return covariance;

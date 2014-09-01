@@ -19,6 +19,7 @@ public class TopicData {
 
         SIMPLE, TAGCLOUD
     }
+    
     private int nextAvailableId = 1;
     //parameters for extraction of topics by covariance
     private float covariancePercentageTopics = 0.75f;

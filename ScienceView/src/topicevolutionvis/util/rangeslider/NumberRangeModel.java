@@ -145,10 +145,10 @@ public class NumberRangeModel extends DefaultBoundedRangeModel
      * @param max the maximum value allowed for ranges
      */
     public void setValueRange(double lo, double hi, double min, double max) {
-        m_lo = new Double(lo);
-        m_hi = new Double(hi);
-        m_min = new Double(min);
-        m_max = new Double(max);
+        m_lo = lo;
+        m_hi = hi;
+        m_min = min;
+        m_max = max;
         updateRange();
     }
 
@@ -265,14 +265,14 @@ public class NumberRangeModel extends DefaultBoundedRangeModel
             double f = (val - min) / (double) (max - min);
             double m = m_min.doubleValue();
             double v = m + f * (m_max.doubleValue() - m);
-            return (m_type == float.class ? (Number) new Float((float) v)
+            return (m_type == float.class ? (Number) (float) v
                     : new Double(v));
         } else if (m_type == long.class) {
             long m = m_min.longValue();
             long v = m + (val - min) * (m_max.longValue() - m) / (max - min);
-            return new Long(v);
+            return v;
         } else {
-            return new Integer(val);
+            return val;
         }
     }
 

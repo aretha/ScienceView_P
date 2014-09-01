@@ -7,7 +7,16 @@ ScienceView/resources/data_base/
 # Java bytecode
 *.class
 
+<<<<<<< HEAD
 # Package Files
 *.jar
+=======
+# Package Files #
+>>>>>>> b6ce08348f6923e7239840dcc9d201ca9f63e6ca
 *.war
 *.ear
+*.db
+/ScienceView/nbproject/private/
+/ScienceView/build/
+/ScienceView/dist/
+

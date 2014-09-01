@@ -178,7 +178,7 @@ public class ProjectionWizardController {
                 }
                 if (direction == ProjectionWizardController.NEXT_STATE) {
                     currentState = ProjectionWizardController.FINAL_STATE;
-                    builder = new TemporalGraphBuilder(tproj.getProjectionData(), projView, tproj, tproj.getProjectionData().getDatabaseCorpus());
+                    builder = new TemporalGraphBuilder(projView, tproj, tproj.getProjectionData().getDatabaseCorpus());
                     builder.start(tproj.getProjectionData());
                     return null;
                 }

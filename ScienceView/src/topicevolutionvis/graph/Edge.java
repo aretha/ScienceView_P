@@ -38,9 +38,13 @@ public class Edge implements Comparable<Edge> {
     /**
      * Drawn a edge on a graphical device
      *
+     * @param image
      * @param g2 The graphical device
      * @param globalsel Indicates if there is at least one selected vertex on
      * the graph this vertex belongs to
+     * @param highquality
+     * @param connectityName
+     * @param graph
      */
     public void draw(Image image, Graphics2D g2, boolean globalsel, boolean highquality, String connectityName, TemporalGraph graph) {
 

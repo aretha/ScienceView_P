@@ -67,5 +67,5 @@ public class DissimilarityType implements Serializable {
 
     public static final long serialVersionUID = 1L;
     private static ArrayList<DissimilarityType> types;
-    private String name;
+    private final String name;
 }

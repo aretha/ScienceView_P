@@ -17,10 +17,10 @@ import topicevolutionvis.matrix.SparseMatrix;
  */
 public class LDAOutput {
 
-    private Alphabet alphabet;
+    private final Alphabet alphabet;
     private ArrayList<TreeSet<IDSorter>> topic_words_probabilites = null;
-    private SparseMatrix topic_documents_probabilites;
-    private double[] sums_words;
+    private final SparseMatrix topic_documents_probabilites;
+    private final double[] sums_words;
 
     public LDAOutput(Alphabet alphabet, SparseMatrix topic_documents_probabilites, ArrayList<TreeSet<IDSorter>> topic_words_probabilites) {
         this.alphabet = alphabet;

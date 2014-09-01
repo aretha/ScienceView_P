@@ -14,9 +14,9 @@ import topicevolutionvis.graph.Vertex;
  */
 public class MovingCluster {
 
-    private TreeMap<Integer, ArrayList<Vertex>> content;
+    private final TreeMap<Integer, ArrayList<Vertex>> content;
     static int next_available_id = 0;
-    private int id;
+    private final int id;
 
     public MovingCluster(Integer year, ArrayList<Vertex> value) {
         content = new TreeMap<>();

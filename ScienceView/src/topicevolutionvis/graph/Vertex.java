@@ -73,9 +73,11 @@ public class Vertex implements Comparable<Vertex>, Cloneable {
     /**
      * Draw the vertex on a graphical device
      *
+     * @param image
      * @param g2 The graphical device
      * @param globalsel Indicates if there is at least one selected vertex on
      * the graph this vertex belongs to
+     * @param highquality
      */
     
     
@@ -197,12 +199,8 @@ public class Vertex implements Comparable<Vertex>, Cloneable {
      * @return Return true if the vertex inside the rectangle; false otherwise
      */
     public boolean isInside(java.awt.Rectangle rectangle) {
-        if (((this.x >= rectangle.x) && (this.x - rectangle.x < rectangle.width))
-                && ((this.y >= rectangle.y) && (this.y - rectangle.y < rectangle.height))) {
-            return true;
-        } else {
-            return false;
-        }
+        return ((this.x >= rectangle.x) && (this.x - rectangle.x < rectangle.width))
+                && ((this.y >= rectangle.y) && (this.y - rectangle.y < rectangle.height));
     }
 
     /**
@@ -526,10 +524,7 @@ public class Vertex implements Comparable<Vertex>, Cloneable {
         if (!(obj instanceof Vertex)) {
             return false;
         }
-        if (this.id == ((Vertex) obj).id) {
-            return true;
-        }
-        return false;
+        return this.id == ((Vertex) obj).id;
     }
 
     @Override
