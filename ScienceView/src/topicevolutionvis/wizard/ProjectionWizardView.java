@@ -56,12 +56,9 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import topicevolutionvis.database.DatabaseCorpus;
-import topicevolutionvis.projection.ProjectionData;
 import topicevolutionvis.projection.temporal.TemporalProjection;
 import topicevolutionvis.view.ScienceViewMainFrame;
 
