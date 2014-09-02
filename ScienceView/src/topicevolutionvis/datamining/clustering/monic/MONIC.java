@@ -31,7 +31,6 @@ import topicevolutionvis.view.TemporalProjectionViewer;
 import weka.clusterers.ClusterEvaluation;
 import weka.clusterers.DBSCAN;
 import weka.core.Attribute;
-import weka.core.DenseInstance;
 import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
@@ -519,7 +518,7 @@ public class MONIC extends SwingWorker<Void, Void> {
         while (iterator.hasNext()) {
             iterator.advance();
             Vertex v = iterator.value();
-            instance = new DenseInstance(2);
+            instance = new Instance(2);
             instance.setValue(0, v.getX());
             instance.setValue(1, v.getY());
             data.add(instance);
@@ -537,7 +536,7 @@ public class MONIC extends SwingWorker<Void, Void> {
                 options[4] = "-I";
                 options[5] = "weka.clusterers.forOPTICSAndDBScan.Databases.SequentialDatabase";
                 options[6] = "-D";
-                options[7] = "weka.clusterers.forOPTICSAndDBScan.DataObjects.EuclidianDataObject";
+                options[7] = "weka.clusterers.forOPTICSAndDBScan.DataObjects.EuclideanDataObject";
                 clusterer.setOptions(options);
                 clusterer.buildClusterer(data);
 

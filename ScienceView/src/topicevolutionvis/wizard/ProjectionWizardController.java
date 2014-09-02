@@ -47,6 +47,7 @@ address = {Washington, DC, USA},
  * ***** END LICENSE BLOCK ***** */
 package topicevolutionvis.wizard;
 
+import topicevolutionvis.projection.ProjectionData;
 import topicevolutionvis.projection.lsp.LSPProjectionParametersView;
 import topicevolutionvis.projection.temporal.TemporalGraphBuilder;
 import topicevolutionvis.projection.temporal.TemporalProjection;
@@ -89,6 +90,8 @@ public class ProjectionWizardController {
     public ProjectionWizardController(TemporalProjection tproj) {
     	currentState = INITIAL_STATE;
         this.tproj = tproj;
+        this.tproj.setProjectionData(new ProjectionData());
+        
     }
 
     public WizardPanel getNextPanel(int direction) {

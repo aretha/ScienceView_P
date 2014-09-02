@@ -8,12 +8,16 @@ import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LineSegment;
 import com.vividsolutions.jts.operation.distance.DistanceOp;
+
 import gnu.trove.iterator.TIntIterator;
 import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.map.hash.THashMap;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.TreeMap;
+
 import topicevolutionvis.datamining.clustering.monic.DocumentClusterEvent;
 import topicevolutionvis.datamining.clustering.monic.ExternalTransitions;
 import topicevolutionvis.datamining.clustering.monic.transitions.ContentChangeTransition;
@@ -41,8 +45,18 @@ public class TopicEventsAnimation {
     }
 
     public void create() {
-        for (Integer current_year : transitions.getYears()) {
-            ArrayList<TemporalGraph> animation_graphs = graphs.get(current_year + 1);
+    	Iterator<Integer> iYears = transitions.getYears().iterator();
+    	Integer current_year = null;
+    	Integer nextYear = null;
+    	while (iYears.hasNext()) {
+    		if (nextYear != null) {
+    			current_year = nextYear;
+    		} else {
+    			current_year = iYears.next();
+    		}
+    		nextYear = iYears.next();
+    		
+            ArrayList<TemporalGraph> animation_graphs = graphs.get(nextYear);
             for (DocumentClusterEvent event : transitions.getExternalTransistions(current_year)) {
                 if (event.getType() == DocumentClusterEvent.SURVIVED) {
                     ContentChangeTransition contentChangeTransition = event.getContentChangeTransition();
@@ -64,8 +78,6 @@ public class TopicEventsAnimation {
                             t_input.calcPolygon();
                             input.cloneInfo(t_input);
                             graph.addTopic(t_input);
-
-
                         }
                     } else {
                         if (contentChangeTransition.getSubtype() == ContentChangeTransition.ONLY_ADDED_DOCUMENTS) {

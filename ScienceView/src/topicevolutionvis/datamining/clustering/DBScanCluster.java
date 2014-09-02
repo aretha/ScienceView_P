@@ -77,7 +77,7 @@ public class DBScanCluster extends SwingWorker<Void, Void> {
                 while (iterator.hasNext()) {
                     iterator.advance();
                     Vertex v = iterator.value();
-                    instance = new DenseInstance(2);
+                    instance = new Instance(2);
                     instance.setValue(0, v.getX());
                     instance.setValue(1, v.getY());
                     data.add(instance);

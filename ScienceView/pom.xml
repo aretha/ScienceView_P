@@ -185,16 +185,16 @@
 
 		<dependency>
 			<groupId>nz.ac.waikato.cms.weka</groupId>
-			<artifactId>weka-dev</artifactId>
-			<version>[3.7.10,)</version>
+			<artifactId>weka-stable</artifactId>
+			<version>3.6.11</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>nz.ac.waikato.cms.weka</groupId>
 			<artifactId>optics_dbScan</artifactId>
-			<version>[1.0.3,)</version>
+			<version>[1.0.4,)</version>
 		</dependency>
-			
+				
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-math3</artifactId>

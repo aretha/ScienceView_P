@@ -726,15 +726,15 @@ public class DatabaseCorpus {
         boolean lower_ok = false, upper_ok = false;
         StringBuilder sql = new StringBuilder("SELECT * FROM (SELECT id_CITATION , count(*) as freq FROM DOCUMENTS_TO_CITATIONS where id_COLLECTION =? group by ID_CITATION order by freq desc)");
         if (upper != -1) {
-            sql = sql.append("WHERE freq <= ?");
+            sql = sql.append(" WHERE freq <= ?");
             upper_ok = true;
             if (lower != - 1) {
-                sql = sql.append("AND freq >= ?");
+                sql = sql.append(" AND freq >= ?");
                 lower_ok = true;
             }
         } else {
             if (lower != - 1) {
-                sql = sql.append("WHERE freq >= ?");
+                sql = sql.append(" WHERE freq >= ?");
                 lower_ok = true;
             }
         }
@@ -747,10 +747,10 @@ public class DatabaseCorpus {
                 stmt.setInt(2, upper);
                 if (lower_ok) {
                     stmt.setInt(3, lower);
-                } else {
-                    if (lower_ok) {
-                        stmt.setInt(2, lower);
-                    }
+                }
+            } else {
+            	if (lower_ok) {
+            		stmt.setInt(2, lower);
                 }
             }
             try (ResultSet rs = stmt.executeQuery()) {
