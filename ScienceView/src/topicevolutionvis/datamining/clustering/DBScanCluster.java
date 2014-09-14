@@ -21,7 +21,6 @@ import topicevolutionvis.view.TemporalProjectionViewer;
 import weka.clusterers.ClusterEvaluation;
 import weka.clusterers.DBSCAN;
 import weka.core.Attribute;
-import weka.core.DenseInstance;
 import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;

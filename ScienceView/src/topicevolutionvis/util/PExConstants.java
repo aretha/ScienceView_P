@@ -94,6 +94,6 @@ public interface PExConstants {
     public static final String SLINK = "hc-slink";
     public static final String JOIN = "joined";
     public static final String NULLV = "null vectors";
-    public static final String PATCOM = "[^A-Za-záàãâéèêíìîóòõôúùûÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛçÇ]";
+  //  public static final String PATCOM = "[^A-Za-záàãâéèêíìîóòõôúùû�?ÀÃÂÉÈÊ�?ÌÎÓÒÕÔÚÙÛçÇ]";
 //    public static final String PATCOM = "[0-9\\-]*[\\p{L}]+[0-9\\-]*[\\p{L}]+[0-9\\-]*";
 }
