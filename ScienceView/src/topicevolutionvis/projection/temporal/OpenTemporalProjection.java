@@ -75,7 +75,7 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
 
             this.unzip();
             this.loadProjection();
-            //this.loadDatabase();
+            this.loadDatabase();
 
             //this.createIntermediateGraphs();
 
@@ -123,21 +123,17 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
         String line;
 		CollectionManager cm = new CollectionManager();
         int id_collection = cm.getNextCollectionId();
-        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(db_file), "UTF8"));
-        Connection conn = ConnectionManager.getInstance().getConnection();
-        while ((line = in.readLine()) != null) {
-            if (line.trim().compareToIgnoreCase("") != 0) {
-                line = line.replace("???", Integer.toString(id_collection));
-                try (PreparedStatement stmt = conn.prepareStatement(line)) {
-                    stmt.executeUpdate();
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(db_file), "UTF8"))) {
+            Connection conn = ConnectionManager.getInstance().getConnection();
+            while ((line = in.readLine()) != null) {
+                if (line.trim().compareToIgnoreCase("") != 0) {
+                    line = line.replace("???", Integer.toString(id_collection));
+                    try (PreparedStatement stmt = conn.prepareStatement(line)) {
+                        stmt.executeUpdate();
+                    }
                 }
             }
         }
-
-//        Properties props = new Properties();
-//        props.load(new FileInputStream("./config/database.properties"));
-//        RunScript.execute(props.getProperty("jdbc.url"), props.getProperty("jdbc.username"), props.getProperty("jdbc.password"), this.db_file.getAbsolutePath(), null, true);
-//        pdata.setDatabaseCorpus(new DatabaseCorpus(pdata.getCollectionName()));
     }
 
     private void loadProjection() throws Exception {

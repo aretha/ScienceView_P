@@ -78,7 +78,7 @@ public class MONIC extends SwingWorker<Void, Void> {
         }
         this.monic_time = System.currentTimeMillis();
         System.out.println("MONIC...");
-        for (int i = 0; i < projection.getNumberOfYears() - 1; i++) {
+        for (int i = 0; i < projection.getNumberOfYears(); i++) {
             current_year = projection.getYearWithIndex(i);
 
             next_year = projection.getYearWithIndex(i + 1);
