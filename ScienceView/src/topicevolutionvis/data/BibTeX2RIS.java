@@ -11,6 +11,9 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.nio.charset.Charset;
 
+import com.ironiacorp.computer.ComputerSystem;
+import com.ironiacorp.computer.Filesystem;
+import com.ironiacorp.computer.OperationalSystem;
 import com.ironiacorp.io.IoUtil;
 import com.ironiacorp.string.StringUtil;
 
@@ -53,7 +56,10 @@ public class BibTeX2RIS
 		} catch (FileNotFoundException e) {
 			throw new IllegalArgumentException("File not found: " + file, e);
 		}
-		extension = IoUtil.getExtension(file);
+
+		OperationalSystem os = ComputerSystem.getCurrentOperationalSystem();
+		Filesystem fs = os.getFilesystem();
+		extension = fs.getExtension(file);
 		if (StringUtil.isEmpty(extension)) {
 			setOutputFile(file + ISICorpusDatabaseImporter.FILE_EXTENSION);	
 		} else {
