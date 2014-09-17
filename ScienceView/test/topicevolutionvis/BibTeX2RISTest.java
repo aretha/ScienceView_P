@@ -10,6 +10,9 @@ import static org.junit.Assert.*;
 import topicevolutionvis.data.BibTeX2RIS;
 import topicevolutionvis.data.ISICorpusDatabaseImporter;
 
+import com.ironiacorp.computer.ComputerSystem;
+import com.ironiacorp.computer.Filesystem;
+import com.ironiacorp.computer.OperationalSystem;
 import com.ironiacorp.io.IoUtil;
 
 public class BibTeX2RISTest
@@ -65,7 +68,9 @@ public class BibTeX2RISTest
 	public void testConvert() throws IOException {
 		String actualIsiData, expectedIsiData;
 		File outfile;
-		File file = IoUtil.createTempFile(this.getClass().getName(), ISICorpusDatabaseImporter.FILE_EXTENSION);
+		OperationalSystem os = ComputerSystem.getCurrentOperationalSystem();
+		Filesystem fs = os.getFilesystem();
+		File file = fs.createTempFile(this.getClass().getName(), ISICorpusDatabaseImporter.FILE_EXTENSION);
 		bib.setInputStream(Thread.currentThread().getContextClassLoader().getResourceAsStream("topicevolutionvis/InproceedingsArticle.bib"));
 		bib.setOutputFile(file);
 		bib.readData();
