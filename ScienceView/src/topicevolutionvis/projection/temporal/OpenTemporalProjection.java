@@ -14,7 +14,6 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 import java.util.zip.ZipInputStream;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;

@@ -70,7 +70,6 @@ public abstract class ConnectionManager
     {
         try {
             String url = props.getProperty("jdbc.url");
-            System.out.println(url);
             String username = props.getProperty("jdbc.username");
             String password = props.getProperty("jdbc.password");
             
