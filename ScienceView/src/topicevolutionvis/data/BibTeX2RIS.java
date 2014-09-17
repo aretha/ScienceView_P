@@ -14,7 +14,6 @@ import java.nio.charset.Charset;
 import com.ironiacorp.computer.ComputerSystem;
 import com.ironiacorp.computer.Filesystem;
 import com.ironiacorp.computer.OperationalSystem;
-import com.ironiacorp.io.IoUtil;
 import com.ironiacorp.string.StringUtil;
 
 import net.sf.jabref.BibtexDatabase;

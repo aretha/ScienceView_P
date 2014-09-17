@@ -73,6 +73,7 @@
                         <id>IroniaCorp</id>
                         <name>Ironia Corporation</name>
                         <url>http://www.ironiacorp.com/repo/maven2</url>
+                        <!--
                         <releases>
                                 <enabled>true</enabled>
                                 <updatePolicy>interval:10080</updatePolicy>
@@ -81,6 +82,7 @@
                                 <enabled>true</enabled>
                                 <updatePolicy>interval:10080</updatePolicy>
                         </snapshots>
+                        -->
                 </repository>
 
 		<repository>
@@ -222,7 +224,7 @@
 		<dependency>
 		    <groupId>pex</groupId>
 		    <artifactId>lspsolver</artifactId>
-		    <version>[1.1.0,)</version>
+		    <version>[1.0.0,)</version>
 		</dependency>
 
 		<dependency>
