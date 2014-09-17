@@ -493,32 +493,32 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
     }
 
     private void saveCitations(BufferedWriter writer, int id_collection) {
-        
-            //scrip para tabela CITATIONS
-            try (
-                    Connection conn = connManager.getConnection();		
-            		PreparedStatement stmt = sqlManager.getSqlStatement(conn, "SAVE.SCRIPT.REFERENCES")) {
-                stmt.setInt(1, id_collection);
-                try (ResultSet rs = stmt.executeQuery()) {
-                    while (rs.next()) {
-                        writer.write("INSERT INTO CITATIONS(ID_CITATION, ID_COLLECTION, TYPE, ID_AUTHOR, YEAR, JOURNAL, VOLUME, CHAPTER, DOI, PAGES, ARTN, FULL_REFERENCE, ID_DOC_CORE) VALUES (");
-                        processInt(writer, rs.getInt(1), false); //id_citation
-                        processString(writer, "???", false); //ID_COLLECTION
-                        processString(writer, rs.getString(3), false); //TYPE
-                        processInt(writer, rs.getInt(4), false); //id_author
-                        processInt(writer, rs.getInt(5), false); //year
-                        processString(writer, rs.getString(6), false); //JOURNAL
-                        processString(writer, rs.getString(7), false); //VOLUME
-                        processString(writer, rs.getString(8), false); //CHAPTER
-                        processString(writer, rs.getString(9), false); //DOI
-                        processString(writer, rs.getString(10), false); //PAGES
-                        processString(writer, rs.getString(11), false); //ARTN
-                        processString(writer, rs.getString(12), false); //FULL_REFERENCE
-                        processInt(writer, rs.getInt(13), true); //ID_DOC_CORE
-                        writer.newLine();
-                        writer.flush();
-                    }
+
+        //scrip para tabela CITATIONS
+        try (
+                Connection conn = connManager.getConnection();
+                PreparedStatement stmt = sqlManager.getSqlStatement(conn, "SAVE.SCRIPT.REFERENCES")) {
+            stmt.setInt(1, id_collection);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    writer.write("INSERT INTO CITATIONS(ID_CITATION, ID_COLLECTION, TYPE, ID_AUTHOR, YEAR, JOURNAL, VOLUME, CHAPTER, DOI, PAGES, ARTN, FULL_REFERENCE, ID_DOC_CORE) VALUES (");
+                    processInt(writer, rs.getInt(1), false); //id_citation
+                    processString(writer, "???", false); //ID_COLLECTION
+                    processString(writer, rs.getString(3), false); //TYPE
+                    processInt(writer, rs.getInt(4), false); //id_author
+                    processInt(writer, rs.getInt(5), false); //year
+                    processString(writer, rs.getString(6), false); //JOURNAL
+                    processString(writer, rs.getString(7), false); //VOLUME
+                    processString(writer, rs.getString(8), false); //CHAPTER
+                    processString(writer, rs.getString(9), false); //DOI
+                    processString(writer, rs.getString(10), false); //PAGES
+                    processString(writer, rs.getString(11), false); //ARTN
+                    processString(writer, rs.getString(12), false); //FULL_REFERENCE
+                    processInt(writer, rs.getInt(13), true); //ID_DOC_CORE
+                    writer.newLine();
+                    writer.flush();
                 }
+            }
         } catch (SQLException | IOException ex) {
             Logger.getLogger(SaveTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -526,64 +526,63 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
     }
 
     private void saveCollections(BufferedWriter writer, int id_collection) {
-    	//scrip para tabela COLLECTIONS
-            try (Connection conn = connManager.getConnection();		
-            		PreparedStatement stmt = sqlManager.getSqlStatement(conn,"SAVE.SCRIPT.COLLECTIONS")) {
-                stmt.setInt(1, id_collection);
-                try (ResultSet rs = stmt.executeQuery()) {
-                    if (rs.next()) {
-                        writer.write("INSERT INTO COLLECTIONS(ID_COLLECTION, NAME, FILENAME, NRGRAMS, FORMAT, GRAMS) VALUES (");
-                        processString(writer, "???", false); //ID_COLLECTION
-                        processString(writer, rs.getString(2), false); //NAME
-                        processString(writer, rs.getString(3), false); //FILENAME
-                        processInt(writer, rs.getInt(4), false); //NRGRAMS
-                        processString(writer, rs.getString(5), false); //FORMAT
-                        writer.write("X");
-                        processString(writer, rs.getString(6), true); //GRAMS
-                        writer.newLine();
-                        writer.flush();
-                    }
+        //scrip para tabela COLLECTIONS
+        try (Connection conn = connManager.getConnection();
+                PreparedStatement stmt = sqlManager.getSqlStatement(conn, "SAVE.SCRIPT.COLLECTIONS")) {
+            stmt.setInt(1, id_collection);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    writer.write("INSERT INTO COLLECTIONS(ID_COLLECTION, NAME, FILENAME, NRGRAMS, FORMAT, GRAMS) VALUES (");
+                    processString(writer, "???", false); //ID_COLLECTION
+                    processString(writer, rs.getString(2), false); //NAME
+                    processString(writer, rs.getString(3), false); //FILENAME
+                    processInt(writer, rs.getInt(4), false); //NRGRAMS
+                    processString(writer, rs.getString(5), false); //FORMAT
+                    writer.write("X");
+                    processString(writer, rs.getString(6), true); //GRAMS
+                    writer.newLine();
+                    writer.flush();
                 }
+            }
         } catch (SQLException | IOException ex) {
             Logger.getLogger(SaveTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     private void saveDocuments(BufferedWriter writer, int id_collection) {
-    	//scrip para tabela DOCUMENTS
-            try (Connection conn = connManager.getConnection();
-            	PreparedStatement stmt = sqlManager.getSqlStatement(conn,"SAVE.SCRIPT.DOCUMENTS")) {
-                stmt.setInt(1, id_collection);
-                try (ResultSet rs = stmt.executeQuery()) {
-                    while (rs.next()) {
-
-                        writer.write("INSERT INTO DOCUMENTS(ID_DOC, ID_COLLECTION, TYPE, TITLE, RESEARCH_ADDRESS, ABSTRACT, KEYWORDS, AUTHORS_KEYWORDS, YEAR, GCC, LCC, DOI, FIRST_PAGE, END_PAGE, PDF_FILE, JOURNAL, JOURNAL_ABBREV, VOLUME, CLASS, GRAMS) VALUES (");
-                        processInt(writer, rs.getInt(1), false); //ID_DOC
-                        processString(writer, "???", false); //ID_COLLECTION
-                        processInt(writer, rs.getInt(3), false); //TYPE
-                        processString(writer, rs.getString(4), false); //TITLE
-                        processString(writer, rs.getString(5), false); //RESEARCH_ADDRESS
-                        processString(writer, rs.getString(6), false); //ABSTRACT
-                        processString(writer, rs.getString(7), false); //KEYWORDS
-                        processString(writer, rs.getString(8), false); //AUTHORS_KEYWORDS
-                        processInt(writer, rs.getInt(9), false); //YEAR
-                        processInt(writer, rs.getInt(10), false); //GCC
-                        processInt(writer, rs.getInt(11), false); //LCC
-                        processString(writer, rs.getString(12), false); //DOI
-                        processString(writer, rs.getString(13), false); //FIRST_PAGE
-                        processString(writer, rs.getString(14), false); //END_PAGE
-                        processString(writer, rs.getString(15), false); //PDF_FILE
-                        processString(writer, rs.getString(16), false); //JOURNAL
-                        processString(writer, rs.getString(17), false); //JOURNAL_ABBREV
-                        processString(writer, rs.getString(18), false); //VOLUME
-                        processInt(writer, rs.getInt(19), false); //CLASS
-                        writer.write("X");
-                        processString(writer, rs.getString(20), true); //GRAMS
-                        writer.newLine();
-                        writer.flush();
-                    }
+        //scrip para tabela DOCUMENTS
+        try (Connection conn = connManager.getConnection();
+                PreparedStatement stmt = sqlManager.getSqlStatement(conn, "SAVE.SCRIPT.DOCUMENTS")) {
+            stmt.setInt(1, id_collection);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    writer.write("INSERT INTO DOCUMENTS(ID_DOC, ID_COLLECTION, TYPE, TITLE, RESEARCH_ADDRESS, ABSTRACT, KEYWORDS, AUTHORS_KEYWORDS, YEAR, GCC, LCC, DOI, FIRST_PAGE, END_PAGE, PDF_FILE, JOURNAL, JOURNAL_ABBREV, VOLUME, CLASS, GRAMS) VALUES (");
+                    processInt(writer, rs.getInt(1), false); //ID_DOC
+                    processString(writer, "???", false); //ID_COLLECTION
+                    processInt(writer, rs.getInt(3), false); //TYPE
+                    processString(writer, rs.getString(4), false); //TITLE
+                    processString(writer, rs.getString(5), false); //RESEARCH_ADDRESS
+                    processString(writer, rs.getString(6), false); //ABSTRACT
+                    processString(writer, rs.getString(7), false); //KEYWORDS
+                    processString(writer, rs.getString(8), false); //AUTHORS_KEYWORDS
+                    processInt(writer, rs.getInt(9), false); //YEAR
+                    processInt(writer, rs.getInt(10), false); //GCC
+                    processInt(writer, rs.getInt(11), false); //LCC
+                    processString(writer, rs.getString(12), false); //DOI
+                    processString(writer, rs.getString(13), false); //FIRST_PAGE
+                    processString(writer, rs.getString(14), false); //END_PAGE
+                    processString(writer, rs.getString(15), false); //PDF_FILE
+                    processString(writer, rs.getString(16), false); //JOURNAL
+                    processString(writer, rs.getString(17), false); //JOURNAL_ABBREV
+                    processString(writer, rs.getString(18), false); //VOLUME
+                    processInt(writer, rs.getInt(19), false); //CLASS
+                    writer.write("X");
+                    processString(writer, rs.getString(20), true); //GRAMS
+                    writer.newLine();
+                    writer.flush();
                 }
-            }catch (SQLException | IOException ex) {
+            }
+        } catch (SQLException | IOException ex) {
             Logger.getLogger(SaveTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -591,40 +590,40 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
 
     private void saveDocumentsToCitations(BufferedWriter writer, int id_collection) {
 
-            //scrip para tabela DOCUMENTS_TO_CITATIONS
-            try (Connection conn = connManager.getConnection();
-            		PreparedStatement stmt = sqlManager.getSqlStatement(conn,"SAVE.SCRIPT.DOCUMENTS.TO.REFERENCES")) {
-                stmt.setInt(1, id_collection);
-                try (ResultSet rs = stmt.executeQuery()) {
-                    while (rs.next()) {
-                        writer.write("INSERT INTO DOCUMENTS_TO_CITATIONS(ID_DOC, ID_COLLECTION, ID_CITATION) VALUES (");
-                        processInt(writer, rs.getInt(1), false); //ID_DOC
-                        processString(writer, "???", false); //ID_COLLECTION
-                        processInt(writer, rs.getInt(3), true); //ID_CITATION
-                        writer.newLine();
-                        writer.flush();
-                    }
+        //scrip para tabela DOCUMENTS_TO_CITATIONS
+        try (Connection conn = connManager.getConnection();
+                PreparedStatement stmt = sqlManager.getSqlStatement(conn, "SAVE.SCRIPT.DOCUMENTS.TO.REFERENCES")) {
+            stmt.setInt(1, id_collection);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    writer.write("INSERT INTO DOCUMENTS_TO_CITATIONS(ID_DOC, ID_COLLECTION, ID_CITATION) VALUES (");
+                    processInt(writer, rs.getInt(1), false); //ID_DOC
+                    processString(writer, "???", false); //ID_COLLECTION
+                    processInt(writer, rs.getInt(3), true); //ID_CITATION
+                    writer.newLine();
+                    writer.flush();
                 }
+            }
         } catch (SQLException | IOException ex) {
             Logger.getLogger(SaveTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     private void saveDocumentsToAuthors(BufferedWriter writer, int id_collection) {
-            try (Connection conn = connManager.getConnection();
-            PreparedStatement stmt = sqlManager.getSqlStatement(conn,"SAVE.SCRIPT.DOCUMENTS.TO.AUTHORS")) {
-                stmt.setInt(1, id_collection);
-                try (ResultSet rs = stmt.executeQuery()) {
-                    while (rs.next()) {
-                        writer.write("INSERT INTO PUBLIC.DOCUMENTS_TO_AUTHORS(ID_DOC, ID_COLLECTION, ID_AUTHOR, AUTHOR_ORDER) VALUES (");
-                        processInt(writer, rs.getInt(1), false); //ID_DOC
-                        processString(writer, "???", true); //ID_COLLECTION
-                        processInt(writer, rs.getInt(3), false); //ID_AUTHOR
-                        processInt(writer, rs.getInt(4), true); //AUTHOR_ORDER
-                        writer.newLine();
-                        writer.flush();
-                    }
+        try (Connection conn = connManager.getConnection();
+                PreparedStatement stmt = sqlManager.getSqlStatement(conn, "SAVE.SCRIPT.DOCUMENTS.TO.AUTHORS")) {
+            stmt.setInt(1, id_collection);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    writer.write("INSERT INTO PUBLIC.DOCUMENTS_TO_AUTHORS(ID_DOC, ID_COLLECTION, ID_AUTHOR, AUTHOR_ORDER) VALUES (");
+                    processInt(writer, rs.getInt(1), false); //ID_DOC
+                    processString(writer, "???", true); //ID_COLLECTION
+                    processInt(writer, rs.getInt(3), false); //ID_AUTHOR
+                    processInt(writer, rs.getInt(4), true); //AUTHOR_ORDER
+                    writer.newLine();
+                    writer.flush();
                 }
+            }
         } catch (SQLException | IOException ex) {
             Logger.getLogger(SaveTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -633,7 +632,7 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
     private void saveAuthors(BufferedWriter writer, int id_collection) {
         try {
             try (Connection conn = connManager.getConnection();
-            		PreparedStatement stmt = sqlManager.getSqlStatement(conn,"SAVE.SCRIPT.AUTHORS")) {
+                    PreparedStatement stmt = sqlManager.getSqlStatement(conn, "SAVE.SCRIPT.AUTHORS")) {
                 stmt.setInt(1, id_collection);
                 try (ResultSet rs = stmt.executeQuery()) {
                     while (rs.next()) {
@@ -671,19 +670,10 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
 
     private void processInt(BufferedWriter writer, int p, boolean ultimo_campo) {
         try {
-            if (p != 0) {
-                if (ultimo_campo == false) {
-                    writer.write(p + ", ");
-                } else {
-                    writer.write(p + ");");
-                }
-
+            if (ultimo_campo == false) {
+                writer.write(p + ", ");
             } else {
-                if (ultimo_campo == false) {
-                    writer.write("NULL, ");
-                } else {
-                    writer.write("NULL);");
-                }
+                writer.write(p + ");");
             }
         } catch (IOException ex) {
             Logger.getLogger(SaveTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);

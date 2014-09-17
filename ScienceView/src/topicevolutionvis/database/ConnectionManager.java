@@ -57,7 +57,7 @@ public abstract class ConnectionManager
 		} finally {
 			try {
 				in.close();
-			} catch (Exception e) {}
+			} catch (IOException e) {}
 		}
         return props;
     }
@@ -70,6 +70,7 @@ public abstract class ConnectionManager
     {
         try {
             String url = props.getProperty("jdbc.url");
+            System.out.println(url);
             String username = props.getProperty("jdbc.username");
             String password = props.getProperty("jdbc.password");
             
@@ -77,7 +78,7 @@ public abstract class ConnectionManager
             if (! poolOk) {
             	throw new IllegalArgumentException("Cannot create pool of database connections");
             }
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Cannot load configuration for database connection", e);
         } finally {
         }

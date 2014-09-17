@@ -10,22 +10,24 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import java.util.zip.ZipInputStream;
-
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.xml.parsers.DocumentBuilderFactory;
-
+import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
+import org.xml.sax.SAXException;
 import topicevolutionvis.database.CollectionManager;
 import topicevolutionvis.database.ConnectionManager;
+import topicevolutionvis.database.DatabaseCorpus;
 import topicevolutionvis.dimensionreduction.DimensionalityReductionType;
 import topicevolutionvis.graph.*;
 import topicevolutionvis.matrix.normalization.NormalizationType;
@@ -74,13 +76,11 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
             sdots = tproj.addVertexScalar(PExConstants.DOTS);
 
             this.unzip();
-            this.loadProjection();
             this.loadDatabase();
+            this.loadProjection();
 
             //this.createIntermediateGraphs();
-
             //ScienceViewMainFrame.getInstance().addTemporalProjectionViewer(tproj);
-
         } catch (Exception ex) {
             Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -119,102 +119,135 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
         }
     }
 
-    private void loadDatabase() throws Exception {
+    private void loadDatabase() {
         String line;
-		CollectionManager cm = new CollectionManager();
+        CollectionManager cm = new CollectionManager();
         int id_collection = cm.getNextCollectionId();
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(db_file), "UTF8"))) {
             Connection conn = ConnectionManager.getInstance().getConnection();
-            while ((line = in.readLine()) != null) {
-                if (line.trim().compareToIgnoreCase("") != 0) {
+            line = in.readLine();
+            if (line != null) {
+                int index = line.indexOf("???") + 7;
+                int index2 = line.indexOf('\'', index);
+                String collection_name = line.substring(index, index2);
+                int aux = cm.getCollectionId(collection_name);
+
+                if (aux != -1) { //uma coleÁ„o com este nome j· existe na base de dados
+                    String message = "The collection \"" + collection_name + "\" already exists. \n"
+                            + "Do you want to replace it?";
+                    int answer = JOptionPane.showOptionDialog(this.view, message, "Warning",
+                            JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
+                    if (answer == JOptionPane.YES_OPTION) {
+                        cm.removeCollection(aux);
+                        this.pdata.setCollectionName(collection_name);
+                        line = line.replace("???", Integer.toString(id_collection));
+                        try (PreparedStatement stmt = conn.prepareStatement(line)) {
+                            stmt.executeUpdate();
+                        } catch (SQLException ex) {
+                            Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        while ((line = in.readLine()) != null) {
+                            if (line.trim().compareToIgnoreCase("") != 0) {
+                                line = line.replace("???", Integer.toString(id_collection));
+                                try (PreparedStatement stmt = conn.prepareStatement(line)) {
+                                    stmt.executeUpdate();
+                                } catch (SQLException ex) {
+                                    Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+                        }
+                        DatabaseCorpus databaseCorpus = new DatabaseCorpus(collection_name);
+                        this.pdata.setDatabaseCorpus(databaseCorpus);
+                    }
+                } else {
+                    this.pdata.setCollectionName(collection_name);
                     line = line.replace("???", Integer.toString(id_collection));
                     try (PreparedStatement stmt = conn.prepareStatement(line)) {
                         stmt.executeUpdate();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    while ((line = in.readLine()) != null) {
+                        if (line.trim().compareToIgnoreCase("") != 0) {
+                            line = line.replace("???", Integer.toString(id_collection));
+                            try (PreparedStatement stmt = conn.prepareStatement(line)) {
+                                stmt.executeUpdate();
+                            } catch (SQLException ex) {
+                                Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    }
+                    DatabaseCorpus databaseCorpus = new DatabaseCorpus(collection_name);
+                    this.pdata.setDatabaseCorpus(databaseCorpus);
                 }
             }
+        } catch (UnsupportedEncodingException | FileNotFoundException ex) {
+            Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void loadProjection() throws Exception {
-        Document dom = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml_file.getAbsolutePath());
+    private void loadProjection() {
+        try {
+            Document dom = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml_file.getAbsolutePath());
 
-        //get the root element
-        Element docEle = dom.getDocumentElement();
-        
-        /* Projection Data parameters */
-        this.pdata.setCollectionName(getAttrOfElement(docEle, "collection-name", "value"));
-        
-        
-		CollectionManager cm = new CollectionManager();
-        int aux = cm.getCollectionId(pdata.getCollectionName());
-        System.out.println(pdata.getCollectionName());
-        System.out.println(aux);
-        if (aux != -1) { //uma cole√ß√£o com este nome j√° existe na base de dados
-            String message = "The collection \"" + pdata.getCollectionName() + "\" already exists. \n"
-                    + "Do you want to replace it?";
-            int answer = JOptionPane.showOptionDialog(this.view, message, "Warning",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
-            if (answer == JOptionPane.NO_OPTION) {
-                this.pdata = null;
-                return;
+            //get the root element
+            Element docEle = dom.getDocumentElement();
 
-            } else {
-            	cm.removeCollection(aux);
+            /* Projection Data parameters */
+            this.pdata.setNumberOfDocuments(Integer.parseInt(getAttrOfElement(docEle, "number-documents", "value")));
+            this.pdata.setRepresentationType(RepresentationType.retrieve(getAttrOfElement(docEle, "representation-type", "value")));
+            this.pdata.setDissimilarityType(DissimilarityType.retrieve(getAttrOfElement(docEle, "dissimilarity-type", "value")));
+            this.pdata.setMatrixTransformationType(MatrixTransformationType.retrieve(getAttrOfElement(docEle, "matrix-transformation-type", "value")));
+            this.pdata.setDimensionReductionType(DimensionalityReductionType.retrieve(getAttrOfElement(docEle, "dimensionality-reduction-type", "value")));
+            this.pdata.setNormalization(NormalizationType.retrieve(getAttrOfElement(docEle, "normalization-type", "value")));
+            this.pdata.setStemmer(StemmerType.retrieve(getAttrOfElement(docEle, "stemmer-type", "value")));
+            this.pdata.setNumberGrams(Integer.parseInt(getAttrOfElement(docEle, "number-grams", "value")));
+            this.pdata.setSourceFile(getAttrOfElement(docEle, "source-file", "value"));
+            this.pdata.setLunhLowerCut(Integer.parseInt(getAttrOfElement(docEle, "luhn-lower-cut", "value")));
+            this.pdata.setLunhUpperCut(Integer.parseInt(getAttrOfElement(docEle, "luhn-upper-cut", "value")));
+            this.pdata.setReferencesLowerCut(Integer.parseInt(getAttrOfElement(docEle, "references-lower-cut", "value")));
+            this.pdata.setReferencesUpperCut(Integer.parseInt(getAttrOfElement(docEle, "references-upper-cut", "value")));
+            this.pdata.setFractionDelta(Float.parseFloat(getAttrOfElement(docEle, "lsp-fraction-delta", "value")));
+            this.pdata.setNumberIterations(Integer.parseInt(getAttrOfElement(docEle, "lsp-number-iterations", "value")));
+            this.pdata.setNumberControlPoints(Integer.parseInt(getAttrOfElement(docEle, "lsp-number-control-points", "value")));
+            this.pdata.setNumberNeighborsConnection(Integer.parseInt(getAttrOfElement(docEle, "lsp-number-neighbors-connections", "value")));
+            this.pdata.setControlPointsChoice(ControlPointsType.retrieve(getAttrOfElement(docEle, "lsp-control-points-choice", "value")));
+
+            /* Monic parameters*/
+            if (getAttrOfElement(docEle, "dbscan-epsilon", "value") != null) {
+                this.pdata.setTopicEvolutionGenerated(true);
+                this.pdata.setEpsilon(Double.parseDouble(getAttrOfElement(docEle, "dbscan-epsilon", "value")));
+                this.pdata.setMinPoint(Integer.parseInt(getAttrOfElement(docEle, "dbscan-minpoints", "value")));
+                this.pdata.setTheta(Double.parseDouble(getAttrOfElement(docEle, "monic-theta", "value")));
+                this.pdata.setThetaSplit(Double.parseDouble(getAttrOfElement(docEle, "monic-theta-split", "value")));
             }
+
+            this.pdata.setProjectionType(ProjectionType.retrieve(getAttrOfElement(docEle, "projection-technique", "value")));
+
+            /* Topic Data parameters */
+            this.tdata.setTopicType(TopicType.valueOf(getAttrOfElement(docEle, "topic-type", "value")));
+            this.tdata.setTypeOfTopicVisualization(TopicVisualization.valueOf(getAttrOfElement(docEle, "topic-visualization-type", "value")));
+            if (this.tdata.getTopicType() == TopicData.TopicType.PCA) {
+                this.tdata.setPcaMinInformationTerms(Float.parseFloat(getAttrOfElement(docEle, "pca-min-terms", "value")));
+                this.tdata.setPcaInformationTopics(Float.parseFloat(getAttrOfElement(docEle, "pca-min-topics", "value")));
+            } else if (this.tdata.getTopicType() == TopicData.TopicType.COVARIANCE) {
+                this.tdata.setCovariancePercentageTerms(Float.parseFloat(getAttrOfElement(docEle, "covariance-min-terms", "value")));
+                this.tdata.setCovariancePercentageTopics(Float.parseFloat(getAttrOfElement(docEle, "covariance-min-topics", "value")));
+            } else if (this.tdata.getTopicType() == TopicData.TopicType.LDA) {
+                this.tdata.setLdaNumberOfTopics(Integer.parseInt(getAttrOfElement(docEle, "lda-number-topics", "value")));
+                this.tdata.setLdaNumberOfIterations(Integer.parseInt(getAttrOfElement(docEle, "lda-number-iterations", "value")));
+                this.tdata.setLdaAlpha(Double.parseDouble(getAttrOfElement(docEle, "lda-alpha", "value")));
+                this.tdata.setLdaBeta(Double.parseDouble(getAttrOfElement(docEle, "lda-beta", "value")));
+            }
+
+            //this.parseProjections(docEle);
+        } catch (ParserConfigurationException | SAXException | IOException ex) {
+            Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        this.pdata.setNumberOfDocuments(Integer.parseInt(getAttrOfElement(docEle, "number-documents", "value")));
-        this.pdata.setRepresentationType(RepresentationType.retrieve(getAttrOfElement(docEle, "representation-type", "value")));
-        this.pdata.setDissimilarityType(DissimilarityType.retrieve(getAttrOfElement(docEle, "dissimilarity-type", "value")));
-        this.pdata.setMatrixTransformationType(MatrixTransformationType.retrieve(getAttrOfElement(docEle, "matrix-transformation-type", "value")));
-        this.pdata.setDimensionReductionType(DimensionalityReductionType.retrieve(getAttrOfElement(docEle, "dimensionality-reduction-type", "value")));
-        this.pdata.setNormalization(NormalizationType.retrieve(getAttrOfElement(docEle, "normalization-type", "value")));
-        this.pdata.setStemmer(StemmerType.retrieve(getAttrOfElement(docEle, "stemmer-type", "value")));
-        this.pdata.setNumberGrams(Integer.parseInt(getAttrOfElement(docEle, "number-grams", "value")));
-        this.pdata.setSourceFile(getAttrOfElement(docEle, "source-file", "value"));
-        this.pdata.setLunhLowerCut(Integer.parseInt(getAttrOfElement(docEle, "luhn-lower-cut", "value")));
-        this.pdata.setLunhUpperCut(Integer.parseInt(getAttrOfElement(docEle, "luhn-upper-cut", "value")));
-        this.pdata.setReferencesLowerCut(Integer.parseInt(getAttrOfElement(docEle, "references-lower-cut", "value")));
-        this.pdata.setReferencesUpperCut(Integer.parseInt(getAttrOfElement(docEle, "references-upper-cut", "value")));
-        this.pdata.setFractionDelta(Float.parseFloat(getAttrOfElement(docEle, "lsp-fraction-delta", "value")));
-        this.pdata.setNumberIterations(Integer.parseInt(getAttrOfElement(docEle, "lsp-number-iterations", "value")));
-        this.pdata.setNumberControlPoints(Integer.parseInt(getAttrOfElement(docEle, "lsp-number-control-points", "value")));
-        this.pdata.setNumberNeighborsConnection(Integer.parseInt(getAttrOfElement(docEle, "lsp-number-neighbors-connections", "value")));
-        this.pdata.setControlPointsChoice(ControlPointsType.retrieve(getAttrOfElement(docEle, "lsp-control-points-choice", "value")));
-        
-        /* Monic parameters*/
-        if(getAttrOfElement(docEle, "dbscan-epsilon", "value") != null) {
-            this.pdata.setTopicEvolutionGenerated(true);
-            this.pdata.setEpsilon(Double.parseDouble(getAttrOfElement(docEle, "dbscan-epsilon", "value")));
-            this.pdata.setMinPoint(Integer.parseInt(getAttrOfElement(docEle, "dbscan-minpoints", "value")));
-            this.pdata.setTheta(Double.parseDouble(getAttrOfElement(docEle, "monic-theta", "value")));
-            this.pdata.setThetaSplit(Double.parseDouble(getAttrOfElement(docEle, "monic-theta-split", "value")));
-        }
-        
-        this.pdata.setProjectionType(ProjectionType.retrieve(getAttrOfElement(docEle, "projection-technique", "value")));
-        
-        /* Topic Data parameters */
-        this.tdata.setTopicType(TopicType.valueOf(getAttrOfElement(docEle, "topic-type", "value")));
-        this.tdata.setTypeOfTopicVisualization(TopicVisualization.valueOf(getAttrOfElement(docEle, "topic-visualization-type", "value")));
-        if (this.tdata.getTopicType() == TopicData.TopicType.PCA) {
-            this.tdata.setPcaMinInformationTerms(Float.parseFloat(getAttrOfElement(docEle, "pca-min-terms", "value")));
-            this.tdata.setPcaInformationTopics(Float.parseFloat(getAttrOfElement(docEle, "pca-min-topics", "value")));
-        }
-        else if (this.tdata.getTopicType() == TopicData.TopicType.COVARIANCE) {
-            this.tdata.setCovariancePercentageTerms(Float.parseFloat(getAttrOfElement(docEle, "covariance-min-terms", "value")));
-            this.tdata.setCovariancePercentageTopics(Float.parseFloat(getAttrOfElement(docEle, "covariance-min-topics", "value")));
-        }
-        else if (this.tdata.getTopicType() == TopicData.TopicType.LDA) {
-            this.tdata.setLdaNumberOfTopics(Integer.parseInt(getAttrOfElement(docEle, "lda-number-topics", "value")));
-            this.tdata.setLdaNumberOfIterations(Integer.parseInt(getAttrOfElement(docEle, "lda-number-iterations", "value")));
-            this.tdata.setLdaAlpha(Double.parseDouble(getAttrOfElement(docEle, "lda-alpha", "value")));
-            this.tdata.setLdaBeta(Double.parseDouble(getAttrOfElement(docEle, "lda-beta", "value")));
-        }
-        
-        //this.parseProjections(docEle);
     }
-    
+
     /* TODO */
     private void parseProjections(Element parent) {
         Element el;
