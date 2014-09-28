@@ -57,7 +57,7 @@ public class DatabaseCorpus {
 
     public DatabaseCorpus(String name) {
         this.name = name;
-        connManager = H2ConnectionManager.getInstance();
+        connManager = ConnectionManager.getInstance();
         sqlManager = SqlManager.getInstance();
         initDatabaseCorpus();
     }

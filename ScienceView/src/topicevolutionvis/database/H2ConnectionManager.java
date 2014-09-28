@@ -21,7 +21,7 @@ public class H2ConnectionManager extends ConnectionManager
 	@Override
 	protected boolean createPool(String url, String username, String password) {
 		try {
-			connPool = JdbcConnectionPool.create(url, username, password);
+			                 connPool = JdbcConnectionPool.create(url, username, password);
             connPool.setMaxConnections(60);
             connPool.setLoginTimeout(1);
 		} catch (Exception e) {

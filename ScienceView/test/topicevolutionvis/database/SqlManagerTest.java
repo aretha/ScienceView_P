@@ -18,7 +18,7 @@ public class SqlManagerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		connManager = H2ConnectionManager.getInstance();
+		connManager = ConnectionManager.getInstance();
 		sqlManager = SqlManager.getInstance();
 	}
 

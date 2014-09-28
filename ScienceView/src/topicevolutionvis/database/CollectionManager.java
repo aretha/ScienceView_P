@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class CollectionManager {
 
 	public int getNextCollectionId() {
-		ConnectionManager connManager = H2ConnectionManager.getInstance();
+		ConnectionManager connManager = ConnectionManager.getInstance();
 		int aux = -1;
 		try (
 			Connection conn = connManager.getConnection();
@@ -30,7 +30,7 @@ public class CollectionManager {
 	}
 
 	public int getCollectionId(String name) {
-		ConnectionManager connManager = H2ConnectionManager.getInstance();
+		ConnectionManager connManager = ConnectionManager.getInstance();
         int aux = -1;
         try (
 			Connection conn = connManager.getConnection();
@@ -51,7 +51,7 @@ public class CollectionManager {
 	
     public boolean isUnique(String collection)
     {
-    	ConnectionManager connManager = H2ConnectionManager.getInstance();
+    	ConnectionManager connManager = ConnectionManager.getInstance();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -79,7 +79,7 @@ public class CollectionManager {
     public ArrayList<String> getCollections()
     {
     	ArrayList<String> collections = new ArrayList<String>();
-        ConnectionManager connManager = H2ConnectionManager.getInstance();
+        ConnectionManager connManager = ConnectionManager.getInstance();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -106,7 +106,7 @@ public class CollectionManager {
     }
 
     public boolean removeCollection(String name) {
-        ConnectionManager connManager = H2ConnectionManager.getInstance();
+        ConnectionManager connManager = ConnectionManager.getInstance();
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -128,7 +128,7 @@ public class CollectionManager {
     }
     
     public boolean removeCollection(int id) {
-        ConnectionManager connManager = H2ConnectionManager.getInstance();
+        ConnectionManager connManager = ConnectionManager.getInstance();
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;

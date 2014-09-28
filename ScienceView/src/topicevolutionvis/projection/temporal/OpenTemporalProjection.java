@@ -122,8 +122,7 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
         String line;
         CollectionManager cm = new CollectionManager();
         int id_collection = cm.getNextCollectionId();
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(db_file), "UTF8"))) {
-            Connection conn = ConnectionManager.getInstance().getConnection();
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(db_file), "UTF8")); Connection conn = ConnectionManager.getInstance().getConnection()) {
             line = in.readLine();
             if (line != null) {
                 int index = line.indexOf("???") + 7;
@@ -167,13 +166,12 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
                         Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     while ((line = in.readLine()) != null) {
-                        if (line.trim().compareToIgnoreCase("") != 0) {
-                            line = line.replace("???", Integer.toString(id_collection));
-                            try (PreparedStatement stmt = conn.prepareStatement(line)) {
-                                stmt.executeUpdate();
-                            } catch (SQLException ex) {
-                                Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                        line = line.replace("'???'", Integer.toString(id_collection));
+                        System.out.println(line);
+                        try (PreparedStatement stmt = conn.prepareStatement(line)) {
+                            stmt.executeUpdate();
+                        } catch (SQLException ex) {
+                            Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                     DatabaseCorpus databaseCorpus = new DatabaseCorpus(collection_name);
@@ -182,7 +180,7 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
             }
         } catch (UnsupportedEncodingException | FileNotFoundException ex) {
             Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (IOException | SQLException ex) {
             Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

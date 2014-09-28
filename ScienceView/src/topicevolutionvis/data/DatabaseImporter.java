@@ -25,7 +25,6 @@ import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
 import topicevolutionvis.database.CollectionManager;
 import topicevolutionvis.database.ConnectionManager;
-import topicevolutionvis.database.H2ConnectionManager;
 import topicevolutionvis.database.SqlManager;
 import topicevolutionvis.database.SqlUtil;
 import topicevolutionvis.preprocessing.Ngram;
@@ -61,7 +60,7 @@ public abstract class DatabaseImporter extends SwingWorker<Void, Void> {
         this.nrGrams = nrGrams;
         this.removeStopwordsByTagging = removeStopwordsByTagging;
         this.view = view;
-        connManager = H2ConnectionManager.getInstance();
+        connManager = ConnectionManager.getInstance();
         sqlManager = SqlManager.getInstance();
         collectionManager = new CollectionManager();
     }

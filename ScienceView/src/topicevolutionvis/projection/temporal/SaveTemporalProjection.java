@@ -34,7 +34,6 @@ import org.w3c.dom.Element;
 
 import topicevolutionvis.database.ConnectionManager;
 import topicevolutionvis.database.DatabaseCorpus;
-import topicevolutionvis.database.H2ConnectionManager;
 import topicevolutionvis.database.SqlManager;
 import topicevolutionvis.graph.*;
 import topicevolutionvis.projection.ProjectionData;
@@ -59,7 +58,7 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
         this.filename = filename;
         this.view = view;
         this.tproj = tproj;
-        connManager = H2ConnectionManager.getInstance();
+        connManager = ConnectionManager.getInstance();
         sqlManager = SqlManager.getInstance();
 
     }
@@ -501,7 +500,8 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
             stmt.setInt(1, id_collection);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    writer.write("INSERT INTO CITATIONS(ID_CITATION, ID_COLLECTION, TYPE, ID_AUTHOR, YEAR, JOURNAL, VOLUME, CHAPTER, DOI, PAGES, ARTN, FULL_REFERENCE, ID_DOC_CORE) VALUES (");
+                    writer.newLine();
+                    writer.write("INSERT INTO CITATIONS VALUES (");
                     processInt(writer, rs.getInt(1), false); //id_citation
                     processString(writer, "???", false); //ID_COLLECTION
                     processString(writer, rs.getString(3), false); //TYPE
@@ -514,8 +514,7 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
                     processString(writer, rs.getString(10), false); //PAGES
                     processString(writer, rs.getString(11), false); //ARTN
                     processString(writer, rs.getString(12), false); //FULL_REFERENCE
-                    processInt(writer, rs.getInt(13), true); //ID_DOC_CORE
-                    writer.newLine();
+                    processInt(writer, rs.getInt(13), true); //ID_DOC_CORE     
                     writer.flush();
                 }
             }
@@ -532,15 +531,14 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
             stmt.setInt(1, id_collection);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    writer.write("INSERT INTO COLLECTIONS(ID_COLLECTION, NAME, FILENAME, NRGRAMS, FORMAT, GRAMS) VALUES (");
+                    writer.write("INSERT INTO COLLECTIONS VALUES (");
                     processString(writer, "???", false); //ID_COLLECTION
                     processString(writer, rs.getString(2), false); //NAME
                     processString(writer, rs.getString(3), false); //FILENAME
                     processInt(writer, rs.getInt(4), false); //NRGRAMS
                     processString(writer, rs.getString(5), false); //FORMAT
                     writer.write("X");
-                    processString(writer, rs.getString(6), true); //GRAMS
-                    writer.newLine();
+                    processString(writer, rs.getString(6), true); //GRAMS                  
                     writer.flush();
                 }
             }
@@ -556,7 +554,8 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
             stmt.setInt(1, id_collection);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    writer.write("INSERT INTO DOCUMENTS(ID_DOC, ID_COLLECTION, TYPE, TITLE, RESEARCH_ADDRESS, ABSTRACT, KEYWORDS, AUTHORS_KEYWORDS, YEAR, GCC, LCC, DOI, FIRST_PAGE, END_PAGE, PDF_FILE, JOURNAL, JOURNAL_ABBREV, VOLUME, CLASS, GRAMS) VALUES (");
+                    writer.newLine();
+                    writer.write("INSERT INTO DOCUMENTS VALUES (");
                     processInt(writer, rs.getInt(1), false); //ID_DOC
                     processString(writer, "???", false); //ID_COLLECTION
                     processInt(writer, rs.getInt(3), false); //TYPE
@@ -578,7 +577,6 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
                     processInt(writer, rs.getInt(19), false); //CLASS
                     writer.write("X");
                     processString(writer, rs.getString(20), true); //GRAMS
-                    writer.newLine();
                     writer.flush();
                 }
             }
@@ -596,11 +594,11 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
             stmt.setInt(1, id_collection);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    writer.write("INSERT INTO DOCUMENTS_TO_CITATIONS(ID_DOC, ID_COLLECTION, ID_CITATION) VALUES (");
+                    writer.newLine();
+                    writer.write("INSERT INTO DOCUMENTS_TO_CITATIONS VALUES (");
                     processInt(writer, rs.getInt(1), false); //ID_DOC
                     processString(writer, "???", false); //ID_COLLECTION
                     processInt(writer, rs.getInt(3), true); //ID_CITATION
-                    writer.newLine();
                     writer.flush();
                 }
             }
@@ -615,12 +613,12 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
             stmt.setInt(1, id_collection);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    writer.write("INSERT INTO PUBLIC.DOCUMENTS_TO_AUTHORS(ID_DOC, ID_COLLECTION, ID_AUTHOR, AUTHOR_ORDER) VALUES (");
+                    writer.newLine();
+                    writer.write("INSERT INTO PUBLIC.DOCUMENTS_TO_AUTHORS VALUES (");
                     processInt(writer, rs.getInt(1), false); //ID_DOC
-                    processString(writer, "???", true); //ID_COLLECTION
+                    processString(writer, "???", false); //ID_COLLECTION
                     processInt(writer, rs.getInt(3), false); //ID_AUTHOR
                     processInt(writer, rs.getInt(4), true); //AUTHOR_ORDER
-                    writer.newLine();
                     writer.flush();
                 }
             }
@@ -637,7 +635,7 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
                 try (ResultSet rs = stmt.executeQuery()) {
                     while (rs.next()) {
                         writer.newLine();
-                        writer.write("INSERT INTO AUTHORS(ID_AUTHOR, NAME, ID_COLLECTION) VALUES (");
+                        writer.write("INSERT INTO AUTHORS VALUES (");
                         processInt(writer, rs.getInt(1), false); //ID_AUTHOR
                         processString(writer, rs.getString(2), false); //NAME
                         processString(writer, "???", true); //ID_COLLECTION

@@ -12,6 +12,7 @@
             <properties>
                 <exec.args>-Djava.library.path=./libs -classpath %classpath topicevolutionvis.Main</exec.args>
                 <exec.executable>java</exec.executable>
+                <maven.test.skip>true</maven.test.skip>
             </properties>
         </action>
         <action>
