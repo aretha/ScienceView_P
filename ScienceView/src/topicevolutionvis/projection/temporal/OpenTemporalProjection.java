@@ -138,48 +138,45 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
                     if (answer == JOptionPane.YES_OPTION) {
                         cm.removeCollection(aux);
                         this.pdata.setCollectionName(collection_name);
-                        line = line.replace("???", Integer.toString(id_collection));
+                        line = line.replace("'???'", Integer.toString(id_collection));
                         try (PreparedStatement stmt = conn.prepareStatement(line)) {
                             stmt.executeUpdate();
                         } catch (SQLException ex) {
                             Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         while ((line = in.readLine()) != null) {
-                            if (line.trim().compareToIgnoreCase("") != 0) {
-                                line = line.replace("???", Integer.toString(id_collection));
-                                try (PreparedStatement stmt = conn.prepareStatement(line)) {
-                                    stmt.executeUpdate();
-                                } catch (SQLException ex) {
-                                    Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
-                                }
+                            line = line.replace("'???'", Integer.toString(id_collection));
+                            System.out.println(line);
+                            try (PreparedStatement stmt = conn.prepareStatement(line)) {
+                                stmt.executeUpdate();
+                            } catch (SQLException ex) {
+                                Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
                         DatabaseCorpus databaseCorpus = new DatabaseCorpus(collection_name);
                         this.pdata.setDatabaseCorpus(databaseCorpus);
-                    }
-                } else {
-                    this.pdata.setCollectionName(collection_name);
-                    line = line.replace("???", Integer.toString(id_collection));
-                    try (PreparedStatement stmt = conn.prepareStatement(line)) {
-                        stmt.executeUpdate();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    while ((line = in.readLine()) != null) {
+                    } else {
+                        this.pdata.setCollectionName(collection_name);
                         line = line.replace("'???'", Integer.toString(id_collection));
-                        System.out.println(line);
                         try (PreparedStatement stmt = conn.prepareStatement(line)) {
                             stmt.executeUpdate();
                         } catch (SQLException ex) {
                             Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                        while ((line = in.readLine()) != null) {
+                            line = line.replace("'???'", Integer.toString(id_collection));
+                            System.out.println(line);
+                            try (PreparedStatement stmt = conn.prepareStatement(line)) {
+                                stmt.executeUpdate();
+                            } catch (SQLException ex) {
+                                Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        DatabaseCorpus databaseCorpus = new DatabaseCorpus(collection_name);
+                        this.pdata.setDatabaseCorpus(databaseCorpus);
                     }
-                    DatabaseCorpus databaseCorpus = new DatabaseCorpus(collection_name);
-                    this.pdata.setDatabaseCorpus(databaseCorpus);
                 }
             }
-        } catch (UnsupportedEncodingException | FileNotFoundException ex) {
-            Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException | SQLException ex) {
             Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -237,11 +234,13 @@ public class OpenTemporalProjection extends SwingWorker<Void, Void> {
                 this.tdata.setLdaNumberOfIterations(Integer.parseInt(getAttrOfElement(docEle, "lda-number-iterations", "value")));
                 this.tdata.setLdaAlpha(Double.parseDouble(getAttrOfElement(docEle, "lda-alpha", "value")));
                 this.tdata.setLdaBeta(Double.parseDouble(getAttrOfElement(docEle, "lda-beta", "value")));
+
             }
 
             //this.parseProjections(docEle);
         } catch (ParserConfigurationException | SAXException | IOException ex) {
-            Logger.getLogger(OpenTemporalProjection.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OpenTemporalProjection.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 

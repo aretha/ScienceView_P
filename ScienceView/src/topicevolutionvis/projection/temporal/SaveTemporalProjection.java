@@ -635,7 +635,7 @@ public class SaveTemporalProjection extends SwingWorker<Void, Void> {
                 try (ResultSet rs = stmt.executeQuery()) {
                     while (rs.next()) {
                         writer.newLine();
-                        writer.write("INSERT INTO AUTHORS VALUES (");
+                        writer.write("INSERT INTO AUTHORS (id_author, name, id_collection) VALUES (");
                         processInt(writer, rs.getInt(1), false); //ID_AUTHOR
                         processString(writer, rs.getString(2), false); //NAME
                         processString(writer, "???", true); //ID_COLLECTION
