@@ -88,11 +88,7 @@ public class VectorSpaceRepresentation extends Representation {
                     ArrayList<Integer> counts = new ArrayList(dates.length);
                     // initializes the counters to zero
                     for (int j = 0; j < dates.length; j++) {
-                        if (dates[j] == year) {
-                            counts.add(j, docNgrams.get(key));
-                        } else {
-                            counts.add(j, 0);
-                        }
+                        counts.add(j, 0);
                     }
                     // inserts on the list
                     occurs.add(count, counts);
@@ -104,7 +100,9 @@ public class VectorSpaceRepresentation extends Representation {
                 // updates, increasing the value of occurrence
                 aux = occurs.get(idx);
                 occur = aux.get(mapDates.get(year));
-                aux.set(mapDates.get(year), ++occur);
+                occur += docNgrams.get(key);
+                aux.set(mapDates.get(year), occur);
+                //aux.set(mapDates.get(year), ++occur);
                 occurs.set(idx, aux);
             }
             
