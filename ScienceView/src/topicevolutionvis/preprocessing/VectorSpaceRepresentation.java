@@ -49,6 +49,11 @@ public class VectorSpaceRepresentation extends Representation {
         Integer idx, occur;
         int count = 0;
         
+        /* Change */
+        ArrayList<String> words = new ArrayList();
+        for (Ngram n : this.ngrams)
+            words.add(n.ngram);
+        
         /* @author Rodrigo end */
         
         if (include_references) {
@@ -81,6 +86,11 @@ public class VectorSpaceRepresentation extends Representation {
             
             int year = corpus.getYear(ids[i]);
             for (String key : docNgrams.keySet()) {
+                
+                /* Change */
+                if (!words.contains(key))
+                    continue;
+                
                 if (!mapWords.containsKey(key)) {
                     // mapping to create the word
                     mapWords.put(key, count);
@@ -137,12 +147,20 @@ public class VectorSpaceRepresentation extends Representation {
         // writes the file
         BufferedWriter buff = new BufferedWriter(new FileWriter("occurs.txt"));
         
+        // write the header
+        buff.write(corpus.getCollectionName() + "\n");
+        buff.write(mapWords.size() + "\n");
+        int i;
+        for (i = 0; i < dates.length - 1; i++)
+            buff.write(dates[i] + " ");
+        buff.write(dates[i] + "\n");
+        
         for (String key : mapWords.keySet()) {
-            buff.write(key + ", ");
+            buff.write(key + "| ");
             aux = occurs.get(mapWords.get(key));
             int j;
             for (j = 0; j < aux.size() - 1; j++) {
-                buff.write(aux.get(j) + ", ");
+                buff.write(aux.get(j) + "| ");
             }
             buff.write(aux.get(j) + "\n");
         }
