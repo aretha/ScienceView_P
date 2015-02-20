@@ -16,7 +16,4 @@ ScienceView/resources/data_base/
 *.war
 *.ear
 *.db
-/ScienceView/nbproject/private/
-/ScienceView/build/
-/ScienceView/dist/
 
