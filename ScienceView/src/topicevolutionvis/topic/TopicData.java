@@ -33,7 +33,7 @@ public class TopicData {
     private int ldaNumberOfIterations = 1000;
     private double ldaAlpha = 0.1d;
     private double ldaBeta = 0.01d;
-    private TopicType topicType = TopicType.PCA; //The type of topic to create
+    private TopicType topicType = TopicType.COVARIANCE; //The type of topic to create
     private TopicVisualization topicVisualization = TopicVisualization.SIMPLE; //type of topic visualization
     private int maxNumberOfTermsTagCloud = 10;
 

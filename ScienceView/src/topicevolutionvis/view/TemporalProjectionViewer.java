@@ -1819,18 +1819,6 @@ private void previous_graphButtonActionPerformed(java.awt.event.ActionEvent evt)
             return null;
         }
 
-        public Topic getTopicByPosition2(java.awt.Point point) {
-            double dist = Double.MAX_VALUE;
-            Topic topic = null;
-            for (Topic t : getGraph().getTopics()) {
-                double aux = t.weightDistance(point);
-                if (aux != -1 && dist > aux) {
-                    dist = aux;
-                    topic = t;
-                }
-            }
-            return topic;
-        }
 
         private void saveToPngImageFile(String filename) throws IOException {
             try {
@@ -1918,7 +1906,7 @@ private void previous_graphButtonActionPerformed(java.awt.event.ActionEvent evt)
                         vertices = ViewPanel.this.getSelectedVertex(ViewPanel.this.source, ViewPanel.this.target);
                     }
                     if (!vertices.isEmpty()) {
-                        ViewPanel.this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                       ViewPanel.this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                         ViewPanel.this.cleanMarkedVertices(false);
                         VertexSelectionFactory.getInstance(TemporalProjectionViewer.this,
                                 TemporalProjectionViewer.type).vertexSelected(null, null, vertices);

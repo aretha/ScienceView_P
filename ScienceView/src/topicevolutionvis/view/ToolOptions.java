@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.Font;
 import topicevolutionvis.graph.Vertex;
 import topicevolutionvis.projection.temporal.TemporalProjection;
+import topicevolutionvis.topic.CovarianceTopicSettings;
 import topicevolutionvis.topic.LDATopicSettings;
 import topicevolutionvis.topic.PCATopicSettings;
 import topicevolutionvis.topic.TopicData.TopicType;
@@ -72,6 +73,8 @@ public class ToolOptions extends javax.swing.JDialog {
         settingsTagCloudButton = new javax.swing.JButton();
         ldaRadioButton = new javax.swing.JRadioButton();
         ldaSettingsButton = new javax.swing.JButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         drawPanel = new javax.swing.JPanel();
         circlesRadioButton = new javax.swing.JRadioButton();
@@ -134,7 +137,6 @@ public class ToolOptions extends javax.swing.JDialog {
         topicExtractionPanel.setLayout(new java.awt.GridBagLayout());
 
         topicsButtonGroup.add(pcaRadioButton);
-        pcaRadioButton.setSelected(true);
         pcaRadioButton.setText("PCA");
         pcaRadioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,6 +150,7 @@ public class ToolOptions extends javax.swing.JDialog {
         topicExtractionPanel.add(pcaRadioButton, gridBagConstraints);
 
         pcaSettingsButton.setText("Settings...");
+        pcaSettingsButton.setEnabled(false);
         pcaSettingsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pcaSettingsButtonActionPerformed(evt);
@@ -232,6 +235,19 @@ public class ToolOptions extends javax.swing.JDialog {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         topicExtractionPanel.add(ldaSettingsButton, gridBagConstraints);
+
+        topicsButtonGroup.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("Covariance");
+        topicExtractionPanel.add(jRadioButton1, new java.awt.GridBagConstraints());
+
+        jButton1.setText("Settings...");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        topicExtractionPanel.add(jButton1, new java.awt.GridBagConstraints());
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -472,9 +488,16 @@ public class ToolOptions extends javax.swing.JDialog {
 
     private void ldaSettingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ldaSettingsButtonActionPerformed
         if (this.tprojection != null) {
-            LDATopicSettings.getInstance(this).display(this.tprojection);
+            LDATopicSettings.getInstance(this).display(tprojection);
         }
     }//GEN-LAST:event_ldaSettingsButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       if (this.tprojection != null) {
+           CovarianceTopicSettings.getInstance(this).display(tprojection);
+       }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public static ToolOptions getInstance() {
         if (instance == null) {
@@ -491,11 +514,13 @@ public class ToolOptions extends javax.swing.JDialog {
     private javax.swing.JPanel drawPanel;
     private javax.swing.ButtonGroup drawVertexAsButtonGroup;
     private javax.swing.JPanel fieldsPanel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JComboBox labelsizeComboBox;
     private javax.swing.JRadioButton ldaRadioButton;
     public javax.swing.JButton ldaSettingsButton;

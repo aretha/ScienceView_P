@@ -27,7 +27,7 @@ public class CreateTopicSelectionListener extends VertexSelectionListener {
 
     @Override
     public void vertexSelected(TemporalGraph graph, Object param, TIntArrayList vertex) {
-        if (vertex.size() > 0) {
+        if (vertex.size() > 1) {
             TemporalProjection projection = panel.getTemporalProjection();
             if (graph == null) {
                 graph = panel.getGraph();

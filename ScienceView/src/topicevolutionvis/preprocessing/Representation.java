@@ -4,6 +4,9 @@
  */
 package topicevolutionvis.preprocessing;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 import java.util.Map.Entry;
@@ -224,16 +227,43 @@ public abstract class Representation {
             ArrayList<Ngram> fngrams = this.corpus.getNgrams(id);
             String token;
             Stemmer stemmer = StemmerFactory.getInstance(stemmerType);
+            
+            /**
+            * Starting Modified by @rodrigo
+            */
+            ArrayList<String> terms = new ArrayList();
+            try {
+                FileReader fr = new FileReader("model.txt");
+                BufferedReader bf = new BufferedReader(fr);
+                
+                String line = bf.readLine();
+                while(line != null) {
+                  //  System.out.println(line);
+                    terms.add(line);
+                    line = bf.readLine();
+                }
+                fr.close();
+            } catch (FileNotFoundException e) {
+                System.out.println(e.getMessage());
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+           /**
+            * Finish Modified
+            */
+
             if (fngrams != null) {
                 for (Ngram n : fngrams) {
                     token = n.ngram;
                     if (useStopword && !stp.isStopWord(token)) {
                         token = stemmer.stem(token);
                         if (token.trim().length() > 0) {
-                            if (ngrams_aux.containsKey(token)) {
-                                ngrams_aux.put(token, ngrams_aux.get(token) + n.frequency);
-                            } else {
-                                ngrams_aux.put(token, n.frequency);
+                           if (terms.contains(token)) {
+                                if (ngrams_aux.containsKey(token)) {
+                                    ngrams_aux.put(token, ngrams_aux.get(token) + n.frequency);
+                                } else {
+                                    ngrams_aux.put(token, n.frequency);
+                                }
                             }
                         }
                     }

@@ -41,15 +41,15 @@ import weka.core.Instances;
  */
 public class MONIC extends SwingWorker<Void, Void> {
 
-    private TemporalProjection projection;
-    private TemporalProjectionViewer viewer;
+    private final TemporalProjection projection;
+    private final TemporalProjectionViewer viewer;
     private ExternalTransitions transitions = new ExternalTransitions();
-    private MONICSettings view;
-    private double eps, theta, theta_split;
-    private int minpts;
+    private final MONICSettings view;
+    private final double eps, theta, theta_split;
+    private final int minpts;
     private long dbscan_time = 0, monic_time = 0, topic_time = 0, polygon_time_without_animation = 0;
 
-    public MONIC(TemporalProjectionViewer viewer, MONICSettings view, double eps, int minpts, double theta, double theta_split) throws Exception {
+    public MONIC(TemporalProjectionViewer viewer, MONICSettings view, double eps, int minpts, double theta, double theta_split) {
         this.viewer = viewer;
         this.projection = viewer.getTemporalProjection();
         this.view = view;
@@ -60,7 +60,7 @@ public class MONIC extends SwingWorker<Void, Void> {
     }
 
     @Override
-    protected Void doInBackground() throws Exception {
+    protected Void doInBackground() {
         int next_available_id = 1;
         view.setStatus("Clustering...", true);
         int current_year, next_year, j;
@@ -484,9 +484,9 @@ public class MONIC extends SwingWorker<Void, Void> {
         animation.create();
         this.viewer.getProjectionData().setTopicEvolutionGenerated(true);
         this.viewer.updateReport();
-        
-        this.monic_time = (System.currentTimeMillis()-this.monic_time);
-        System.out.println("MONIC time: "+this.monic_time);
+
+        this.monic_time = (System.currentTimeMillis() - this.monic_time);
+        System.out.println("MONIC time: " + this.monic_time);
 
         if (!this.isCancelled()) {
             view.setStatus("Finished", false);
@@ -515,6 +515,9 @@ public class MONIC extends SwingWorker<Void, Void> {
         ids = new int[graph.getVertex().size()];
         int index = 0;
         TIntObjectIterator<Vertex> iterator = graph.getVertex().iterator();
+        System.out.println(graph.getYear());
+        if(graph.getYear()==2000)
+            System.out.println();
         while (iterator.hasNext()) {
             iterator.advance();
             Vertex v = iterator.value();
@@ -525,7 +528,7 @@ public class MONIC extends SwingWorker<Void, Void> {
             ids[index] = v.getId();
             index++;
         }
-        if (index > 0) {
+        if (index > 1) {
             try {
                 clusterer = new DBSCAN();
                 options = new String[8];
@@ -565,7 +568,7 @@ public class MONIC extends SwingWorker<Void, Void> {
 
                     it.advance();
 
-                    if (it.value().size() > 0) {
+                    if (it.value().size() > 1) {
                         long time2 = System.currentTimeMillis();
                         t = TopicFactory.getInstance(projection, graph, it.value());
                         t.createTopic();
@@ -579,6 +582,7 @@ public class MONIC extends SwingWorker<Void, Void> {
                     }
                 }
             } catch (Exception ex) {
+                ex.printStackTrace();
                 Logger.getLogger(MONIC.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
